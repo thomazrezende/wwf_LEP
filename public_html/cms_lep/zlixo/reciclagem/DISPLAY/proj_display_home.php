@@ -65,7 +65,7 @@ require_once("_tr/sortable_dsp.php");
 			clear();  
 			
 			form1("form_display","","php/proj_display_home_altera.php","post");
-			input("layout","layout",$dados["display"],"hidden"); 
+			input("layout", "input","layout",$dados["display"],"hidden"); 
 			
 			submit("GRAVAR");
 			

@@ -32,13 +32,13 @@ $dados = sql_select("dados", "*", "", "", false);
 				form1("altera", "", "php/lep_dados_altera.php", "post");  
 
 					titulo("","E-MAIL (login)",false);
-					input("email", "email", $dados["email"] , "text");  
+					input("email", "input", "email", $dados["email"] , "text");  
 					
 					titulo("","FACEBOOK",false);
-					input("fbook", "fbook", $dados["fbook"] , "text");  
+					input("fbook", "input", "fbook", $dados["fbook"] , "text");  
 
 					titulo("","TWITTER",false);
-					input("twitter", "twitter", $dados["twitter"] , "text");  
+					input("twitter", "input", "twitter", $dados["twitter"] , "text");  
 
 					titulo("","SOBRE O LEP", false);
 					text("sobre_lep", 'text', "sobre_lep", $dados["sobre_lep"], true);  

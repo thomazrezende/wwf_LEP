@@ -24,10 +24,10 @@ head("LEP - redefinir senha");
 		form1("senha", "", "php/redefinir_senha_altera.php", "post"); 
 
 			titulo("","SENHA NOVA",false);
-			input("senha_nova", "senha_nova", "" , "password"); 
+			input("senha_nova", "input", "senha_nova", "" , "password"); 
 
 			titulo("","CONFIRME A SENHA NOVA",false);
-			input("senha_confirma", "senha_confirma", "" , "password"); 
+			input("senha_confirma", "input", "senha_confirma", "" , "password"); 
 
 			submit("GRAVAR"); 
 

@@ -25,10 +25,10 @@ head("LEP - login");
         form1("login_form", "login_form", "php/logar.php", "post");
         
             titulo("","LOGIN",false);
-            input("login", "login", "", "text");
+            input("login", "input", "login", "", "text");
             
             titulo("","SENHA",false);
-            input("senha", "senha", "", "password");  
+            input("senha", "input", "senha", "", "password");  
             
             submit("ENTRAR &raquo;");
        

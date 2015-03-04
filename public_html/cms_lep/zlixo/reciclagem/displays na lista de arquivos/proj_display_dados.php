@@ -67,10 +67,10 @@ require_once("_tr/sortable_dsp.php");
 			input("layout","layout",$dados["layout"],"hidden"); 
 			
 			titulo("","LABEL",false); 
-			input("label","label",$dados["label"],"text");
+			input("label", "input","label",$dados["label"],"text");
 			
 			titulo("","",false);
-			checkbox("home","home",1,"COPIAR PARA DISPLAY PRINCIPAL","","",false);
+			checkbox("home", "input","home",1,"COPIAR PARA DISPLAY PRINCIPAL","","",false);
 			
 			submit("GRAVAR");
 			

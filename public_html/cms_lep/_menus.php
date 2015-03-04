@@ -12,8 +12,8 @@
    		$submenu_lep = array( 		array("DADOS","lep_dados.php"),
 									array("SENHA","lep_senha.php")); 
 		
-		$submenu_projeto = array( 	array("DADOS","proj_dados.php"),
-									array("CAPA","proj_capa.php"),
-									array("MINIATURAS","proj_mini.php"),
-									array("ARQUIVOS","proj_arquivos.php"));
+		$submenu_projeto = array( 	array("DADOS","projeto_dados.php"),
+									array("MAPA","projeto_mapa.php"),
+									array("ARQUIVOS","projeto_arquivos.php"),
+									array("RESULTADOS","projeto_resultados.php"));
 ?>
