@@ -5,7 +5,8 @@ ARQUIVOS V 1.0
 
 */ 
 
-function replace_arq($label,$path,$tabela,$campo,$condicao){
+function replace_arq($label,$path_file,$tabela,$campo,$condicao){
+	// path deve conter o nome do arquivo final
 	
 	$nome_arquivo = $_FILES[$label]["name"]; // nome do arquivo pra reescrever o ar (origem)
 	$nome_temp = $_FILES[$label]["tmp_name"];
@@ -13,18 +14,17 @@ function replace_arq($label,$path,$tabela,$campo,$condicao){
 	
 	if (!empty($nome_arquivo)){
 	
-		if(file_exists($path)){ unlink($path); }
+		if(file_exists($path_file)){ unlink($path_file); }
 		
-		$ok = copy($nome_temp,$path);
-		
-		//print $path;
+		$ok = copy($nome_temp, $path_file); 
 	
 		if($ok){
 			if(!empty($tabela)){
 				unlink($nome_temp);
 				$sql=	"UPDATE ".$tabela." SET 
-						".$campo." = '".$nome_arquivo."' ".$condicao.";";
-						
+						".$campo." = '".$nome_arquivo."'";
+				
+				if(!empty($condicao)) $sql.= " WHERE ".$condicao.";"; 
 				mysql_query($sql) or die(mysql_error());
 			}
 			return true;	

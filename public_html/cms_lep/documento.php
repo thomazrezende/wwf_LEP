@@ -61,12 +61,13 @@ require_once("_tr/up_file_form.php");
 			hr();
 			
 			titulo("","&darr; INSERIR ARQUIVO",false);
-			up_file_form("php/documento_up.php", "arquivo", false, true, "all"); 
-			
+			up_file_form("php/documento_arquivo_up.php?id=".$id, "arquivo", false, true, "all"); 
+			//up_file_form($action, $name, $multiple, $drop_area, $formatos)
+
 			if( !empty($dados["arquivo"])) { 
 				$tb = '';
 				$lb = $dados["arquivo"]; 
-				$link = array("../documentos/".$dados["arquivo"], "_blank"); 
+				$link = array("../documentos/documento".$id."/".$dados["arquivo"], "_blank"); 
 
 				$bts = array (	array( "del", "php/documento_arquivo_remove.php?id=".$id )); 
 

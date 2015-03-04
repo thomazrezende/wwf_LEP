@@ -58,7 +58,7 @@
 						pass = false;
 					}
 				}	
-			} 
+			}
 			
 			if(pass) {
 				$('.up_file_form').submit();

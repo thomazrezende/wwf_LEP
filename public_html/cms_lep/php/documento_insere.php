@@ -11,6 +11,7 @@
 	if(isset($_POST["titulo"]) && !empty($_POST["titulo"])){
 		
 		$prox = next_id("documentos"); 
+		mkdir("../../documentos/documento".$prox,0755);
 		
 		$valores = array(	array("titulo",$_POST["titulo"]), 
 							array("publicado",0)
