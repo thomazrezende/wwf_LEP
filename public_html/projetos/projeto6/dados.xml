@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<projeto>
+	<dados>
+		<id><![CDATA[6]]></id>
+		<id_categ><![CDATA[0]]></id_categ>
+		<publicado><![CDATA[1]]></publicado>
+		<data><![CDATA[2015]]></data>
+		<titulo><![CDATA[Cavalinho]]></titulo>
+		<subtitulo><![CDATA[]]></subtitulo>
+		<layout><![CDATA[]]></layout>
+		<texto><![CDATA[]]></texto>
+		<resumo><![CDATA[]]></resumo>
+		<area><![CDATA[16x9]]></area>
+		<miniaturas><![CDATA[]]></miniaturas>
+	</dados>
+	<arquivos>
+	</arquivos>
+</projeto>

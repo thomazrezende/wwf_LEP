@@ -1,0 +1,36 @@
+Logs de entrada no admin
+--------------------------
+data: 2015-03-04
+hora: 07:44:57
+IP: ::1
+browser: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36
+--------------------------
+data: 2015-03-04
+hora: 07:28:26
+IP: ::1
+browser: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36
+--------------------------
+data: 2015-03-03
+hora: 06:06:22
+IP: ::1
+browser: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36
+--------------------------
+data: 2015-03-03
+hora: 05:49:39
+IP: ::1
+browser: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36
+--------------------------
+data: 2015-03-03
+hora: 10:07:24
+IP: ::1
+browser: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36
+--------------------------
+data: 2015-03-03
+hora: 10:06:43
+IP: ::1
+browser: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36
+--------------------------
+data: 2015-03-03
+hora: 06:49:45
+IP: ::1
+browser: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36
