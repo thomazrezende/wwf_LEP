@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <documentos>
 	<documento>
-		<id>4</id>
-		<publicado>1</publicado>
-		<titulo><![CDATA[teste2]]></titulo>
+		<id>7</id>
+		<publicado>0</publicado>
+		<titulo><![CDATA[asdadasd]]></titulo>
 		<autor><![CDATA[]]></autor>
 		<ano><![CDATA[0]]></ano>
-		<veiculo><![CDATA[asdad]]></veiculo>
-		<link><![CDATA[asdad]]></link>
-		<palavras_chave><![CDATA[asdasd]]></palavras_chave>
+		<veiculo><![CDATA[]]></veiculo>
+		<link><![CDATA[]]></link>
+		<palavras_chave><![CDATA[]]></palavras_chave>
+		<arquivo><![CDATA[]]></arquivo>
+	</documento>
+	<documento>
+		<id>6</id>
+		<publicado>0</publicado>
+		<titulo><![CDATA[asdasdads]]></titulo>
+		<autor><![CDATA[]]></autor>
+		<ano><![CDATA[0]]></ano>
+		<veiculo><![CDATA[]]></veiculo>
+		<link><![CDATA[]]></link>
+		<palavras_chave><![CDATA[]]></palavras_chave>
+		<arquivo><![CDATA[]]></arquivo>
+	</documento>
+	<documento>
+		<id>5</id>
+		<publicado>1</publicado>
+		<titulo><![CDATA[asdasda]]></titulo>
+		<autor><![CDATA[]]></autor>
+		<ano><![CDATA[0]]></ano>
+		<veiculo><![CDATA[]]></veiculo>
+		<link><![CDATA[]]></link>
+		<palavras_chave><![CDATA[ASDASD]]></palavras_chave>
 		<arquivo><![CDATA[]]></arquivo>
 	</documento>
 </documentos>
