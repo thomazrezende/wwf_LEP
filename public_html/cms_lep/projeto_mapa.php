@@ -19,7 +19,7 @@ head("PROJETO - MAPA");
 		#mapa_painel{
 			width:100%;
 			padding-top: 20px;
-			background:#eee;
+			background:#f1f1f1;
 			border:#eee 1px solid;
 			margin-top:30px;
 		}
@@ -130,15 +130,18 @@ head("PROJETO - MAPA");
 			scaleControl: true, 
 			overviewMapControl: false,
 			rotateControl: false, 
+			backgroundColor: '#f1f1f1',
 			zoomControl: true,
 			scaleControlOptions: {
 				position: google.maps.ControlPosition.BOTTOM_LEFT
 			}
+			
+			
 		};
 
 		map = new google.maps.Map(map_canvas, mapOptions); 
 		
-		google.maps.event.addListener(map, 'dragend', function() {  
+		google.maps.event.addListener(map, 'drag', function() {  
 			centro_at = map.getCenter();
 			lat.value = centro_at.k;
 			lng.value = centro_at.B;

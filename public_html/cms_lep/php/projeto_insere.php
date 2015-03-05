@@ -21,7 +21,7 @@
 		
 		location("escolhe_projeto.php","id=".$prox."&titulo=".$_POST["titulo"]); 
 	}else{ 
-		location("../projetos.php","msg_erro=ESCOLHA UM T&Iacute;TULO;"); 
+		location("../projetos.php","msg_erro=ESCOLHA UM TÍTULO"); 
 	}
 	
 ?>
