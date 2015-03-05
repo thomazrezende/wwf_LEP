@@ -40,16 +40,16 @@ require_once("_editor/tiny_mce.php");
 				checkbox("publicado", "publicado", 1, caps("publicado"), "", $public, false);	 
 				 
 				titulo("","DATA (aaaa ou 0)", false);
-				input("data", "data", $dados["data"] , "text"); 
+				input("data", "input", "data", $dados["data"] , "text"); 
 				
 				titulo("","T&Iacute;TULO", false);
-				input("titulo", "titulo", $dados["titulo"] , "text");
+				input("titulo", "input", "titulo", $dados["titulo"] , "text");
 				
 				titulo("","AUTOR", false);
-				input("autor", "autor", $dados["autor"] , "text");
+				input("autor", "input", "autor", $dados["autor"] , "text");
 				
 				titulo("","texto", false);
-				text("texto", "text", "texto", $dados["texto"], true);  
+				text("texto", "input", "text", "texto", $dados["texto"], true);  
 				
 				submit("GRAVAR"); 
 						

@@ -78,8 +78,8 @@ require_once("_tr/sortable.php");
 				btg_del("EXCLUIR TUDO", "TODOS OS ARQUIVOS?","php/proj_arquivo_remove_all.php",false);  
 
 				form1("layout_altera", "layout_altera", "php/proj_layout_altera.php","POST");  
-				input("layout", "layout", $dados["layout"], "hidden");  
-				input("pagey_out","pagey_out","","hidden");			
+				input("layout", "input", "layout", $dados["layout"], "hidden");  
+				input("pagey_out", "input","pagey_out","","hidden");			
 				form2();  
 
 				}

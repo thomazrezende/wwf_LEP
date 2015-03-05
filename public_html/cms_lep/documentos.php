@@ -28,7 +28,7 @@ head("LEP - documentos");
 			form1("novo", "", "php/documento_insere.php", "post"); 
 				
 				titulo("mt0","&darr; NOVO DOCUMENTO (t&iacute;tulo)",false);
-				input("titulo", "titulo", "", "text");
+				input("titulo", "input", "titulo", "", "text");
 				submit("INSERIR");
 			
 			form2();

@@ -79,10 +79,10 @@ function xml_dados(){
 	xml($arquivo, "dados", "", "dados", $colunas, "",false);
 } 
 
-function xml_proj_lista(){
+function xml_projetos(){
 	$arquivo="../../xml/projetos.xml";
-	$colunas=array("id","publicado","id_categ","data","titulo","subtitulo","layout", "resumo","area","miniaturas");
-	xml($arquivo, "projetos", "projeto", "projetos", $colunas, "ORDER BY data DESC",false);
+	$colunas=array("id","publicado","titulo","centro_lat","centro_lng","zoom_ini","sobre");
+	xml($arquivo, "projetos", "projeto", "projetos", $colunas, "ORDER BY id DESC",false);
 }							
 						
 function xml_documentos(){
@@ -91,18 +91,6 @@ function xml_documentos(){
 	xml($arquivo, "documentos", "documento", "documentos", $colunas, "ORDER BY id DESC",false);
 }
 
-function xml_textos(){
-	$arquivo="../../xml/textos.xml";
-	$colunas=array("id","publicado","data","titulo","autor", "texto");
-	xml($arquivo, "textos", "tx", "critica", $colunas, "ORDER BY data DESC",false);
-} 
-
-
-function xml_videos(){
-	$arquivo="../../xml/videos.xml";
-	$colunas=array("id","embed","autoplay");
-	xml($arquivo, "videos", "video", "arquivos", $colunas, "WHERE tipo='emb'", false);
-} 
 
 
  ////////////// xml especÌfico

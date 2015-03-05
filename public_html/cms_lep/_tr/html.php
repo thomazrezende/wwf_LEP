@@ -280,9 +280,14 @@ function titulo_pg($lb){
 	print "<div class=\"titulo_pg \">".$lb." </div>\r\n";
 }
 
+function obs_right($lb){
+	return "<span class=\"fr mr20\">".$lb." </span>\r\n";
+}
+
 function titulo($class, $lb, $lg_ico){   
 	print "<div class=\"titulo ".$class."\">".$lb." ".band($lg_ico)."</div>\r\n";
 }
+
 
 function band( $lg_ico ){
 	//$lg_ico:Boolean - mostrar bandeira 
@@ -490,10 +495,10 @@ function opcoes($opt_a, $opt_b){
 	else return $opt_a;
 }
 
-function input($id, $name, $value, $type){ 
+function input($id, $cls, $name, $value, $type){ 
 	$_id = "";
 	if($id) $_id = "id=\"".$id."\""; 
-	print "<input ".$_id." name=\"".$name."\" value=\"".$value."\"  type=\"".$type."\" class=\"input\"/> \r\n";  
+	print "<input ".$_id." name=\"".$name."\" value=\"".$value."\"  type=\"".$type."\" class=\"".$cls."\"/> \r\n";  
 } 
 
  

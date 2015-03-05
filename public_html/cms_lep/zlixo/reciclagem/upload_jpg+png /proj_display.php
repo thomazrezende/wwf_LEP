@@ -68,7 +68,7 @@ require_once("_tr/sortable_ban.php");
 			
 			btg_del("TODOS OS ARQUIVOS","php/proj_display_remove_all.php",false);  
 			
-			input("display_layout", "display_layout", $dados["display"], "hidden");  
+			input("display_layout", "input", "display_layout", $dados["display"], "hidden");  
 					
 			form2();   
 			

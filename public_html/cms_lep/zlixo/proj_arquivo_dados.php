@@ -47,7 +47,7 @@ require_once("_tr/up_file_form.php");
 					checkbox("autoplay", "autoplay", 1, caps("autoplay"), "", $auto, false); 
 				
 					titulo("","NOME (lista de arquivos)",false); 
-					input("embed_lb", "embed_lb", $arquivo_dados["embed_lb"], "text");
+					input("embed_lb", "input", "embed_lb", $arquivo_dados["embed_lb"], "text");
 					
 					titulo("","ATUALIZAR C&Oacute;DIGO EMBED",false);
 					text("embed", "embed_in", "embed", $arquivo_dados["embed"], false );   

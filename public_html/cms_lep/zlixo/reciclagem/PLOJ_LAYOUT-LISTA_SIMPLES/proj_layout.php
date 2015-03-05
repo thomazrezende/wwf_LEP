@@ -67,7 +67,7 @@ require_once("_tr/sortable_lay.php");
 			ul2(); 
 			
 			form1("form_layout","","php/proj_layout_altera.php","post");
-			input("layout","layout",$dados["layout"],"hidden");
+			input("layout", "input","layout",$dados["layout"],"hidden");
 			submit("GRAVAR");
 			form2(); 
 			

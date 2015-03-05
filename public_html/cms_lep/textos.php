@@ -29,7 +29,7 @@ require_once("_tr/sortable.php");
 			form1("novo", "", "php/texto_insere.php", "post"); 
 					
 				titulo("","&darr; NOVO TEXTO (autor)",false);
-				input("autor", "autor", "", "text");
+				input("autor", "input", "autor", "", "text");
 				submit("INSERIR");
 			 
 			form2();
@@ -77,8 +77,8 @@ require_once("_tr/sortable.php");
 
 			$renata = sql_select("renata","textos","","",false);  
 			form1("layout_altera", "layout_altera", "php/textos_layout_altera.php","POST");  
-			input("layout", "layout", $renata["textos"], "hidden");  
-			input("pagey_out","pagey_out","","hidden");			
+			input("layout", "input", "layout", $renata["textos"], "hidden");  
+			input("pagey_out", "input","pagey_out","","hidden");			
 			form2();  
 			
 			?>

@@ -29,7 +29,7 @@ require_once("_tr/sortable_tag.php");
 			form1("", "", "php/tag_insere.php", "post"); 
 					
 				titulo("","NOVA TAG",false);
-				input("nome", "nome", "" , "text");
+				input("nome", "input", "nome", "" , "text");
 				submit("INSERIR"); 
 						
 			form2();

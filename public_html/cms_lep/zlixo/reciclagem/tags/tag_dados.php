@@ -33,7 +33,7 @@ require_once("_tr/up_file_form.php");
 			form1("altera", "", "php/tag_dados_altera.php", "post");
 					
 				titulo("","NOME", true);
-				input("label_".get_lg(), "label_".get_lg(), $dados["label_".get_lg()] , "text");  
+				input("label_".get_lg(), "input", "label_".get_lg(), $dados["label_".get_lg()] , "text");  
 				
 				titulo("","GRAFICO 1 (OFF)", false);
 				text("graf1","graf1",$dados["graf1"],false);

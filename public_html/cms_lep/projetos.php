@@ -26,15 +26,14 @@ require_once("_tr/sortable.php");
 			
 			$projetos = sql_select("projetos","*","id DESC","",true);  
 			
-			form1("novo", "", "php/proj_insere.php", "post"); 
+			form1("novo", "", "php/projeto_insere.php", "post"); 
 					
 				titulo("mt0","&darr; NOVO PROJETO (t&iacute;tulo)",false);
-				input("titulo", "titulo", "", "text");
+				input("titulo", "input", "titulo", "", "text");
 				submit("INSERIR");
 			 
 			form2();
-			
-			titulo("","PUBLICADOS ( arraste para definir a ordem na p&aacute;gina inicial )",false); 
+			titulo("","PUBLICADOS".obs_right("arraste para definir a ordem na p&aacute;gina inicial &darr;"),false); 
 			
 			ul1("itens",'sortable');
 			
@@ -44,43 +43,42 @@ require_once("_tr/sortable.php");
 			
 					$id = $projetos[$i]["id"];
 					$tb = '';
-					$lb = caps($projetos[$i]["titulo"]); 
-					$link = "php/escolhe_proj.php?id=".$id."&proj=".$lb;
+					$lb = $projetos[$i]["titulo"];
+					$link = array("php/escolhe_projeto.php?id=".$id."&titulo=".$lb, false);
 					
-					$bts = array (	array( "del", "php/proj_remove.php?id=".$id )); 
+					$bts = array (	array( "del", "php/projeto_remove.php?id=".$id )); 
 				
-					item('item'.$id, $tb, $id." _ ".$lb, $link, $bts, true);
+					item('item'.$id, $tb, caps($id." _ ".$lb), $link, $bts, true);
 				}
 			}  
 			
 			ul2();
-			
 			clear();
-
 			titulo("","N&Atilde;O PUBLICADOS ",false); 
 			
 			ul1("lista_off",false);
+
 			for($i=0; $i<count($projetos); $i++){ 
 				
 				if($projetos[$i]["publicado"] == "0"){
 					
 					$id = $projetos[$i]["id"];
 					$tb = '';
-					$lb = caps($projetos[$i]["titulo"]); 
-					$link = "php/escolhe_proj.php?id=".$id."&proj=".$lb;
+					$lb = $projetos[$i]["titulo"]; 
+					$link = array("php/escolhe_projeto.php?id=".$id."&titulo=".$lb, false);
 					
-					$bts = array (	array( "del", "php/proj_remove.php?id=".$id )); 
+					$bts = array (	array( "del", "php/projeto_remove.php?id=".$id )); 
 				
-					item($id, $tb, $id." _ ".$lb, $link, $bts, false);
+					item($id, $tb, caps($id." _ ".$lb), $link, $bts, false);
 				}
 			}  
 			
 			ul2();
 
-			$dados = sql_select("lep","layout_home","","",false); 
+			$dados = sql_select("dados","layout_home","","",false); 
 			form1("layout_altera", "layout_altera", "php/home_layout_altera.php","POST");  
-			input("layout", "layout", $dados["layout_home"], "hidden");  
-			input("pagey_out","pagey_out","","hidden");			
+			input("layout", "input", "layout", $dados["layout_home"], "hidden");  
+			input("pagey_out", "input", "pagey_out","","hidden");			
 			form2();  
 			
 			?>

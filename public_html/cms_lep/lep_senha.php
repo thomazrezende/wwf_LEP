@@ -34,13 +34,13 @@ $dados = sql_select("dados", "*", "", "", false);
 				form1("senha", "", "php/senha_altera.php", "post");
              
 					titulo("","SENHA ATUAL",false);
-					input("senha_atual", "senha_atual", "", "password");
+					input("senha_atual", "input", "senha_atual", "", "password");
 					
 					titulo("","SENHA NOVA",false);
-					input("senha_nova", "senha_nova", "" , "password"); 
+					input("senha_nova", "input", "senha_nova", "" , "password"); 
 					
 					titulo("","CONFIRME A SENHA NOVA",false);
-					input("senha_confirma", "senha_confirma", "" , "password"); 
+					input("senha_confirma", "input", "senha_confirma", "" , "password"); 
 					
 					submit("GRAVAR"); 
 				
