@@ -50,11 +50,31 @@
 				connectWith: ".sortable",
 				update: function( event, ui ) {  
 					layout_att(); 
+					layout_altera.submit();
 				} 
 		  
 			}).disableSelection();   
 			 
-		
+			// page Y
+		 
+			window.onload = function(){  
+
+				$('#mensagem').delay(2000).fadeOut(1000);   
+
+				var get = document.location.href.split('pagey=');  
+				if(get[1] > 0){  
+					window.scrollTo(0, get[1]);
+				}
+			}
+
+			var pagey = 0;
+			var pagey_out = document.getElementById('pagey_out');
+			console.log(pagey_out);
+
+			window.onscroll = function(){
+				pagey = document.body.scrollTop || document.documentElement.scrollTop;
+				pagey_out.value = pagey;	
+			}  
 
 			
 		  

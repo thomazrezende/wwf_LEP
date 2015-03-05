@@ -32,7 +32,7 @@ head("PROJETO - ARQUIVOS");
 			mensagem();	 
 			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." - ".$dados["titulo"] )); 
 
-			submenu( $submenu_projeto, 3);
+			submenu( $submenu_projeto, 4);
 			
 			
 			

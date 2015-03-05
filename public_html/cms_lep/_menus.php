@@ -14,6 +14,7 @@
 		
 		$submenu_projeto = array( 	array("DADOS","projeto_dados.php"),
 									array("MAPA","projeto_mapa.php"),
+									array("REPOSIT&Oacute;RIO","projeto_repositorio.php"),
 									array("ARQUIVOS","projeto_arquivos.php"),
 									array("RESULTADOS","projeto_resultados.php"));
 ?>
