@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <projetos>
 	<projeto>
+		<id>6</id>
+		<publicado>1</publicado>
+		<titulo><![CDATA[a6]]></titulo>
+		<lat><![CDATA[-17.8854]]></lat>
+		<lng><![CDATA[-44.4859]]></lng>
+		<zoom><![CDATA[5]]></zoom>
+		<resumo><![CDATA[asdasd]]></resumo>
+	</projeto>
+	<projeto>
 		<id>5</id>
 		<publicado>1</publicado>
 		<titulo><![CDATA[a2]]></titulo>
-		<centro_lat><![CDATA[0]]></centro_lat>
-		<centro_lng><![CDATA[0]]></centro_lng>
-		<zoom_ini><![CDATA[0]]></zoom_ini>
-		<sobre><![CDATA[<p>aasdasdad</p>]]></sobre>
+		<lat><![CDATA[-16.9166]]></lat>
+		<lng><![CDATA[-48.479]]></lng>
+		<zoom><![CDATA[5]]></zoom>
+		<resumo><![CDATA[]]></resumo>
 	</projeto>
 	<projeto>
 		<id>4</id>
 		<publicado>1</publicado>
 		<titulo><![CDATA[a1a]]></titulo>
-		<centro_lat><![CDATA[0]]></centro_lat>
-		<centro_lng><![CDATA[0]]></centro_lng>
-		<zoom_ini><![CDATA[0]]></zoom_ini>
-		<sobre><![CDATA[<p>asdasdasdasd ssss</p>]]></sobre>
+		<lat><![CDATA[0]]></lat>
+		<lng><![CDATA[0]]></lng>
+		<zoom><![CDATA[0]]></zoom>
+		<resumo><![CDATA[]]></resumo>
 	</projeto>
 </projetos>

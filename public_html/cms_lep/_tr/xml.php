@@ -81,7 +81,7 @@ function xml_dados(){
 
 function xml_projetos(){
 	$arquivo="../../xml/projetos.xml";
-	$colunas=array("id","publicado","titulo","centro_lat","centro_lng","zoom_ini","sobre");
+	$colunas=array("id","publicado","titulo","lat","lng","zoom","resumo");
 	xml($arquivo, "projetos", "projeto", "projetos", $colunas, "ORDER BY id DESC",false);
 }							
 						
@@ -91,13 +91,11 @@ function xml_documentos(){
 	xml($arquivo, "documentos", "documento", "documentos", $colunas, "ORDER BY id DESC",false);
 }
 
-
-
  ////////////// xml especÌfico
 
- function xml_proj($id){ 
+ function xml_projeto($id){ 
 	
-	$colunas = array("id","id_categ","publicado","data","titulo","subtitulo","layout","texto","resumo","area","miniaturas");
+	$colunas = array("id","publicado","titulo","lat","lng","zoom","sobre");
 	$itens = chama_colunas($colunas);
 			
 	$arq_xml="../../projetos/projeto".$id."/dados.xml";
@@ -130,6 +128,7 @@ function xml_documentos(){
 	//Finalizando com a ltima tag 
 	fwrite($xml, "\t</dados>\r\n");
 	
+	 /*
 	// arquivos 
 	fwrite($xml, "\t<arquivos>\r\n");
 	$colunas_arq = array("id","id_projeto","file","embed","autoplay");
@@ -153,12 +152,13 @@ function xml_documentos(){
 	  	fwrite($xml, $conteudo_arq);
 	}	
 	fwrite($xml, "\t</arquivos>\r\n");  
+	*/
 	 
 	fwrite($xml, "</projeto>\r\n");
 	//Fechando o arquivo 
 	fclose($xml); 
 	
-	xml_proj_lista();
+	xml_projetos();
 }
  
 

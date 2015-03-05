@@ -43,6 +43,9 @@ require_once("_editor/tiny_mce.php");
 				titulo("","T&Iacute;TULO", false);
 				input("titulo", "input", "titulo", $dados["titulo"] , "text"); 
 
+				titulo("","RESUMO", false);
+				text("resumo", 'text', "resumo", $dados["resumo"], false);
+				
 				titulo("","DESCRI&Ccedil;&Atilde;O", false);
 				text("sobre", 'text', "sobre", $dados["sobre"], true);
 				

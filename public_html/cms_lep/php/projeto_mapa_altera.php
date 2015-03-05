@@ -12,17 +12,16 @@
 	$id = $_SESSION["id"];
 	
 	$dados = array(
-					array("publicado", $_POST["publicado"]),
-					array("titulo", $_POST["titulo"]),
-					array("resumo", $_POST["resumo"]),
-					array("sobre", $_POST["sobre"])
+					array("lat", $_POST["lat"]),
+					array("lng", $_POST["lng"]),
+					array("zoom", $_POST["zoom"])
 					);
  
  
 	sql_update("projetos", $dados, "id='".$id."'" );
 	
-  	xml_projeto($id);
+  	xml_projeto($id); 
 
-	location("../projeto_dados.php","msg_ok=DADOS ALTERADOS COM SUCESSO"); 
+	location("../projeto_mapa.php","msg_ok=MAPA ALTERADO COM SUCESSO"); 
 	
 ?> 
