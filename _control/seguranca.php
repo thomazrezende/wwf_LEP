@@ -73,38 +73,7 @@ function logout(){
 	$_SESSION["logado"] = md5("acesso_negado");
 	session_unset();
 	session_destroy();
-}
-
- 
-function login($tabela){  
-	
-	////////////// AJUSTAR URLS!!!!!!!!!!
-	
-	require_once("../../../_controle/acesso.php");
-	conectar();
-	//
-	$sql="SELECT email, senha FROM ".$tabela;
-	$consult = mysql_query($sql) or die(mysql_error());
-	$result = mysql_fetch_assoc($consult);
-	
-	//if(1>2){
-	if($_POST["login"] != $result["email"] || comparePassword( $_POST["senha"], $result["senha"])!=1){ 
-		//
-		$msg="DADOS INCORRETOS";
-		header("Location: ../login.php?msg=".$msg);
-		exit;	
-	}else{
-		registra_log("logs");
-		sessao();
-		$_SESSION["logado"] = md5("acesso_ok");
-		header("Location: ../index.php");
-		exit;
-	}
-}
-	 
-// senha 
-
-// qqq:02310f38646d2929f2745952fa1878f990f61edf84146096f81780c98480220c04d20b20520883a5489db22be01106e568eb17862f6e46bcc59889c2c513c03d2e2448b4
+} 
 
 function cria_senha($n){
 	$senha="";	
