@@ -34,7 +34,7 @@ require_once("_tr/up_file_form2.php");
 			submenu( $submenu_projeto, 3); 
 			
 			for($i=1; $i<=10; $i++){  
-				up_file_form("form".$i,"php/projeto_arquivo_up.php?pos=".$i, "arquivo".$i, false, false, "all"); 
+				up_file_form($i,"php/projeto_arquivo_up.php?pos=".$i, "arquivo".$i, false, false, "all"); 
 				//up_file_form($action, $name, $multiple, $drop_area, $formatos) 
 			}
 			

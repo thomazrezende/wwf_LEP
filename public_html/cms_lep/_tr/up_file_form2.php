@@ -32,6 +32,8 @@
 			
 		});
 		
+		// bug!!! tem que identificar bar e percent com pos   
+		   
         var bar = $('.bar');
         var percent = $('.percent');
         
