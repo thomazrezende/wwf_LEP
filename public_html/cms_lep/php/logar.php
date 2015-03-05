@@ -1,6 +1,6 @@
 <?php  
-require_once("../../../_tr_1048672/seguranca.php");
-require_once("../../../_tr_1048672/acesso.php");   
+require_once("../../../_control/seguranca.php");
+require_once("../../../_control/acesso.php");   
 require_once("../_tr/html.php");  
 require_once("../_tr/mysql.php"); 
 	
@@ -19,7 +19,7 @@ require_once("../_tr/mysql.php");
 		if($_POST["login"] != $dados["email"] || comparePassword( $_POST["senha"], $dados["senha"])!=1){ 
 			location("../login.php","msg_erro=DADOS INCORRETOS");
 		}else{
-			registra_log("../../../_tr_1048672/logs"); 
+			registra_log("../../../_control/logs"); 
 			sessao_local( array(array("logado",md5("acesso_ok_90432498"))),true ); 
 			
 			sessao_lg("pt");
