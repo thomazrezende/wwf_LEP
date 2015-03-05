@@ -5,7 +5,7 @@
 	verif_log();
 	
 	$itens = array (array("id", $_GET["id"]),
-					array("titulo", $_GET["id"]." - ".$_GET["titulo"]));
+					array("titulo", $_GET["titulo"]));
 	
 	sessao_local($itens, true);
 	

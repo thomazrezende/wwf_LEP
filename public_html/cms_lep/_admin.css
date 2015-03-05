@@ -20,7 +20,7 @@ iframe{
 	height: 360px;
 }
 
-#dados{ width: 90%; min-width: 400px; max-width: 900px }
+#dados{ width: 90%; min-width: 600px; max-width: 900px }
 
 .login{
 	background:#333;
@@ -258,7 +258,7 @@ hr{
 	padding:10px;
 	border:0;
 	font-size:12px;
-	background:#ebebeb;
+	background:#f0f0f0;
 }  
 
 .text{
@@ -267,7 +267,7 @@ hr{
 	padding:10px;
 	font-size:12px;
 	border:0;
-	background:#ebebeb;
+	background:#f0f0f0;
 	}
 	
 .embed_in{
@@ -426,8 +426,7 @@ hr{
 	padding:15px;
 	position:relative;
 	color: #333;
-	font-size: 14px;
-	font-weight: bold;
+	font-size: 16px;
 	text-align: center;
 }
 

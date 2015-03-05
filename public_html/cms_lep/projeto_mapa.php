@@ -68,7 +68,7 @@ head("PROJETO - MAPA");
 			$dados = sql_select("projetos","*","","id=".$id,false);   
 			
 			mensagem();	 
-			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." - ".$dados["titulo"] )); 
+			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." - ".$titulo )); 
 
 			submenu( $submenu_projeto, 2 );
 			
@@ -135,7 +135,6 @@ head("PROJETO - MAPA");
 			scaleControlOptions: {
 				position: google.maps.ControlPosition.BOTTOM_LEFT
 			}
-			
 			
 		};
 

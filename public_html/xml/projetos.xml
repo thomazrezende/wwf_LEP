@@ -13,10 +13,10 @@
 		<id>6</id>
 		<publicado>1</publicado>
 		<titulo><![CDATA[a6]]></titulo>
-		<lat><![CDATA[-8.78812]]></lat>
-		<lng><![CDATA[-62.899]]></lng>
+		<lat><![CDATA[-10.9959]]></lat>
+		<lng><![CDATA[-57.8013]]></lng>
 		<zoom><![CDATA[5]]></zoom>
-		<resumo><![CDATA[asdasd]]></resumo>
+		<resumo><![CDATA[asdasdasd]]></resumo>
 	</projeto>
 	<projeto>
 		<id>5</id>
@@ -25,15 +25,6 @@
 		<lat><![CDATA[-16.9166]]></lat>
 		<lng><![CDATA[-48.479]]></lng>
 		<zoom><![CDATA[5]]></zoom>
-		<resumo><![CDATA[]]></resumo>
-	</projeto>
-	<projeto>
-		<id>4</id>
-		<publicado>1</publicado>
-		<titulo><![CDATA[a1a]]></titulo>
-		<lat><![CDATA[0]]></lat>
-		<lng><![CDATA[0]]></lng>
-		<zoom><![CDATA[0]]></zoom>
 		<resumo><![CDATA[]]></resumo>
 	</projeto>
 </projetos>

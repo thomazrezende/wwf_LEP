@@ -25,12 +25,9 @@ head("PROJETO - ARQUIVOS");
 			$id = $_SESSION["id"];
 			$titulo = $_SESSION["titulo"];
 
-			//SQL
-			$dados = sql_select("projetos","*","","id=".$id,false);   
-			($dados["publicado"] == "1")?($public = true):($public = false);
- 
+			//SQL 
 			mensagem();	 
-			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." - ".$dados["titulo"] )); 
+			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." - ".$titulo )); 
 
 			submenu( $submenu_projeto, 4);
 			

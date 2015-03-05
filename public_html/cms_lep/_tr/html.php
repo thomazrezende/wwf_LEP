@@ -523,12 +523,12 @@ function up_file($name, $multiple){
 	print "<div><input type=\"file\" name=\"".$name."\" class=\"file\" ".$mult."></div>\r\n";
 } 
 
-function up_file_form($action, $name, $multiple, $drop_area, $formatos){
+function up_file_form($id, $action, $name, $multiple, $drop_area, $formatos){
 	
 	$class = "";
 	if($drop_area) $class = "drop_area";
 	
-	print "<form id=\"up_file_form\" class=\"up_file_form\" enctype=\"multipart/form-data\" action=\"".$action."\" method=\"post\">\r\n";   
+	print "<form id=\"".$id."\" class=\"up_file_form\" enctype=\"multipart/form-data\" action=\"".$action."\" method=\"post\">\r\n";   
 	 
 	if($multiple) print  "<input lista=\"".$formatos."\" id=\"drop_area\" type=\"file\" name=\"".$name."\" class=\"".$class." multiple\" multiple>\r\n";
 	else print  "<input lista=\"".$formatos."\" id=\"drop_area\" type=\"file\" name=\"".$name."\" class=\"".$class." single\" >\r\n"; 

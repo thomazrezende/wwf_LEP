@@ -15,13 +15,13 @@
 		
 		$valores = array(	array("titulo",$_POST["titulo"]), 
 							array("publicado",0)
-							); 
+						); 
 		 
 		sql_insert("documentos", $valores);
 		
 		location("../documento.php?id=".$prox,""); 
 	}else{ 
-		location("../documentos.php","msg_erro=ESCOLHA UM T&Iacute;TULO;"); 
+		location("../documentos.php","msg_erro=ESCOLHA UM TÍTULO"); 
 	}
 	
 ?>
