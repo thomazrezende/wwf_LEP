@@ -64,7 +64,7 @@ head("LEP - documentos");
 				if($documentos[$i]["publicado"] == "0"){
 					
 					$id = $documentos[$i]["id"];
-					$tb = '';
+					$tb = '_layout/ico_documento.png';
 					$lb = caps($documentos[$i]["titulo"]); 
 					$link = array("documento.php?id=".$id, false);
 					

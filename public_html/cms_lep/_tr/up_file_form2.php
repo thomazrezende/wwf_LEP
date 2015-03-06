@@ -103,6 +103,7 @@
 			} 
 		   
 		   // add
+		    var trava = false;
 		   	
 			var bt_add = $('#bt_add');
 			var campos = $('#campos');
@@ -111,33 +112,38 @@
 		   	var campo;
 		   
 			$(bt_add).click(function() {
-				n_campos ++;
 				
-				campo = "<form id='form"+n_campos+"' class='up_file_form' enctype='multipart/form-data' action='php/projeto_arquivo_up.php' method='post'>";
-				campo += "<input lista='all' id='input"+n_campos+"' type='file' name='arquivo' class='single'>";
-				campo += "<div id='progress"+n_campos+"' class='progress'>";
-				campo += "<div id='bar"+n_campos+"' class='bar'></div>";
-				campo += "<div id='percent"+n_campos+"' class='percent'>0%</div>";
-				campo += "</div>";
-				campo += "</form>";
-				
-				campos.append(campo);
-				
-				// atribui funcs a todos os forms
-				funcs(); 
+				if(!trava){
+					n_campos ++;
+
+					campo = "<form id='form"+n_campos+"' class='up_file_form' enctype='multipart/form-data' action='php/projeto_arquivo_up.php' method='post'>";
+					campo += "<input lista='all' id='input"+n_campos+"' type='file' name='arquivo' class='single'>";
+					campo += "<div id='progress"+n_campos+"' class='progress'>";
+					campo += "<div id='bar"+n_campos+"' class='bar'></div>";
+					campo += "<div id='percent"+n_campos+"' class='percent'>0%</div>";
+					campo += "</div>";
+					campo += "</form>";
+
+					campos.append(campo);
+
+					// atribui funcs a todos os forms
+					funcs();
+				}
 				
 			});	
 
 			// enviar
 
 			var enviar = $('#enviar');
-			var status = 0; // 0 = parado; 1 = enviando
 
 			$(enviar).click(function() {
-				console.log("START");
-				$(bt_add).hide();;
-				$(enviar).hide();
-				next_upload();
+				if(!trava){
+					console.log("START");
+					$(bt_add).css({opacity:.3});
+					$(enviar).css({opacity:.3});
+					trava = true;
+					next_upload();
+				}
 			});	
 		   
 		});

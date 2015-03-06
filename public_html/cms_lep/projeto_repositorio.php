@@ -9,7 +9,7 @@ require_once("_menus.php");
 verif_log(); 
 conectar();
 
-head("PROJETO - RESULTADOS");  
+head("PROJETO ".$_SESSION["id"]);  
 require_once("_tr/up_file_form2.php");  
 ?>
 
@@ -36,8 +36,7 @@ require_once("_tr/up_file_form2.php");
 			up_file_form( 1, 1, "php/projeto_arquivo_up.php", "arquivo", false, false, "all");
 			div2();
 
-			btg("bt_add", "bt_add", "+", "");
-			
+			btg("bt_add", "bt_add", "+", ""); 
 			btg("enviar", "", "ENVIAR ARQUIVOS", "");			
 			
 
@@ -48,11 +47,11 @@ require_once("_tr/up_file_form2.php");
 			for($i=0; $i<count($arquivos); $i++){			
 					
 					$id_arquivo = $arquivos[$i]["id"];
-					$tb = '';
+					$tb = '_layout/ico_'.$arquivos[$i]["ext"].".png";
 					$lb = $arquivos[$i]["arquivo"];
 					$link = false;
 					
-					$bts = array (	array( "del", "php/projeto_arquivo_remove.php?id=".$id_arquivo."&id_projeto=".$id )); 
+					$bts = array (	array( "del", "php/projeto_arquivo_remove.php?id=".$id_arquivo )); 
 				
 					item('item'.$id_arquivo, $tb, $id_arquivo." _ ".$lb, $link, $bts, false);
 				

@@ -9,7 +9,7 @@ require_once("_menus.php");
 verif_log(); 
 conectar();
 
-head("PROJETO - ARQUIVOS");    
+head("PROJETO ".$_SESSION["id"]);  
 ?>
 
 <body>

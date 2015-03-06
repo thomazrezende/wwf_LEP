@@ -363,10 +363,10 @@ function remove_item($path, $item, $tabela, $id){
 	if(isset($id)){ // isset pq vir via GET
 		$sql="DELETE FROM ".$tabela." WHERE id = ".$id." LIMIT 1;";								
 		$ok=mysql_query($sql) or die(mysql_error());
-		//
+		
 		if($ok){
 			if(!empty($item) && file_exists($path."/".$item)){ unlink($path."/".$item); }
-			return true;	
+			return true;
 		}
 	}
 }
