@@ -253,11 +253,12 @@ function voltar($lb, $link){
 	return "<a href=\"".$link."\" class=\"bt_voltar\"><span>&laquo; ".$lb."</span></a>";
 }
 
-function btg($id, $lb, $link){
+function btg($id, $cls, $lb, $link){
 	$href = "";
 	if($link) $href = "href=\"".$link."\"";
-	print "<a id=\"".$id."\" ".$href." class=\"btg\"><span> ".$lb."</span></a>"; 
+	print "<a id=\"".$id."\" ".$href." class=\"btg ".$cls."\"><span> ".$lb."</span></a>"; 
 } 
+
 
 function hr(){
 	print "<hr>";

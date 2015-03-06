@@ -231,6 +231,13 @@ hr{
 	background-size:1px 45px;
 }
 
+.bt_add{
+	margin-top:5px;
+	padding: 5px;
+	font-size: 18px;
+	font-weight: normal;
+}
+
 .gravar{	
 	padding:15px 0;
 	background-size:1px 45px;

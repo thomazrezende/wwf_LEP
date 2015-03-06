@@ -30,15 +30,16 @@ require_once("_tr/up_file_form2.php");
 			mensagem();	 
 			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." _ ".$titulo )); 
 
-			submenu( $submenu_projeto, 3); 
+			submenu( $submenu_projeto, 3);  
 			
-			for($i=1; $i<=10; $i++){  
-				up_file_form( $i, $i, "php/projeto_arquivo_up.php", "arquivo", false, false, "all");
-			}
+			div1("campos","","", false);
+			up_file_form( 1, 1, "php/projeto_arquivo_up.php", "arquivo", false, false, "all");
+			div2();
 
-			btg("enviar", "ENVIAR ARQUIVOS", "");			
+			btg("bt_add", "bt_add", "+", "");
 			
-			hr();
+			btg("enviar", "", "ENVIAR ARQUIVOS", "");			
+			
 
 			titulo('','LISTA DE ARQUIVOS', false); 
 			ul1("itens",false); 

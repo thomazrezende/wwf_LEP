@@ -25,55 +25,58 @@
 				} 
 				window.location.replace(loc[0] + "?" + gets_out + msg);  
 			}  
-		   
 		    
-			$('.single').change( function(){ 
-				if( this.value != '') this.style.color = "#8cbf8c";
-				else this.style.color = ""; 
-			}); 
-			
-		   
-			$('.up_file_form').ajaxForm({
-				beforeSend: function() {
-					console.log("beforeSend");
-					percentVal = '0%';
-					bar.width(percentVal)
-					percent.html(percentVal);
-				},
-				uploadProgress: function(event, position, total, percentComplete) {
-					console.log("uploadProgress");
-					percentVal = percentComplete + '%';
-					bar.width(percentVal)
-					percent.html(percentVal);
-				},
-				success: function() {
-					console.log("success");
-					percentVal = '100%';
-					bar.width(percentVal)
-					percent.html(percentVal);
-				},
-				complete: function() { 
-					console.log("complete");
-					setTimeout(function(){
-						next_upload();
-					},2000);
-				},
-				error: function(jqXHR, textStatus, errorThrown) { 
-					console.log("erro: " + textStatus);
-				}   
-			});
-						 
-
 			// sequential upload
+		   
+		   function funcs(){
+			   $('.single').change( function(){ 
+					if( this.value != '') this.style.color = "#8cbf8c";
+					else this.style.color = ""; 
+				});  
 
-			var pos = 0; // campo inicial
+				$('.up_file_form').ajaxForm({
+					beforeSend: function() {
+						console.log("beforeSend");
+						percentVal = '0%';
+						bar.width(percentVal)
+						percent.html(percentVal);
+					},
+					uploadProgress: function(event, position, total, percentComplete) {
+						console.log("uploadProgress");
+						percentVal = percentComplete + '%';
+						bar.width(percentVal)
+						percent.html(percentVal);
+					},
+					success: function() {
+						console.log("success");
+						percentVal = '100%';
+						bar.width(percentVal)
+						percent.html(percentVal);
+					},
+					complete: function() { 
+						console.log("complete");
+						setTimeout(function(){
+							next_upload();
+						},1000);
+					},
+					error: function(jqXHR, textStatus, errorThrown) { 
+						console.log("erro: " + textStatus);
+					}   
+				});
+		   }
+			
+		   //a atribui funcoes ao form1
+		   funcs(); 
+		   
+		   
+			var pos = 0; 
 			var form;
 			var percentVal
 			var bar;
 			var percent;
 
 			function next_upload(){
-				if(pos<10){
+				if(pos < n_campos){
 					pos++;
 					
 					console.log("----------------------");
@@ -98,6 +101,32 @@
 					pos = 0;
 				}	
 			} 
+		   
+		   // add
+		   	
+			var bt_add = $('#bt_add');
+			var campos = $('#campos');
+		   	var n_campos = 1;	
+		   
+		   	var campo;
+		   
+			$(bt_add).click(function() {
+				n_campos ++;
+				
+				campo = "<form id='form"+n_campos+"' class='up_file_form' enctype='multipart/form-data' action='php/projeto_arquivo_up.php' method='post'>";
+				campo += "<input lista='all' id='input"+n_campos+"' type='file' name='arquivo' class='single'>";
+				campo += "<div id='progress"+n_campos+"' class='progress'>";
+				campo += "<div id='bar"+n_campos+"' class='bar'></div>";
+				campo += "<div id='percent"+n_campos+"' class='percent'>0%</div>";
+				campo += "</div>";
+				campo += "</form>";
+				
+				campos.append(campo);
+				
+				// atribui funcs a todos os forms
+				funcs(); 
+				
+			});	
 
 			// enviar
 
@@ -106,6 +135,8 @@
 
 			$(enviar).click(function() {
 				console.log("START");
+				$(bt_add).hide();;
+				$(enviar).hide();
 				next_upload();
 			});	
 		   
