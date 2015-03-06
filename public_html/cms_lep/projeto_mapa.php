@@ -68,7 +68,7 @@ head("PROJETO - MAPA");
 			$dados = sql_select("projetos","*","","id=".$id,false);   
 			
 			mensagem();	 
-			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." - ".$titulo )); 
+			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." _ ".$titulo )); 
 
 			submenu( $submenu_projeto, 2 );
 			

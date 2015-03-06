@@ -26,7 +26,7 @@ head("PROJETO - RESULTADOS");
 			$titulo = $_SESSION["titulo"]; 
  
 			mensagem();	 
-			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." - ".$titulo )); 
+			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." _ ".$titulo )); 
 
 			submenu( $submenu_projeto, 5);
 			

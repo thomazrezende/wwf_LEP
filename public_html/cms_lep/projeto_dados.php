@@ -31,7 +31,7 @@ require_once("_editor/tiny_mce.php");
 			($dados["publicado"] == "1")?($public = true):($public = false);
  
 			mensagem();	 
-			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." - ".$titulo )); 
+			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." _ ".$titulo )); 
 
 			submenu( $submenu_projeto, 1);
 			

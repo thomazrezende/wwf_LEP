@@ -27,19 +27,42 @@ require_once("_tr/up_file_form2.php");
 			$titulo = $_SESSION["titulo"];
 
 			//SQL
- 
 			mensagem();	 
-			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." - ".$titulo )); 
+			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." _ ".$titulo )); 
 
 			submenu( $submenu_projeto, 3); 
 			
 			for($i=1; $i<=10; $i++){  
-				up_file_form($i,"php/projeto_arquivo_up.php?pos=".$i, "arquivo".$i, false, false, "all"); 
-				//up_file_form($action, $name, $multiple, $drop_area, $formatos) 
+				up_file_form( $i, $i, "php/projeto_arquivo_up.php", "arquivo", false, false, "all");
+			}
+
+			btg("enviar", "ENVIAR ARQUIVOS", "");			
+			
+			hr();
+
+			titulo('','LISTA DE ARQUIVOS', false); 
+			ul1("itens",false); 
+			$arquivos = sql_select( "arquivos", "*", "id DESC", "id_projeto=".$id, true );
+
+			for($i=0; $i<count($arquivos); $i++){			
+					
+					$id_arquivo = $arquivos[$i]["id"];
+					$tb = '';
+					$lb = $arquivos[$i]["arquivo"];
+					$link = false;
+					
+					$bts = array (	array( "del", "php/projeto_arquivo_remove.php?id=".$id_arquivo."&id_projeto=".$id )); 
+				
+					item('item'.$id_arquivo, $tb, $id_arquivo." _ ".$lb, $link, $bts, false);
+				
 			}
 			
+			ul2();
 			
+
 			?>
+			
+			
         
         </div> <!--dados-->  
     </div> <!--cont-->  

@@ -253,10 +253,11 @@ function voltar($lb, $link){
 	return "<a href=\"".$link."\" class=\"bt_voltar\"><span>&laquo; ".$lb."</span></a>";
 }
 
-function voltar_g($lb, $link){
-	print "<a href=\"".$link."\" class=\"btg_voltar\"><span><img src='_layout/larr.png'/> ".$lb."</span></a>";
-}
-
+function btg($id, $lb, $link){
+	$href = "";
+	if($link) $href = "href=\"".$link."\"";
+	print "<a id=\"".$id."\" ".$href." class=\"btg\"><span> ".$lb."</span></a>"; 
+} 
 
 function hr(){
 	print "<hr>";
@@ -523,19 +524,19 @@ function up_file($name, $multiple){
 	print "<div><input type=\"file\" name=\"".$name."\" class=\"file\" ".$mult."></div>\r\n";
 } 
 
-function up_file_form($id, $action, $name, $multiple, $drop_area, $formatos){
+function up_file_form($form_id, $input_id, $action, $input_name, $multiple, $drop_area, $formatos){
 	
 	$class = ""; 
 	if($drop_area) $class = "drop_area";
 	
-	print "<form id=\"form".$id."\" class=\"up_file_form\" enctype=\"multipart/form-data\" action=\"".$action."\" method=\"post\">\r\n";   
+	print "<form id=\"form".$form_id."\" class=\"up_file_form\" enctype=\"multipart/form-data\" action=\"".$action."\" method=\"post\">\r\n";   
 	 
-	if($multiple) print  "<input lista=\"".$formatos."\" id=\"drop_area\" type=\"file\" name=\"".$name."\" class=\"".$class." multiple\" multiple>\r\n";
-	else print  "<input lista=\"".$formatos."\" id=\"drop_area\" type=\"file\" name=\"".$name."\" class=\"".$class." single\" >\r\n"; 
+	if($multiple) print  "<input lista=\"".$formatos."\" id=\"input".$input_id."\" type=\"file\" name=\"".$input_name."\" class=\"".$class." multiple\" multiple>\r\n";
+	else print  "<input lista=\"".$formatos."\" id=\"input".$input_id."\" type=\"file\" name=\"".$input_name."\" class=\"".$class." single\" >\r\n"; 
 	
-	print "<div class=\"progress\">\r\n";
-    print	"<div class=\"bar\"></div >\r\n";
-    print   "<div class=\"percent\">0%</div >\r\n";
+	print "<div id=\"progress".$form_id."\" class=\"progress\">\r\n";
+    print	"<div id=\"bar".$form_id."\" class=\"bar\"></div >\r\n";
+    print   "<div id=\"percent".$form_id."\" class=\"percent\">0%</div >\r\n";
     print   "</div>\r\n";        
 	
 	print "</form>\r\n";

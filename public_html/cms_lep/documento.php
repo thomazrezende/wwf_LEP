@@ -29,7 +29,7 @@ require_once("_tr/up_file_form.php");
 			($dados["publicado"] == "1")?($public = true):($public = false); 
 			
 			mensagem();	 
-			navega(array(array("DOCUMENTOS","documentos.php"), $id." - ".$dados["titulo"] ));  
+			navega(array(array("DOCUMENTOS","documentos.php"), "DOCUMENTO ".$id." _ ".$dados["titulo"] ));  
 
 			form1("altera", "", "php/documento_altera.php?id=".$id, "post"); 
 				
@@ -61,7 +61,7 @@ require_once("_tr/up_file_form.php");
 			hr();
 			
 			titulo("","&darr; INSERIR ARQUIVO",false);
-			up_file_form("_documento", "php/documento_arquivo_up.php?id=".$id, "arquivo", false, true, "all"); 
+			up_file_form("_documento", "arquivo", "php/documento_arquivo_up.php?id=".$id, "arquivo", false, true, "all"); 
 			//up_file_form($action, $name, $multiple, $drop_area, $formatos)
 
 			if( !empty($dados["arquivo"])) { 

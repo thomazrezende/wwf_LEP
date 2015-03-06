@@ -27,7 +27,7 @@ head("PROJETO - ARQUIVOS");
 
 			//SQL 
 			mensagem();	 
-			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." - ".$titulo )); 
+			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." _ ".$titulo )); 
 
 			submenu( $submenu_projeto, 4);
 			

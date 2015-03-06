@@ -11,81 +11,104 @@
 		
        $( document ).ready (function() {  
 	    	
-		function location(msg){ 
-			var loc = window.location.href.split("?");   
-			var gets_out = ""; 
-			if(loc.length > 1){
-				var gets = loc[1].split("&");
-				
-				for(var g=0; g<gets.length; g++){ 
-					if(gets[g].substring(0,3) != "msg"){ 
-						gets_out += gets[g] + "&";
-					}
-				}
-			} 
-			window.location.replace(loc[0] + "?" + gets_out + msg);  
-		}  
-		   
-		 $('.drop_area').change( function(){
-			
-			 // verifica arquivo existente / repetitdo
-			
-		});
-		
-		// bug!!! tem que identificar bar e percent com pos   
-		   
-        var bar = $('.bar');
-        var percent = $('.percent');
-        
-        $('.up_file_form').ajaxForm({
-            beforeSend: function() {
-                var percentVal = '0%';
-                bar.width(percentVal)
-                percent.html(percentVal);
-            },
-            uploadProgress: function(event, position, total, percentComplete) {
-                var percentVal = percentComplete + '%';
-                bar.width(percentVal)
-                percent.html(percentVal);
-				location("msg_ok=ENVIANDO ARQUIVO " + pos + ": " + percentVal );
-            },
-			success: function() {
-				var percentVal = '100%';
-				bar.width(percentVal)
-				percent.html(percentVal);
-			},
-			complete: function() { 
-				location("msg_ok=UPLOAD " + pos + " REALIZADO COM SUCESSO");
-				setTimeout(function(){
-					next_upload();
-					}
-				},2000);
-			}
-		  });  
-		});   
-			
-		// sequential upload
-		
-		function next_upload(){ 
-			if(pos<10){
-				pos++;
+			function location(msg){ 
+				var loc = window.location.href.split("?");   
+				var gets_out = ""; 
+				if(loc.length > 1){
+					var gets = loc[1].split("&");
 
-				prox_arquivo = document.getElementById('arquivo'+pos);
-				prox_form = document.getElementById('form'+pos);
+					for(var g=0; g<gets.length; g++){ 
+						if(gets[g].substring(0,3) != "msg"){ 
+							gets_out += gets[g] + "&";
+						}
+					}
+				} 
+				window.location.replace(loc[0] + "?" + gets_out + msg);  
+			}  
+		   
+		    
+			$('.single').change( function(){ 
+				if( this.value != '') this.style.color = "#8cbf8c";
+				else this.style.color = ""; 
+			}); 
+			
+		   
+			$('.up_file_form').ajaxForm({
+				beforeSend: function() {
+					console.log("beforeSend");
+					percentVal = '0%';
+					bar.width(percentVal)
+					percent.html(percentVal);
+				},
+				uploadProgress: function(event, position, total, percentComplete) {
+					console.log("uploadProgress");
+					percentVal = percentComplete + '%';
+					bar.width(percentVal)
+					percent.html(percentVal);
+				},
+				success: function() {
+					console.log("success");
+					percentVal = '100%';
+					bar.width(percentVal)
+					percent.html(percentVal);
+				},
+				complete: function() { 
+					console.log("complete");
+					setTimeout(function(){
+						next_upload();
+					},2000);
+				},
+				error: function(jqXHR, textStatus, errorThrown) { 
+					console.log("erro: " + textStatus);
+				}   
+			});
+						 
 
-				if(prox_arquivo.val){
-					prox_form.submit();
+			// sequential upload
+
+			var pos = 0; // campo inicial
+			var form;
+			var percentVal
+			var bar;
+			var percent;
+
+			function next_upload(){
+				if(pos<10){
+					pos++;
+					
+					console.log("----------------------");
+					console.log("INICIANDO UPLOAD " + pos);
+
+					bar = $('#bar' + pos);
+					percent = $('#percent' + pos);
+					arquivo = $('#input' + pos);
+					form = $('#form' + pos);
+					
+					console.log("arquivo: " + arquivo.val());
+					
+					if(arquivo.val() != ''){
+						console.log(">>SUBMIT!")
+						form.submit(); 
+					}else{
+						next_upload();
+					}	
 				}else{
-					next_upload();
+					console.log("========================");
+					location("msg_ok=UPLOAD COMPLETO");
+					pos = 0;
 				}	
-			}else{
-				location("msg_ok=UPLOAD COMPLETO");
-			}	
-		}
-			
-		var pos = 0; // campo inicial
-		var prox_arquivo;
-		var prox_form; 
-			
+			} 
+
+			// enviar
+
+			var enviar = $('#enviar');
+			var status = 0; // 0 = parado; 1 = enviando
+
+			$(enviar).click(function() {
+				console.log("START");
+				next_upload();
+			});	
+		   
+		});
 			
 		</script>
