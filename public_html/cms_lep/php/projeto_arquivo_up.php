@@ -10,13 +10,14 @@
 	verif_log(); 
  
 	$id = $_SESSION["id"];
-
-	$arr_nome = explode(".",$_FILES['arquivo']['name']);
+	
+	$file_ext = substr($_FILES['arquivo']['name'], -3);
+	$file_name = substr($_FILES['arquivo']['name'], 0, -4);
 
 	$valores = array(	array("id_projeto",$id), 
 						array("arquivo",$_FILES['arquivo']['name']), 
-						array("nome",$arr_nome[0]),
-					 	array("ext",$arr_nome[1]),
+						array("nome",$file_name),
+					 	array("ext",$file_ext),
 					 	array("tipo",$_FILES['arquivo']['type']),
 					 	array("bites",$_FILES['arquivo']['size'])
 						); 

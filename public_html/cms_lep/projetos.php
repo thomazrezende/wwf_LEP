@@ -42,7 +42,7 @@ require_once("_tr/sortable.php");
 				if($projetos[$i]["publicado"] == "1"){
 			
 					$id = $projetos[$i]["id"];
-					$tb = '';
+					$tb = '_layout/ico_projeto.png';
 					$lb = $projetos[$i]["titulo"];
 					$link = array("php/escolhe_projeto.php?id=".$id."&titulo=".$lb, false);
 					

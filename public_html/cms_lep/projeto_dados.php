@@ -9,7 +9,7 @@ require_once("_menus.php");
 verif_log(); 
 conectar();
 
-head("PROJETO - DADOS");    
+head("PROJETO ".$_SESSION["id"]);    
 require_once("_editor/tiny_mce.php"); 
 ?>
 
