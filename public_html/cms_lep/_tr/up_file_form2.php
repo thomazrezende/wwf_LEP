@@ -116,7 +116,7 @@
 				if(!trava){
 					n_campos ++;
 
-					campo = "<form id='form"+n_campos+"' class='up_file_form' enctype='multipart/form-data' action='php/projeto_arquivo_up.php' method='post'>";
+					campo = "<form id='form"+n_campos+"' class='up_file_form' enctype='multipart/form-data' action='php/projeto_repositorio_up.php' method='post'>";
 					campo += "<input lista='all' id='input"+n_campos+"' type='file' name='arquivo' class='single'>";
 					campo += "<div id='progress"+n_campos+"' class='progress'>";
 					campo += "<div id='bar"+n_campos+"' class='bar'></div>";

@@ -224,10 +224,10 @@ function bt_del( $aviso, $del_path, $rtn ){
 } 
 
 
-
 function clear(){
 	print "<div class=\"clear\"></div>\r\n";	
 } 
+
 
 function bt_fechar( $id, $rtn ){
 	$bt = "<a onclick=\"javascript:fechar('".$id."');\" class=\"btp\">&lt;</a>\r\n";
@@ -501,6 +501,52 @@ function input($id, $cls, $name, $value, $type){
 	$_id = "";
 	if($id) $_id = "id=\"".$id."\""; 
 	print "<input ".$_id." name=\"".$name."\" value=\"".$value."\"  type=\"".$type."\" class=\"".$cls."\"/> \r\n";  
+} 
+
+function colunas($cols){
+	$colunas = "";
+	for($i=0; $i<count($cols); $i++){
+		$colunas .= "<div class='".$cols[$i][0]."'>".$cols[$i][1]."</div>\r\n";
+	}
+	 
+	return $colunas;
+}
+
+function hex2rgb($hex) {
+   $hex = str_replace("#", "", $hex);
+
+   if(strlen($hex) == 3) {
+      $r = hexdec(substr($hex,0,1).substr($hex,0,1));
+      $g = hexdec(substr($hex,1,1).substr($hex,1,1));
+      $b = hexdec(substr($hex,2,1).substr($hex,2,1));
+   } else {
+      $r = hexdec(substr($hex,0,2));
+      $g = hexdec(substr($hex,2,2));
+      $b = hexdec(substr($hex,4,2));
+   }
+   $rgb = array($r, $g, $b);
+   
+   return $rgb;
+}
+
+function rgb2hex($rgb) {
+   $hex = "#";
+   $hex .= str_pad(dechex($rgb[0]), 2, "0", STR_PAD_LEFT);
+   $hex .= str_pad(dechex($rgb[1]), 2, "0", STR_PAD_LEFT);
+   $hex .= str_pad(dechex($rgb[2]), 2, "0", STR_PAD_LEFT);
+
+   return $hex; 
+}
+
+function input_legenda($name, $label, $hex){
+	
+	$legenda = "<div class='legenda'>\r\n";
+	$legenda .= "<div class='legenda_cor' style='background:".$hex."'></div>\r\n";
+	$legenda .= "<input name='".$name."_label' value='".$label."' type='text' class='legenda_label'/> \r\n"; 
+	$legenda .= "<input name='".$name."_hex' value='".$hex."' maxlength='11' type='text' class='legenda_hex'/> \r\n";
+	$legenda .= "</div>\r\n";
+	
+	print $legenda; 
 } 
 
  

@@ -42,13 +42,13 @@ head("LEP - documentos");
 				if($documentos[$i]["publicado"] == "1"){
 					
 					$id = $documentos[$i]["id"];
-					$tb = '';
-					$lb = caps($documentos[$i]["titulo"]);
+					$tb =  '_layout/ico_documento.png';
+					$lb = $id." _ ".caps($documentos[$i]["titulo"])." | ".$documentos[$i]["arquivo"]." | ".$documentos[$i]["link"];
 					$link = array("documento.php?id=".$id, false);
 					
-					$bts = array (	array( "del", "php/documento_remove.php?id=".$id )); 
+					$bts = array( array( "del", "php/documento_remove.php?id=".$id )); 
 				
-					item('item'.$id, $tb, $id." _ ".$lb, $link, $bts, false);
+					item('item'.$id, $tb, $lb, $link, $bts, false);
 				}
 			}
 			
@@ -65,12 +65,12 @@ head("LEP - documentos");
 					
 					$id = $documentos[$i]["id"];
 					$tb = '_layout/ico_documento.png';
-					$lb = caps($documentos[$i]["titulo"]); 
+					$lb = $id." _ ".caps($documentos[$i]["titulo"])." | ".$documentos[$i]["arquivo"]." | ".$documentos[$i]["link"];
 					$link = array("documento.php?id=".$id, false);
 					
 					$bts = array (	array( "del", "php/documento_remove.php?id=".$id )); 
 				
-					item($id, $tb, $id." _ ".$lb, $link, $bts, false);
+					item($id, $tb, $lb, $link, $bts, false);
 				}
 			}  
 			

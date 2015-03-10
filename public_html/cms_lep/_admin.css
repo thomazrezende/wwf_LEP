@@ -314,6 +314,10 @@ hr{
 	padding-top: 12px;
 	position: relative;
 	z-index: 1;
+	max-width: 80%;
+    overflow:hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .item_link {
@@ -334,6 +338,7 @@ hr{
 	position:relative;
 	border-radius:2px;
 	background:#f5f5f5;
+	overflow: hidden;
 }   
 
 /* SORTABLE */
@@ -439,7 +444,7 @@ hr{
 
 .select{
 	width:100%;
-	height:28px;
+	height:35px;
 	border:none;
 	color:#FFF;
 	background-color:#333;
@@ -465,6 +470,60 @@ hr{
 	width:100%;
 	height:100px;
 } 
+
+.legenda{
+	width: 100%;
+	height: 35px;
+	margin-bottom: 3px;
+	display: table;
+}
+
+.legenda_cel{
+	width: 300px;
+}
+
+.legenda input{
+	height: 35px; 
+	padding:10px;
+	border:#fff 1px solid;
+	font-size:12px;
+	background:#f0f0f0;
+} 
+
+.legenda_cor{
+	display: table-cell;
+	background: #f0f0f0;
+	width: 1%;
+	border:#fff 1px solid;
+	
+}
+
+.legenda_label{
+	display: table-cell;
+	width: 80%;
+}
+.legenda_rgb{
+	display: table-cell;
+	width: 8%;
+	text-align: center;	
+}
+.legenda_hex{
+	display: table-cell;
+	width: 19%;
+	text-align: center;	
+}
+
+.legenda_col2{
+	float: right;
+	width: 15%;
+	text-align: center;	
+}
+
+.legenda_col1{
+	float: right;
+	width: 24%;
+	text-align: center;	
+}
  
 
 /* AJUSTE */
