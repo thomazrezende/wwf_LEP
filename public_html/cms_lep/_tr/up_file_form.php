@@ -51,7 +51,7 @@
 			var lista = this.getAttribute("lista").split(","); 
 			var files = this.files;
 			var pass = true;
-			
+			 
 			if(lista[0] != "all"){
 				for(var f=0; f<files.length; f++){
 					if( lista.indexOf(getExtension(files[f]["name"])) == -1 ){
@@ -71,13 +71,6 @@
 		function getExtension(filename) {
 			var parts = filename.split('.');
 			return parts[parts.length - 1].toLowerCase();
-		}
-		
-		function formato(lista){ 
-			var filename = $('').val();
-			//alert(filename); 
-			
-			$('.up_file_form').submit();
 		} 
 		
         var bar = $('.bar');

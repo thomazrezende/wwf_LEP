@@ -31,9 +31,9 @@ require_once("_tr/up_file_form2.php");
 			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." _ ".$titulo )); 
 
 			submenu( $submenu_projeto, 3);  
-			
+			 
 			div1("campos","","", false);
-			up_file_form( 1, 1, "php/projeto_arquivo_up.php", "arquivo", false, false, "all");
+			up_file_form( 1, 1, "php/projeto_repositorio_up.php", "arquivo", false, false, "all");
 			div2();
 
 			btg("bt_add", "bt_add", "+", ""); 
@@ -42,18 +42,18 @@ require_once("_tr/up_file_form2.php");
 
 			titulo('','LISTA DE ARQUIVOS', false); 
 			ul1("itens",false); 
-			$arquivos = sql_select( "arquivos", "*", "id DESC", "id_projeto=".$id, true );
+			$repositorios = sql_select( "repositorios", "*", "id DESC", "id_projeto=".$id, true );
 
-			for($i=0; $i<count($arquivos); $i++){			
+			for($i=0; $i<count($repositorios); $i++){			
 					
-					$id_arquivo = $arquivos[$i]["id"];
-					$tb = '_layout/ico_'.$arquivos[$i]["ext"].".png";
-					$lb = $arquivos[$i]["arquivo"];
-					$link = false;
-					
-					$bts = array (	array( "del", "php/projeto_arquivo_remove.php?id=".$id_arquivo )); 
-				
-					item('item'.$id_arquivo, $tb, $id_arquivo." _ ".$lb, $link, $bts, false);
+				$id_repositorio = $repositorios[$i]["id"];
+				$tb = '_layout/ico_'.$repositorios[$i]["ext"].".png";
+				$lb = $repositorios[$i]["arquivo"];
+				$link = false;
+
+				$bts = array (	array( "del", "php/projeto_repositorio_remove.php?id=".$id_repositorio )); 
+
+				item('item'.$id_repositorio, $tb, $id_repositorio." _ ".$lb, $link, $bts, false);
 				
 			}
 			

@@ -126,7 +126,7 @@ function up_img_fixo($label,$id,$wmax,$hmax,$arqfim,$tipo){
 				case "image/jpeg": $src = imagecreatefromjpeg($nome_temp); break;
 				case "image/gif": $src = imagecreatefromgif($nome_temp); break;
 				case "image/png": $src = imagecreatefrompng($nome_temp); break;
-			}	
+			}
 			
 			//capture original image sizes
 			list($width,$height) = getimagesize($nome_temp);

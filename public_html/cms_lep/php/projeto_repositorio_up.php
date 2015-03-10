@@ -22,7 +22,7 @@
 					 	array("bites",$_FILES['arquivo']['size'])
 						); 
 		 
-	sql_insert("arquivos", $valores);
+	sql_insert("repositorios", $valores);
 
 	copy( $_FILES['arquivo']['tmp_name'], "../../projetos/projeto".$id."/".$_FILES['arquivo']['name']);  
 	
