@@ -11,8 +11,8 @@
 	
 	$id_arquivo = $_GET['id'];
 	
-	sql_delete("arquivos", "id", $id_arquivo, 1);
+	sql_delete("resultados", "id", $id_arquivo, 1);
 	
-	location("../projeto_arquivos.php","msg_ok=ARQUIVO REMOVIDO COM SUCESSO");
+	location("../projeto_resultados.php","msg_ok=ARQUIVO REMOVIDO COM SUCESSO");
 	
 ?>

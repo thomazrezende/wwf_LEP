@@ -41,9 +41,15 @@ head("LEP - documentos");
 			
 				if($documentos[$i]["publicado"] == "1"){
 					
+					$doc = "";
+					if(!empty($documentos[$i]["arquivo"])) $doc = " :: download";
+					
+					$lnk = "";
+					if(!empty($documentos[$i]["link"])) $lnk = " :: link";
+					
 					$id = $documentos[$i]["id"];
 					$tb =  '_layout/ico_documento.png';
-					$lb = $id." _ ".caps($documentos[$i]["titulo"])." | ".$documentos[$i]["arquivo"]." | ".$documentos[$i]["link"];
+					$lb = $id." _ ".caps($documentos[$i]["titulo"]).$doc.$lnk;
 					$link = array("documento.php?id=".$id, false);
 					
 					$bts = array( array( "del", "php/documento_remove.php?id=".$id )); 
@@ -63,9 +69,15 @@ head("LEP - documentos");
 				
 				if($documentos[$i]["publicado"] == "0"){
 					
+					$doc = "";
+					if(!empty($documentos[$i]["arquivo"])) $doc = " :: download";
+					
+					$lnk = "";
+					if(!empty($documentos[$i]["link"])) $lnk = " :: link";
+					
 					$id = $documentos[$i]["id"];
 					$tb = '_layout/ico_documento.png';
-					$lb = $id." _ ".caps($documentos[$i]["titulo"])." | ".$documentos[$i]["arquivo"]." | ".$documentos[$i]["link"];
+					$lb = $id." _ ".caps($documentos[$i]["titulo"]).$doc.$lnk;
 					$link = array("documento.php?id=".$id, false);
 					
 					$bts = array (	array( "del", "php/documento_remove.php?id=".$id )); 

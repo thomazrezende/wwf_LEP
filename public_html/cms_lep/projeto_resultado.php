@@ -39,7 +39,7 @@ require_once("_tr/up_file_form.php");
 
 			form1("altera", "", "php/projeto_resultado_altera.php?id=".$id, "post");  
 			
-				titulo("","NOME_DOS_ARQUIVOS ( sem extens&atilde;o )", false); 
+				titulo("","NOME_DOS_ARQUIVOS (sem espa&ccedil;o &sol; extens&atilde;o)", false); 
 				input("label", "input", "label", $dados["label"] , "text");
 				
 				titulo("","T&Iacute;TULO", false); 

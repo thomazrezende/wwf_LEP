@@ -30,19 +30,18 @@ require_once("_tr/up_file_form2.php");
 			mensagem();	 
 			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." _ ".$titulo )); 
 
-			submenu( $submenu_projeto, 3);  
+			submenu( $submenu_projeto, 2);  
 			 
 			div1("campos","","", false);
 			up_file_form( 1, 1, "php/projeto_repositorio_up.php", "arquivo", false, false, "all");
 			div2();
 
 			btg("bt_add", "bt_add", "+", ""); 
-			btg("enviar", "", "ENVIAR ARQUIVOS", "");			
-			
+			btg("enviar", "", "ENVIAR ARQUIVOS", ""); 
 
-			titulo('','LISTA DE ARQUIVOS', false); 
+			titulo('','REPOSIT&Oacute;RIO', false); 
 			ul1("itens",false); 
-			$repositorios = sql_select( "repositorios", "*", "id DESC", "id_projeto=".$id, true );
+			$repositorios = sql_select( "repositorios", "*", "arquivo", "id_projeto=".$id, true );
 
 			for($i=0; $i<count($repositorios); $i++){			
 					

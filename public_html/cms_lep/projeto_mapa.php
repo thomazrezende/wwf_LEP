@@ -18,7 +18,7 @@ head("PROJETO ".$_SESSION["id"]);
 		
 		#mapa_painel{
 			width:100%;
-			padding-top: 20px;
+			padding-bottom: 20px;
 			background:#f1f1f1;
 			border:#eee 1px solid;
 			margin-top:30px;
@@ -46,7 +46,7 @@ head("PROJETO ".$_SESSION["id"]);
 			background:#f1f1f1;
 			width:100%;
 			height:400px;
-			margin-top:20px;
+			margin-bottom: 20px;
 		}
 		
 		.mr0{margin-right:0;}
@@ -66,15 +66,29 @@ head("PROJETO ".$_SESSION["id"]);
 			
 			//SQL
 			$dados = sql_select("projetos","*","","id=".$id,false);   
+			$resultados = sql_select("resultados","*","id DESC","id_projeto=".$id,true);   
 			
+			$resultados_arr = array();
+			for($r=0; $r<count($resultados); $r++){
+				array_push( $resultados_arr, array( 	$r,
+														$resultados[$r]['titulo'],
+								 				 		$resultados[$r]['titulo_legenda'],
+								 						$resultados[$r]['legenda']));
+			} 
+		
 			mensagem();	 
 			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." _ ".$titulo )); 
-
-			submenu( $submenu_projeto, 2 );
 			
+			submenu( $submenu_projeto, 5 );
+			
+			titulo( "", "CARREGAR RESULTADO", false );
+			select("resultados", "resultados", "", false, $resultados_arr, 0 );
+
 			form1("altera", "", "php/projeto_mapa_altera.php", "post");
 				
 				div1("mapa_painel","","", false);
+
+					div1( "map_canvas", "mapa", "" , true );
 
 					div1( "lat_lb", "mapa_lb", "LAT:", true );
 					input("lat", "input3", "lat", $dados["lat"] , "text"); 
@@ -86,12 +100,11 @@ head("PROJETO ".$_SESSION["id"]);
 					input("zoom", "input3 mr0", "zoom", $dados["zoom"] , "text"); 	
 
 					clear();
-
-					div1( "map_canvas", "mapa", "" , true );
+			
 
 				div2();
 					
-				submit("GRAVAR"); 
+				submit("GRAVAR COORDENADAS"); 
 						
 			form2();
 			
@@ -132,6 +145,9 @@ head("PROJETO ".$_SESSION["id"]);
 			rotateControl: false, 
 			backgroundColor: '#f1f1f1',
 			zoomControl: true,
+			zoomControlOptions: {
+				position: google.maps.ControlPosition.RIGHT_CENTER
+			},
 			scaleControlOptions: {
 				position: google.maps.ControlPosition.BOTTOM_LEFT
 			}

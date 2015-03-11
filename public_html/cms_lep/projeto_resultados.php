@@ -29,13 +29,13 @@ head("PROJETO ".$_SESSION["id"]);
 			mensagem();	 
 			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." _ ".$titulo )); 
 
-			submenu( $submenu_projeto, 5);
+			submenu( $submenu_projeto, 4);
 			
 			$itens = sql_select( "resultados","*","","",true ); 
 
 			form1("novo", "", "php/projeto_resultado_insere.php", "post"); 
 				
-				titulo("mt0","&darr; NOVO RESULTADO (nome_dos_arquivos)",false);
+				titulo("mt0","&darr; NOVO RESULTADO (nome_dos_arquivos : sem espa&ccedil;o &sol; extens&atilde;o)",false);
 				input("label", "input", "label", "", "text");
 				
 				submit("INSERIR");
