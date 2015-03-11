@@ -49,7 +49,7 @@ require_once("_tr/up_repositorio_form.php");
 				
 				$id_repositorio = $repositorios[$i]["id"];
 				$tb = '_layout/ico_'.$repositorios[$i]["ext"].".png";
-				$lb = $repositorios[$i]["arquivo"] . " :: " . ($repositorios[$i]["bites"]/1000) . " Kb";
+				$lb = $repositorios[$i]["arquivo"] . " :: " . round($repositorios[$i]["bites"]/1000, 2) . " Kb";
 				$link = array("../projetos/projeto".$id."/".$repositorios[$i]["arquivo"],"_blank");
 
 				$bts = array (	array( "del", "php/projeto_repositorio_remove.php?id=".$id_repositorio )); 
