@@ -9,11 +9,11 @@
 	conectar();
 	verif_log(); 
 	
-	$dados = array(array("home",$_POST["layout"]));
+	$dados = array(array("layout_home",$_POST["layout"]));
 	
-	sql_update("renata", $dados, ""); 
+	sql_update("dados", $dados, ""); 
 	
-	xml_renata(); 
+	xml_dados(); 
 	
 	location("../projetos.php","msg_ok=LAYOUT ALTERADO COM SUCESSO&pagey=".$_POST["pagey_out"]);
 

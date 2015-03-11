@@ -22,11 +22,7 @@ head("PROJETO ".$_SESSION["id"]);
 			<?php
 
 			$id = $_GET["id"];
-			$id_projeto = $_SESSION["id"];
-			
-			$grupos = array(	array(1,"ALVOS DE CONSERVA&Ccedil;&Atilde;O"),
-								array(2,"CUSTO DE CONSERVA&Ccedil;&Atilde;O"),
-								array(3,"ARQUIVOS DE ENTRADA MARXAN"));
+			$id_projeto = $_SESSION["id"];  
 
 			//SQL
 			$dados = sql_select("arquivos","*","","id=".$id,false);

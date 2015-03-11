@@ -28,11 +28,23 @@
 		    
 			// sequential upload
 		   
+		   var lista = document.getElementById('lista').value.split(","); 
+		  
 		   function funcs(){
 			   $('.single').change( function(){ 
 					if( this.value != '') this.style.color = "#8cbf8c";
-					else this.style.color = ""; 
-				});  
+					else this.style.color = "";  
+				   	
+				  // verifica arquivos existentes
+				  if( lista.indexOf(this.files[0]['name']) >= 0 ){ 
+						var ok = confirm("SUBSTITUIR ARQUIVO " + this.files[0]['name'] + " ?"); 
+						if(!ok){
+							this.style.color = "";
+							this.value = ''; 
+						} 
+					}
+				   
+			   });  
 
 				$('.up_file_form').ajaxForm({
 					beforeSend: function() {
@@ -61,8 +73,9 @@
 					},
 					error: function(jqXHR, textStatus, errorThrown) { 
 						console.log("erro: " + textStatus);
-					}   
+					} 
 				});
+			    
 		   }
 			
 		   //a atribui funcoes ao form1

@@ -10,7 +10,7 @@ verif_log();
 conectar();
 
 head("PROJETO ".$_SESSION["id"]);  
-require_once("_tr/up_file_form2.php");  
+require_once("_tr/up_repositorio_form.php");  
 ?>
 
 <body>
@@ -21,7 +21,7 @@ require_once("_tr/up_file_form2.php");
       	<div id="dados">
 			
 			<?php
- 
+ 	
 			//dados 
 			$id = $_SESSION["id"];
 			$titulo = $_SESSION["titulo"];
@@ -37,27 +37,32 @@ require_once("_tr/up_file_form2.php");
 			div2();
 
 			btg("bt_add", "bt_add", "+", ""); 
-			btg("enviar", "", "ENVIAR ARQUIVOS", ""); 
+			btg("enviar", "", "ENVIAR ARQUIVOS", "");   
 
 			titulo('','REPOSIT&Oacute;RIO', false); 
 			ul1("itens",false); 
 			$repositorios = sql_select( "repositorios", "*", "arquivo", "id_projeto=".$id, true );
+			
+			$lista = "";
 
 			for($i=0; $i<count($repositorios); $i++){			
-					
+				
 				$id_repositorio = $repositorios[$i]["id"];
 				$tb = '_layout/ico_'.$repositorios[$i]["ext"].".png";
-				$lb = $repositorios[$i]["arquivo"];
-				$link = false;
+				$lb = $repositorios[$i]["arquivo"] . " :: " . ($repositorios[$i]["bites"]/1000) . " Kb";
+				$link = array("../projetos/projeto".$id."/".$repositorios[$i]["arquivo"],"_blank");
 
 				$bts = array (	array( "del", "php/projeto_repositorio_remove.php?id=".$id_repositorio )); 
 
 				item('item'.$id_repositorio, $tb, $id_repositorio." _ ".$lb, $link, $bts, false);
 				
+				$lista .= $repositorios[$i]["arquivo"];
+				if( $i<count($repositorios)-1 ) $lista .= ",";
 			}
 			
-			ul2();
-			
+			ul2(); 
+	
+			input("lista", "text", "lista", $lista, "hidden"); 
 
 			?>
 			

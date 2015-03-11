@@ -10,7 +10,7 @@ verif_log();
 conectar();
 
 head("LEP - projetos"); 
-require_once("_tr/sortable.php");   
+require_once("_tr/sortable_auto.php");   
 ?>
 <body>   
 	
@@ -77,9 +77,9 @@ require_once("_tr/sortable.php");
 
 			$dados = sql_select("dados","layout_home","","",false); 
 			form1("layout_altera", "layout_altera", "php/home_layout_altera.php","POST");  
-			input("layout", "input", "layout", $dados["layout_home"], "hidden"); 	
+			input("layout", "input", "layout", $dados["layout_home"], "hidden");  
+			input("pagey_out", "input", "pagey_out", "", "hidden");  
 			form2();  
-			
 			?>
         
 			
