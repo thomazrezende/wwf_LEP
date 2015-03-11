@@ -404,13 +404,13 @@ function submenu($submenu_arr, $submenu_ativo){
 	
 	if(!empty($submenu_arr)){
 		
-		print "<ul class=\"submenu_ul\">";
+		print "<div class=\"submenu_ul\">";
 		
 		for($i=0; $i<count($submenu_arr); $i++){
 			($submenu_ativo==$i+1) ? (submenu_li($submenu_arr[$i][0],"",true) ) : (submenu_li($submenu_arr[$i][0],$submenu_arr[$i][1],false));
 		} 
 			
-		print "</ul>\r\n"; 
+		print "</div>\r\n"; 
 	
 	}else{
 		print "<div class=\"submenu_fake\"></div>\r\n";  

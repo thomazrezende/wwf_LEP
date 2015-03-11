@@ -42,82 +42,30 @@ head("PROJETO ".$_SESSION["id"]);
 			
 			form2();
 			
-			titulo("","N&Atilde;O PUBLICADOS", false); 
-			ul1("itens2",false);
-			
-			for($i=0; $i<count($itens); $i++){
-			
-				if($itens[$i]["grupo"] == "0"){
-					
-					$id = $itens[$i]["id"];
-					$tb = '';
-					$lb = $itens[$i]["label"];
-					$link = array("projeto_arquivo.php?id=".$id, false);
-					
-					$bts = array (	array( "del", "php/projeto_arquivo_remove.php?id=".$id )); 
+			for($a=0; $a<count($grupos); $a++){ 
 				
-					item('item'.$id, $tb, $id." _ ".$lb, $link, $bts, false);
-				}
-			} 
-			ul2();
+				titulo("", $grupos[$a][1], false); 
+				ul1("itens".$a,false);
 
-			titulo("","ALVOS DE CONSERVA&Ccedil;&Atilde;O",false); 
-			ul1("itens1",false);
-			
-			for($i=0; $i<count($itens); $i++){
-			
-				if($itens[$i]["grupo"] == "1"){
-					
-					$id = $itens[$i]["id"];
-					$tb = '';
-					$lb = $itens[$i]["label"];
-					$link = array("projeto_arquivo.php?id=".$id, false);
-					
-					$bts = array (	array( "del", "php/projeto_arquivo_remove.php?id=".$id )); 
-				
-					item('item'.$id, $tb, $id." _ ".$lb, $link, $bts, false);
-				}
-			} 
-			ul2();
-			
-			titulo("","CUSTO DE CONSERVA&Ccedil;&Atilde;O",false); 
-			ul1("itens2",false);
-			
-			for($i=0; $i<count($itens); $i++){
-			
-				if($itens[$i]["grupo"] == "2"){
-					
-					$id = $itens[$i]["id"];
-					$tb = '';
-					$lb = $itens[$i]["label"];
-					$link = array("projeto_arquivo.php?id=".$id, false);
-					
-					$bts = array (	array( "del", "php/projeto_arquivo_remove.php?id=".$id )); 
-				
-					item('item'.$id, $tb, $id." _ ".$lb, $link, $bts, false);
-				}
-			} 
-			ul2();
-			
-			titulo("","ARQUIVOS DE ENTRADA MARXAN",false); 
-			ul1("itens3",false);
-			
-			for($i=0; $i<count($itens); $i++){
-			
-				if($itens[$i]["grupo"] == "3"){
-					
-					$id = $itens[$i]["id"];
-					$tb = '';
-					$lb = $itens[$i]["label"];
-					$link = array("projeto_arquivo.php?id=".$id, false);
-					
-					$bts = array (	array( "del", "php/projeto_arquivo_remove.php?id=".$id )); 
-				
-					item('item'.$id, $tb, $id." _ ".$lb, $link, $bts, false);
-				}
-			} 
-			ul2();
+				for($i=0; $i<count($itens); $i++){
 
+					if($itens[$i]["grupo"] == $a){
+							
+						$id = $itens[$i]["id"];
+						$tb = '';
+						$lb = $itens[$i]["label"];
+						$link = array("projeto_arquivo.php?id=".$id, false);
+
+						$bts = array (	array( "del", "php/projeto_arquivo_remove.php?id=".$id )); 
+
+						item('item'.$id, $tb, $id." _ ".$lb, $link, $bts, false);
+					}
+				} 
+				
+				ul2();
+				
+			}	
+ 
 			?>
         
         </div> <!--dados-->  

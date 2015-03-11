@@ -48,7 +48,7 @@ require_once("_tr/up_file_form2.php");
 				$id_repositorio = $repositorios[$i]["id"];
 				$tb = '_layout/ico_'.$repositorios[$i]["ext"].".png";
 				$lb = $repositorios[$i]["arquivo"];
-				$link = false;
+				$link = array("../projetos/projeto".$id."/".$repositorios[$i]["arquivo"],"_blank");
 
 				$bts = array (	array( "del", "php/projeto_repositorio_remove.php?id=".$id_repositorio )); 
 
