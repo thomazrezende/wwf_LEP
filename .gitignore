@@ -4,3 +4,4 @@ _control/host.txt
 public_html/xml
 public_html/projetos
 public/html/documentos
+*.xml
