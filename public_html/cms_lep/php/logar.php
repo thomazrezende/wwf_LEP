@@ -23,7 +23,7 @@ require_once("../_tr/mysql.php");
 			sessao_local( array(array("logado",md5("acesso_ok_90432498"))),true ); 
 			
 			sessao_lg("pt");
-			location("../lep_dados.php","msg_ok=BEM VINDO(A)!");
+			location("../lep_dados.php","msg_ok=BEM VIND@!");
 		} 
 	}
 
