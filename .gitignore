@@ -17,3 +17,5 @@ public_html/xml/projetos.xml
 *.pdf
 
 *.jpg
+
+*.sql
