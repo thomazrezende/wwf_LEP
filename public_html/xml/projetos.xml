@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <projetos>
 	<projeto>
-		<id>7</id>
+		<id>8</id>
 		<publicado>1</publicado>
-		<titulo><![CDATA[asdad]]></titulo>
+		<titulo><![CDATA[Cavalinho]]></titulo>
 		<lat><![CDATA[-16.5]]></lat>
 		<lng><![CDATA[-58.9]]></lng>
 		<zoom><![CDATA[3]]></zoom>
 		<resumo><![CDATA[]]></resumo>
 	</projeto>
 	<projeto>
+		<id>7</id>
+		<publicado>1</publicado>
+		<titulo><![CDATA[asdad]]></titulo>
+		<lat><![CDATA[-10.5209]]></lat>
+		<lng><![CDATA[-51.693]]></lng>
+		<zoom><![CDATA[4]]></zoom>
+		<resumo><![CDATA[]]></resumo>
+	</projeto>
+	<projeto>
 		<id>6</id>
 		<publicado>1</publicado>
 		<titulo><![CDATA[a6]]></titulo>
-		<lat><![CDATA[-11.4269]]></lat>
-		<lng><![CDATA[-50.2867]]></lng>
+		<lat><![CDATA[-8.65778]]></lat>
+		<lng><![CDATA[-56.0875]]></lng>
 		<zoom><![CDATA[5]]></zoom>
 		<resumo><![CDATA[asdasdasd]]></resumo>
 	</projeto>

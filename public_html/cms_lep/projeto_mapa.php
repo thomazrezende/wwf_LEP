@@ -22,6 +22,44 @@ head("PROJETO ".$_SESSION["id"]);
 			background:#f1f1f1;
 			border:#eee 1px solid;
 			margin-top:30px;
+			position:relative;
+		}
+		
+		#map_legenda{
+			width:200px;
+			position:absolute;
+			top:10px;
+			left:10px;
+			background-color:rgba(51,51,51,.8);
+			z-index:3;
+			display:none;
+			color:#fff;
+			padding:10px;
+		}
+		
+		.legenda_titulo{
+			font-size:12px;
+			font-weight:bold;
+			margin-bottom:10px;
+			line-height:16px;
+		}
+		
+		.legenda_cor{ 
+			width:20px;
+			height:20px;
+			display: inline-block;
+			margin-right:10px;
+		}
+		
+		.legenda_lb{
+			font-size:12px;
+			position:relative;
+			bottom:3px;
+			width:150px;
+			text-overflow:clip;
+			white-space:nowrap;
+			display: inline-block;
+			overflow:hidden;
 		}
 		
 		.mapa_lb{
@@ -69,12 +107,19 @@ head("PROJETO ".$_SESSION["id"]);
 			$resultados = sql_select("resultados","*","id DESC","id_projeto=".$id,true);   
 			
 			$resultados_arr = array();
+			$legendas = "";
+			$kmzs = "";
 			for($r=0; $r<count($resultados); $r++){
 				array_push( $resultados_arr, array( 	$r,
-														$resultados[$r]['titulo'],
-								 				 		$resultados[$r]['titulo_legenda'],
-								 						$resultados[$r]['legenda']));
+														$resultados[$r]['titulo']));
+				
+				// guarda dados de legendas para repassar ao js
+				$legendas .= $resultados[$r]['titulo_legenda'] . "|" . $resultados[$r]['legenda'] . "|";  
+				$kmzs .= $resultados[$r]['label'] . ".kmz,";			
+				
 			} 
+
+			$kmzs .= $id; // guarda id_projeto para js
 		
 			mensagem();	 
 			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." _ ".$titulo )); 
@@ -82,11 +127,18 @@ head("PROJETO ".$_SESSION["id"]);
 			submenu( $submenu_projeto, 5 );
 			
 			titulo( "", "CARREGAR RESULTADO", false );
-			select("resultados", "resultados", "", false, $resultados_arr, 0 );
-
+			select( "resultados", "resultados", "", false, $resultados_arr, 0 );
+			
+			// dados legendas para js
+			input("legendas", "", "legendas", $legendas , "hidden");   
+			input("kmzs", "", "kmzs", $kmzs , "hidden"); 
+			
+			
 			form1("altera", "", "php/projeto_mapa_altera.php", "post");
 				
 				div1("mapa_painel","","", false);
+					
+					div1( "map_legenda", "", "" , true );
 
 					div1( "map_canvas", "mapa", "" , true );
 
@@ -100,7 +152,6 @@ head("PROJETO ".$_SESSION["id"]);
 					input("zoom", "input3 mr0", "zoom", $dados["zoom"] , "text"); 	
 
 					clear();
-			
 
 				div2();
 					
@@ -165,8 +216,81 @@ head("PROJETO ".$_SESSION["id"]);
 		google.maps.event.addListener(map,'zoom_changed', function ()  { 
 			zoom_at = map.getZoom();
 			zoom.value = zoom_at;
-		});  
+		});
 		
+		// kmzs
+		
+		var kmzs = document.getElementById('kmzs').value.split(','); 
+		var layer;
+		var layers = [];
+		var id_projeto = kmzs[kmzs.length-1];
+		
+		for(var k=0; k<kmzs.length-1; k++){ 
+			
+			layer = new google.maps.KmlLayer({ 
+				suppressInfoWindows: true,
+				preserveViewport: true, 
+				url: "../projetos/projeto" + id_projeto + "/" + kmzs[k],
+				zIndex:1,
+				map: map
+			});   
+			
+			layers.push(layer);
+						
+		}
+		
+		// select
+		
+		var resultados = document.getElementById('resultados');
+		var map_legenda = document.getElementById('map_legenda');
+				
+		var legendas = document.getElementById('legendas').value.split('||');  
+		
+		for(var i in legendas){
+			legendas[i] = legendas[i].split('|');
+			for(var a in legendas[i]){
+				legendas[i][a] = legendas[i][a].split(',');
+			}
+		}
+		
+		resultados.onchange = function(){ 
+			if( this.selectedIndex-1 > -1 ){
+				$(map_legenda).show();
+				fazer_legenda(legendas[this.selectedIndex-1]); 
+				
+				for(var i in layers){
+					if(i==this.selectedIndex-1){
+						layers[i].setMap(map);
+						console.log(layers[i]);
+					}else{						
+						layers[i].setMap(null);
+					}
+				}
+				
+			}else{
+				$(map_legenda).hide();
+			}			
+		}
+		
+		var tag;
+		
+		function fazer_legenda(arr){
+			
+			map_legenda.innerHTML = '';
+			
+			for(var i in arr){
+				tag = document.createElement('div');
+				if(i==0){
+					tag.className = 'legenda_titulo';
+					tag.innerHTML = arr[i];	
+				}else{
+					tag.innerHTML = "<span class='legenda_cor' style='background:" + arr[i][1] + "'></span>";
+					tag.innerHTML += "<span class='legenda_lb'>" + arr[i][0] + "</span>";
+				}
+				
+				map_legenda.appendChild(tag);
+			}
+		}		
 	}
 		
 	</script>
