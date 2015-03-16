@@ -4,7 +4,8 @@
 		$menu_arr = array(		array("LEP","lep_dados.php"),
 								array("PROJETOS","projetos.php"),
 								array("DOCUMENTOS","documentos.php"),
-								array("LINKS","links.php")); 
+								array("LINKS","links.php"),
+						 		array("BANNERS","banners.php")); 
 		
 		$lg_arr = array( );
 		
