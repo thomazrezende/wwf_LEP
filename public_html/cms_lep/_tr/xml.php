@@ -79,6 +79,12 @@ function xml_dados(){
 	xml($arquivo, "dados", "", "dados", $colunas, "",false);
 } 
 
+function xml_banners(){
+	$arquivo="../../xml/banners.xml";
+	$colunas=array("id","credito");
+	xml($arquivo, "banners", "banner", "banners", $colunas, "",false);
+}
+
 function xml_projetos(){
 	$arquivo="../../xml/projetos.xml";
 	$colunas=array("id","publicado","titulo","lat","lng","zoom","resumo");

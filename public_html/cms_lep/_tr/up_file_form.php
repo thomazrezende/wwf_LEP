@@ -7,11 +7,9 @@
 			padding:10px;
 			width:100%;
 			height:130px;
-			border:#ddd 1px solid;
 			background-repeat:no-repeat;
 			background-position:center;
-			border-radius:3px;
-			background-color:#c1dbd0;
+			background-color:#f0f0f0;
 		} 
 		.multiple{		
 			background-image:url(_layout/drop_area_m.png);

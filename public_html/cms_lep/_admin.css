@@ -269,7 +269,15 @@ hr{
 .checkbox{margin-bottom:5px; }
 .checkbox svg{position:relative; top:8px} 
 
- 
+.banner{
+	width: 100%;
+	position: relative;
+	margin-top: 30px;
+}
+
+.banner img {width: 100%; }
+.banner a{ position: absolute; top: 10px; right: 10px; }
+
 .input{
 	width:100%;
 	padding:10px;
