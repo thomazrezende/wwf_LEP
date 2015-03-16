@@ -26,7 +26,7 @@ require_once("_tr/up_file_form.php");
 			$dados = sql_select("banners","*","id DESC","",true); 
 
 			mensagem();	  
-			navega(array("BANNERS")); Zxass
+			navega(array("BANNERS")); 
 			
 			titulo("","&darr; INSERIR IMAGENS ( 900x300 jpg, gif, png )",false);
 			up_file_form("_banners", "", "php/banners_up.php", "imagens[]", true, true, "jpg,jpeg,gif,png,bmp"); 
