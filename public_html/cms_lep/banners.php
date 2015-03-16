@@ -26,24 +26,34 @@ require_once("_tr/up_file_form.php");
 			$dados = sql_select("banners","*","id DESC","",true); 
 
 			mensagem();	  
-			navega(array("BANNERS")); Zxass
+			navega(array("BANNERS")); 
 			
 			titulo("","&darr; INSERIR IMAGENS ( 900x300 jpg, gif, png )",false);
 			up_file_form("_banners", "", "php/banners_up.php", "imagens[]", true, true, "jpg,jpeg,gif,png,bmp"); 
  
 			hr();
-				   
+			
+			$ids = array();
+
 			form1("altera", "", "php/banners_altera.php", "post");  
 			
 				for($i=0; $i<count($dados); $i++){
 					
-					img("","mt20","../banners/banner".$dados[$i]['id'].".jpg",false);
-					//img( $id, $cls, $src, $rtn )					
+					$id = $dados[$i]['id'];
 					
-					input("label", "input", "label", $dados[$i]["credito"] , "text");
+					array_push($ids, $id);
+					
+					div1("b".$id, "banner","",false);
+					
+					img("","","../banners/banner".$dados[$i]['id'].".jpg",false);
+					bt_del("banner".$id,"php/banner_remove.php?id=".$id, false);
+					
+					input("credito", "input", "credito".$id, $dados[$i]["credito"] , "text");
 					
 				} 
 				 
+				input("ids", "input", "ids", implode(',',$ids), "hidden");
+
 				submit("GRAVAR CR&Eacute;DITOS"); 
 				
 			form2(); 	   
