@@ -4,18 +4,13 @@ _control/host.txt
 public_html/xml
 public_html/projetos
 public/html/documentos
-<<<<<<< HEAD
 *.xml
-
-public_html/xml/projetos.xml
-=======
-*.xml
->>>>>>> for-grupos-de-arquivos
-
-*.xml
-
 *.pdf
-
 *.jpg
-
 *.sql
+*.pdf
+*.kmz
+*.kml
+*.shp
+*.zip
+*.txt
