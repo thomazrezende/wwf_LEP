@@ -9,7 +9,7 @@ require_once("../_domain.php");
 
 conectar(); 
 	
-	$dados = sql_select("lep", "*", "", "", false); 
+	$dados = sql_select("dados", "*", "", "", false); 
 	$to_email = $dados["email"];  
 
 	$token_date = $_SERVER["REQUEST_TIME"];
@@ -20,12 +20,12 @@ conectar();
 		array("token_date",$token_date)
 	);
 
-	$ok = sql_update("lep", $valores , "");
+	$ok = sql_update("dados", $valores , "");
 
 	// email
 
 	function gerar_link($d,$c,$t){ 
-		return "http://www.".$d."/".$c."/php/redefinir_senha_action.php?token=".$t;
+		return "http://.".$d."/".$c."/php/redefinir_senha_action.php?token=".$t;
 	}
 	
 	

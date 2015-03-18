@@ -31,7 +31,7 @@ head("PROJETO ".$_SESSION["id"]);
 
 			submenu( $submenu_projeto, 4);
 			
-			$itens = sql_select( "resultados","*","","",true ); 
+			$itens = sql_select( "resultados","*","","id_projeto='".$id."'",true ); 
 
 			form1("novo", "", "php/projeto_resultado_insere.php", "post"); 
 				

@@ -73,7 +73,7 @@ require_once("_tr/up_file_form.php");
 
 			hr();
 			
-			titulo("","&darr; INSERIR IMAGEM (jpg, gif, png)",false);
+			titulo("","&darr; INSERIR IMAGEM (300x300px jpg, gif, png)",false);
 			up_file_form("_resultado", "", "php/projeto_resultado_img_up.php?id=".$id, "imagem", false, true, "jpg,jpeg,gif,png,bmp"); 
 
 			if( file_exists("../projetos/projeto".$id_projeto."/tb".$id.".jpg")) {  

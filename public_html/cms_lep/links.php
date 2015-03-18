@@ -30,7 +30,7 @@ $dados = sql_select("dados", "links", "", "", false);
 
 				form1("altera", "", "php/links_altera.php", "post");  
 					
-					text("links", 'text', "links", $dados["links"], true);   
+					text("links", 'text h300', "links", $dados["links"], true);   
 					
 					submit("GRAVAR"); 
 				

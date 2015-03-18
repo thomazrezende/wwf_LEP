@@ -28,8 +28,7 @@
 			}
 		}
 		
-		$valores = array( 	array("nome","FOII"),
-							array("bites",$_FILES['arquivo']['size'])); 
+		$valores = array( array("bites",$_FILES['arquivo']['size'])); 
 		
 		sql_update("repositorios", $valores, "id='".$id_arquivo."'");
 		
@@ -44,9 +43,11 @@
 							); 
 		
 		sql_insert("repositorios", $valores);
-	}     
-    
-	copy( $_FILES['arquivo']['tmp_name'], "../../projetos/projeto".$id."/".$_FILES['arquivo']['name']);  
+	}      
+
+	$ok = move_uploaded_file( $_FILES['arquivo']['tmp_name'], "../../projetos/projeto".$id."/".$_FILES['arquivo']['name']);  
 	
+	
+
 	
 ?>

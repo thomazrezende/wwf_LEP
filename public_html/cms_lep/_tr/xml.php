@@ -1,8 +1,5 @@
 <?php 
-/* 
-TRCOM
-XML V 1.0 
-*/ 
+/* TRCOM */ 
 
 function chama_colunas($colunas){
 	 

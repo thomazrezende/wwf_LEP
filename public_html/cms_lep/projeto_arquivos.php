@@ -31,7 +31,7 @@ head("PROJETO ".$_SESSION["id"]);
 
 			submenu( $submenu_projeto, 3);
 			
-			$itens = sql_select( "arquivos","*","","",true ); 
+			$itens = sql_select( "arquivos","*","","id_projeto='".$id."'",true ); 
 
 			form1("novo", "", "php/projeto_arquivo_insere.php", "post"); 
 				

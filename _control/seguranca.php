@@ -1,15 +1,11 @@
 <?php
 
-	//ERRORS
-	/*
-	ini_set('error_reporting', FALSE);
-    ini_set('show_errors', FALSE);
-    ini_set('display_errors', FALSE);
-    ini_set('log_errors', FALSE);
-	*/
+	//INISET
  	ini_set('error_reporting', E_ALL);
     ini_set('show_errors', true);
     ini_set('display_errors', true);
+	ini_set("upload_max_filesize", "200M");
+	ini_set("post_max_size", "200M");
  
 function sessao(){
 	if(!isset($_SESSION)){

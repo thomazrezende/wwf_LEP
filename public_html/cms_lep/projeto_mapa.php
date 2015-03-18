@@ -111,7 +111,7 @@ head("PROJETO ".$_SESSION["id"]);
 			$kmzs = "";
 			for($r=0; $r<count($resultados); $r++){
 				array_push( $resultados_arr, array( 	$r,
-														$resultados[$r]['titulo']));
+														$resultados[$r]['label']));
 				
 				// guarda dados de legendas para repassar ao js
 				$legendas .= $resultados[$r]['titulo_legenda'] . "|" . $resultados[$r]['legenda'] . "|";  
@@ -230,9 +230,9 @@ head("PROJETO ".$_SESSION["id"]);
 			layer = new google.maps.KmlLayer({ 
 				suppressInfoWindows: true,
 				preserveViewport: true, 
-				url: "../projetos/projeto" + id_projeto + "/" + kmzs[k],
+				url: "http://paisagem.wwf.org.br/projetos/projeto" + id_projeto + "/" + kmzs[k],
 				zIndex:1,
-				map: map
+				map: null
 			});   
 			
 			layers.push(layer);
@@ -256,12 +256,11 @@ head("PROJETO ".$_SESSION["id"]);
 		resultados.onchange = function(){ 
 			if( this.selectedIndex-1 > -1 ){
 				$(map_legenda).show();
-				fazer_legenda(legendas[this.selectedIndex-1]); 
+				fazer_legenda(legendas[this.selectedIndex-1]);  
 				
 				for(var i in layers){
 					if(i==this.selectedIndex-1){
 						layers[i].setMap(map);
-						console.log(layers[i]);
 					}else{						
 						layers[i].setMap(null);
 					}

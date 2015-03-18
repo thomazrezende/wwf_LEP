@@ -28,7 +28,7 @@ require_once("_tr/up_file_form.php");
 			mensagem();	  
 			navega(array("BANNERS")); 
 			
-			titulo("","&darr; INSERIR IMAGENS ( 900x300 jpg, gif, png )",false);
+			titulo("mt0","&darr; INSERIR IMAGENS ( 900x300 jpg, gif, png )",false);
 			up_file_form("_banners", "", "php/banners_up.php", "imagens[]", true, true, "jpg,jpeg,gif,png,bmp"); 
  
 			hr();

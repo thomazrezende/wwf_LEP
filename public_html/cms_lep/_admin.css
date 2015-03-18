@@ -99,6 +99,10 @@ hr{
 	margin-left:280px
 } 
 
+#links{
+	 height: 500px;
+}
+
 .btg_voltar{	
 	font-weight:bold;
 	border-radius:3px;
@@ -441,11 +445,12 @@ hr{
 
 #topo{
 	width:100%;
-	padding:15px;
+	padding:20px 15px;
 	position:relative;
 	color: #333;
-	font-size: 16px;
+	font-size: 14px;
 	text-align: center;
+	font-weight: bold
 }
 
 .select{
@@ -544,4 +549,4 @@ hr{
 .fr{float:right}
 .clear{clear:both;}
 #cinza{color: #ccc}
-.mt5{margin-top: 5px;}
+.mt5{margin-top: 5px;} 

@@ -335,7 +335,7 @@ function menu($menu_arr, $lg_arr, $logo_src, $menu_ativo, $mostrar){
 
 	print "<div id=\"menu\">\r\n";
 	print "<div id=\"logo\">\r\n";
-	print "<a href=\"http://www.################\" target=\"_blank\"><img class=\"menu_logo\" src=\"".$logo_src."\"/></a>\r\n";	
+	print "<a href=\"http://paisagem.wwf.org.br/cms_lep/lep_dados.php\"><img class=\"menu_logo\" src=\"".$logo_src."\"/></a>\r\n";	
 	print "</div>\r\n";
 	
 	if($mostrar){
@@ -367,7 +367,7 @@ function menu($menu_arr, $lg_arr, $logo_src, $menu_ativo, $mostrar){
 	print "<ul class=\"menu_ul\">";
 	
 		menu_li("&laquo; SAIR","php/logar.php?sessao=false",false,false);
-		menu_li("VIZUALIZAR &rarr;","http://www.################",false,true);
+		menu_li("VIZUALIZAR &rarr;","http://paisagem.wwf.org.br/",false,true);
 		
 	print "</ul>\r\n"; 
 	
