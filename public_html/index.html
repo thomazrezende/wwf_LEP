@@ -1,55 +1,134 @@
 <!doctype html>
 <html>
-<head> 
-	
-	<meta charset="UTF-8">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<head> 
 
-	<title>WWF :: LEP PSC</title>
-	
-	<meta name="title" content="WWF :: LEP PSC" />
-	<meta name="description" content="WWF LEP :: LABORATÓRIO DE ECOLOGIA DA PAISAGEM - PLANEJAMENTO SISTEMATICO DE CONSERVAÇÃO" />
-	<meta name="google-site-verification" content="############################################################" />
-	<meta name="Author" lang="pt" content="Thomaz Rezende" />
-	<meta name="Date-Creation-yyyymmdd" content="2014-11-10" lang="pt" />
-	<meta name="Keywords" lang="pt" content="############################################################" />
-	<meta name="revisit-after" content="7 Days" />
-	<meta name="copyright" content="WWF BRASIL" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
-	
-	<meta property="og:title" content="WWF :: LEP PSC">
-	<meta property="og:url" content="http://##################"> 	
-	<meta property="og:description" content="####################">
-	<meta property="og:image" content="####################"/>
-	<meta property="og:image:secure_url" content="####################"/>
-	<meta property="og:image:type" content="image/jpg">
-	<meta property="og:image:width" content="300">
-	<meta property="og:image:height" content="300">
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 
-	<link rel="shortcut icon" href="_layout/fav_icon.png" type="ico" />
-	<link rel="image_src" href="####################" />   
-	
-	<script type="text/javascript" src="_tools/jquery-2.0.2.min.js"></script>
-	<script type="text/javascript" src="_tools/jquery.easing.js"></script>
-	<script type="text/javascript" src="_tools/jquery.scrollTo-min.js"></script> 
-	<script type="text/javascript" src="wwf_lep.js" charset="UTF-8"></script> 
-	
-    <link rel="stylesheet" type="text/css" href="_tools/reset.css"> 
-    <link rel="stylesheet" type="text/css" href="wwf_lep.css"> 
-	
-</head> 
-<body>
-	
-	<header>
-	
-		<img src="_layout/logo_wwf.png" id="logo_wwf"/>
-		<img src="_layout/logo_lep.png" id="logo_lep"/>
-		
-		<div id="contato">
+		<title>WWF :: LEP PSC : PROJETOS</title>
+
+		<meta name="title" content="WWF :: LEP PSC" />
+		<meta name="description" content="WWF LEP :: LABORATÓRIO DE ECOLOGIA DA PAISAGEM - PLANEJAMENTO SISTEMATICO DE CONSERVAÇÃO" />
+		<meta name="google-site-verification" content="############################################################" />
+		<meta name="Author" lang="pt" content="Thomaz Rezende" />
+		<meta name="Date-Creation-yyyymmdd" content="2014-11-10" lang="pt" />
+		<meta name="Keywords" lang="pt" content="############################################################" />
+		<meta name="revisit-after" content="7 Days" />
+		<meta name="copyright" content="WWF BRASIL" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+
+		<meta property="og:title" content="WWF :: LEP PSC">
+		<meta property="og:url" content="http://##################"> 	
+		<meta property="og:description" content="####################">
+		<meta property="og:image" content="####################"/>
+		<meta property="og:image:secure_url" content="####################"/>
+		<meta property="og:image:type" content="image/jpg">
+		<meta property="og:image:width" content="300">
+		<meta property="og:image:height" content="300">
+
+		<link rel="shortcut icon" href="_layout/fav_icon.png" type="ico" />
+		<link rel="image_src" href="####################" />   
+
+		<script type="text/javascript" src="_tools/jquery-2.0.2.min.js"></script>
+		<script type="text/javascript" src="_tools/jquery.easing.js"></script>
+		<script type="text/javascript" src="_tools/jquery.scrollTo-min.js"></script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.3&sensor=false"></script>
+		<script type="text/javascript" src="wwf_lep.js" charset="UTF-8"></script> 
+
+		<link rel="stylesheet" type="text/css" href="_tools/reset.css"> 
+		<link rel="stylesheet" type="text/css" href="wwf_lep.css"> 
+
+	</head> 
+	<body>
+
+		<header class="container">
+
+			<a href="http://wwf.org.br" target="_blank">
+			   <img src="_layout/logo_wwf.png" id="logo_wwf"/>
+			</a>
+			<img src="_layout/logo_lep.png" id="logo_lep"/>
+
+			<ul id="contato">
+				<li class="contato_bt"><img src="_layout/icon_fbook.png"/></li>
+				<li class="contato_bt"><img src="_layout/icon_twitter.png"/></li>
+				<li class="contato_bt"><img src="_layout/icon_email.png"/></li>
+			</ul>
+
+			<div id="banner">
+				<div id="banner_psc"></div>
+			</div>
 			
-		</div>
+			<div id="menu">
+				<ul id="menu_bts">
+					<li id="menu1" class="menu_bt select">PPROJETOS</li>
+					<li id="menu2" class="menu_bt">SOBRE</li>
+					<li id="menu3" class="menu_bt">DOCUMENTOS</li>
+					<li id="menu4" class="menu_bt">LINKS</li>
+					<li id="menu5" class="menu_bt">CONTATO</li> 
+				</ul>
+			</div>
+
+		</header>
+
+		<section class="container">
+
+			<ul id="projetos">
+
+				<li id="projeto1" class="projeto">
+					<div class="projeto_bts">
+						<div class="titulo mapa_bt">Áreas Prioritárias para conservação no cerrado e Pantanal</div> 
+						<div class="resultados mapa_bt">ÁREAS PRIORITÁRIAS PARA CONSERVAÇÃO</div> 
+
+						<div class="bt zoom_in"></div>
+						<div class="bt zoom_out"></div>
+
+						<div class="resumo">Lorem ipsum dolor sit amet leo. Maecenas sapien ultrices ante aliquam ipsum. Faucibus lorem leo odio vitae nam. Tellus mauris vivamus viverra convallis donec. Mi odio sodales orci at elit. Sodales consequat ante. Congue magna massa at enim ut turpis in quos neque laoreet placerat. In ea congue condimentum accumsan a duis commodo donec accumsan urna integer. Non elit et. Turpis suspendisse felis orci cillum nulla integer dolor congue. Mollis mollit augue. Massa massa ut. Dui hac maecenas. Tincidunt a nec. Suscipit convallis quam. Donec a penatibus cursus wisi risus enim molestie phasellus massa sit non malesuada commodo platea mattis quis facilisis. A faucibus sodales enim quam non. Lectus ultricies sem vestibulum molestie ut ut ac ultricies lectus metus nibh accumsan dignissim nam volutpat hendrerit purus. Sed orci tincidunt. Lacinia suspendisse suscipit. Et id pharetra. Nibh nec suspendisse. Imperdiet quis eu elementum at facilisis nec vitae pharetra. Non diam amet. Ante dolor mattis parturient auctor duis. Luctus sit tempus. Id dictum mi et platea odio. Tempor ac eu iaculis est interdum arcu dictumst nulla. Orci est massa. Tellus posuere at.</div> 
+					</div>
+				</li>
+
+				<li id="projeto1" class="projeto">
+					<div class="projeto_bts">
+						<div class="titulo mapa_bt">Áreas Prioritárias para conservação no cerrado e Pantanal</div> 
+						<div class="resultados mapa_bt">ÁREAS PRIORITÁRIAS PARA CONSERVAÇÃO</div> 
+
+						<div class="bt zoom_in"></div>
+						<div class="bt zoom_out"></div>
+
+						<div class="resumo">Lorem ipsum dolor sit amet leo. Maecenas sapien ultrices ante aliquam ipsum. Faucibus lorem leo odio vitae nam. Tellus mauris vivamus viverra convallis donec. Mi odio sodales orci at elit. Sodales consequat ante. Congue magna massa at enim ut turpis in quos neque laoreet placerat. In ea congue condimentum accumsan a duis commodo donec accumsan urna integer. Non elit et. Turpis suspendisse felis orci cillum nulla integer dolor congue. Mollis mollit augue. Massa massa ut. Dui hac maecenas. Tincidunt a nec. Suscipit convallis quam. Donec a penatibus cursus wisi risus enim molestie phasellus massa sit non malesuada commodo platea mattis quis facilisis. A faucibus sodales enim quam non. Lectus ultricies sem vestibulum molestie ut ut ac ultricies lectus metus nibh accumsan dignissim nam volutpat hendrerit purus. Sed orci tincidunt. Lacinia suspendisse suscipit. Et id pharetra. Nibh nec suspendisse. Imperdiet quis eu elementum at facilisis nec vitae pharetra. Non diam amet. Ante dolor mattis parturient auctor duis. Luctus sit tempus. Id dictum mi et platea odio. Tempor ac eu iaculis est interdum arcu dictumst nulla. Orci est massa. Tellus posuere at.</div> 
+					</div>
+				</li>
+				
+				<li id="projeto1" class="projeto">
+					<div class="projeto_bts">
+						<div class="titulo mapa_bt">Áreas Prioritárias para conservação no cerrado e Pantanal</div> 
+						<div class="resultados mapa_bt">ÁREAS PRIORITÁRIAS PARA CONSERVAÇÃO</div> 
+
+						<div class="bt zoom_in"></div>
+						<div class="bt zoom_out"></div>
+
+						<div class="resumo">Lorem ipsum dolor sit amet leo. Maecenas sapien ultrices ante aliquam ipsum. Faucibus lorem leo odio vitae nam. Tellus mauris vivamus viverra convallis donec. Mi odio sodales orci at elit. Sodales consequat ante. Congue magna massa at enim ut turpis in quos neque laoreet placerat. In ea congue condimentum accumsan a duis commodo donec accumsan urna integer. Non elit et. Turpis suspendisse felis orci cillum nulla integer dolor congue. Mollis mollit augue. Massa massa ut. Dui hac maecenas. Tincidunt a nec. Suscipit convallis quam. Donec a penatibus cursus wisi risus enim molestie phasellus massa sit non malesuada commodo platea mattis quis facilisis. A faucibus sodales enim quam non. Lectus ultricies sem vestibulum molestie ut ut ac ultricies lectus metus nibh accumsan dignissim nam volutpat hendrerit purus. Sed orci tincidunt. Lacinia suspendisse suscipit. Et id pharetra. Nibh nec suspendisse. Imperdiet quis eu elementum at facilisis nec vitae pharetra. Non diam amet. Ante dolor mattis parturient auctor duis. Luctus sit tempus. Id dictum mi et platea odio. Tempor ac eu iaculis est interdum arcu dictumst nulla. Orci est massa. Tellus posuere at.</div> 
+					</div>
+				</li>
+				
+				<li id="projeto1" class="projeto">
+					<div class="projeto_bts">
+						<div class="titulo mapa_bt">Áreas Prioritárias para conservação no cerrado e Pantanal</div> 
+						<div class="resultados mapa_bt">ÁREAS PRIORITÁRIAS PARA CONSERVAÇÃO</div> 
+
+						<div class="bt zoom_in"></div>
+						<div class="bt zoom_out"></div>
+
+						<div class="resumo">Lorem ipsum dolor sit amet leo. Maecenas sapien ultrices ante aliquam ipsum. Faucibus lorem leo odio vitae nam. Tellus mauris vivamus viverra convallis donec. Mi odio sodales orci at elit. Sodales consequat ante. Congue magna massa at enim ut turpis in quos neque laoreet placerat. In ea congue condimentum accumsan a duis commodo donec accumsan urna integer. Non elit et. Turpis suspendisse felis orci cillum nulla integer dolor congue. Mollis mollit augue. Massa massa ut. Dui hac maecenas. Tincidunt a nec. Suscipit convallis quam. Donec a penatibus cursus wisi risus enim molestie phasellus massa sit non malesuada commodo platea mattis quis facilisis. A faucibus sodales enim quam non. Lectus ultricies sem vestibulum molestie ut ut ac ultricies lectus metus nibh accumsan dignissim nam volutpat hendrerit purus. Sed orci tincidunt. Lacinia suspendisse suscipit. Et id pharetra. Nibh nec suspendisse. Imperdiet quis eu elementum at facilisis nec vitae pharetra. Non diam amet. Ante dolor mattis parturient auctor duis. Luctus sit tempus. Id dictum mi et platea odio. Tempor ac eu iaculis est interdum arcu dictumst nulla. Orci est massa. Tellus posuere at.</div> 
+					</div>
+				</li>
+
+			</ul>
+
+		</section>
+
+		<footer class="container">
 		
-	</header>
-	
-</body>
+		</footer>
+		
+	</body>
 </html>
