@@ -496,7 +496,6 @@ footer a:visited{ text-decoration: none; }
 	height: 42px;
 	margin-bottom: 1px;
 	background: #f2f2ed;
-	padding: 15px 0 0 15px;
 	position: relative;
 	overflow: hidden;
 	text-overflow: clip;
@@ -504,28 +503,26 @@ footer a:visited{ text-decoration: none; }
 }
 
 .bt_item{
-	position: absolute;
-	top:0;
+	float: right;
 	border-left: #fff 1px solid;
 	width: 42px;
 	height: 42px;
-	background: #e5e5df;
+	background-color: #f2f2ed; 
+	cursor: pointer;  
+	top: 0;
 }
 
-.bt_item.active{ 
-	background-color: #bfbfbb; 
-	cursor: pointer; 
-} 
-.bt_item.active:hover{ background-color: #9c6;}
+.bt_item:hover{ background-color: #9c6;}
 
-.item_link{
-	right: 42px;
-	background-image: url(_layout/icon_download.png);
-}
+.item_link{	background-image: url(_layout/icon_link.png);}
+.item_link:hover{ background-image: url(_layout/icon_link2.png) }
 
-.item_downlaod{
-	right: 0;
-	background-image: url(_layout/icon_link.png);
+.item_downlaod{	background-image: url(_layout/icon_download.png);}
+.item_downlaod:hover{ background-image: url(_layout/icon_download2.png) }
+
+.item_lb{ 
+	float: left;
+	padding: 15px 0 0 15px;
 }
 
 /* LINKS */
