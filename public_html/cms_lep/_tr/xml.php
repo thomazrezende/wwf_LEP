@@ -68,11 +68,11 @@ function xml($arquivo,$pai,$filho,$tabela,$colunas,$condicao,$numerar_itens ){
 	
 	//Fechando o arquivo 
 	fclose($xml); 		
-} 
+} 	
 
 function xml_dados(){
 	$arquivo="../../xml/dados.xml";
-	$colunas=array("email","links","sobre_lep","sobre_psc",'contatos','layout_home');
+	$colunas=array("email","links","sobre_lep","sobre_psc",'fbook','twitter','layout_home');
 	xml($arquivo, "dados", "", "dados", $colunas, "",false);
 } 
 
