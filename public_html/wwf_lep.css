@@ -88,7 +88,7 @@ header{
 	height: 26px;
 	display: inline-block;
 	margin-left: 5px;
-	background-color: #bfbfbb;
+	background-color: #444;
 	border-radius: 20px;
 	float: right;
 	cursor: pointer;
@@ -121,13 +121,11 @@ header{
 
 #banner_credito{
 	position: absolute;
-	padding:  4px 0 0 4px;
 	right: 0;
-	bottom: 0;	
+	bottom: -13px;	
 	font-size: 8px;
 	color: #ccc;
 	font-family: Arial, sans-serif;
-	background: #fff;
 	z-index: 2; 
 	text-transform: uppercase;
 }
@@ -228,14 +226,13 @@ footer a:visited{ text-decoration: none; }
 .projeto{
 	width: 100%;
 	height: 400px;
-	margin-bottom: 20px;
 	color: #fff;
 	position: relative;
-	
+	border:#fff 15px solid;
+	border-top: 0;
 	background-image: url(_layout/MAPA_TESTE.jpg);
 	background-position: center;
-	background-size: cover;
-	
+	background-size: cover; 
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	-moz-user-select: none;
@@ -246,7 +243,7 @@ footer a:visited{ text-decoration: none; }
 .projeto_bts{
 	width: 100%;
 	height: 100%;
-	border: 30px rgba(0,0,0,0) solid;
+	border: 20px rgba(0,0,0,0) solid;
 	position: relative;
 }
 
@@ -270,7 +267,6 @@ footer a:visited{ text-decoration: none; }
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	
 	-webkit-font-smoothing: antialiased !important;
 	-khtml-font-smoothing: antialiased !important;
 	-moz-font-smoothing: antialiased !important;
@@ -315,7 +311,7 @@ footer a:visited{ text-decoration: none; }
 	white-space: nowrap;
 } 
 
-.resultados_lista li.select{
+.resultados_lista li.selecselect{
 	background-color: rgba(34,34,34,.8);  
 	color: #666;
 } 
@@ -387,7 +383,7 @@ footer a:visited{ text-decoration: none; }
 	padding: 0 30px 50px 30px;
 	font-size: 16px;
 	line-height: 24px;
-	color: #999
+	color: #999;
 } 
 
 #sobre a{ text-decoration: none;}
@@ -396,12 +392,14 @@ footer a:visited{ text-decoration: none; }
 #sobre a:active{  color: #9C6; text-decoration: underline;}
 #sobre a:visited{ color: #9C6; }
 
+#sobre b, #sobre strong{ font-weight: 700; color: #444 }
+
 .subtitulo{
 	font-size: 24px;
 	margin-bottom: 20px;
-	margin-top: 40px;
+	margin-top: 0;
 	font-family: WWFRegular, 'Roboto Condensed', sans-serif, Arial; 
-	color: #444
+	color: #444;
 }
  
 
@@ -419,7 +417,7 @@ footer a:visited{ text-decoration: none; }
 
 #busca_tx{
 	border: none;
-	background: #f4f3ec;
+	background: #f0efed;
 	border-right: #fff 2px solid;
 	width: 100%;
 	height: 100%;
@@ -429,13 +427,14 @@ footer a:visited{ text-decoration: none; }
 	outline: 0;
 }
 
-#busca_em{
+#buscar_em{
+	position: relative;
 	text-align: center;
 	vertical-align: middle;
 	width: 180px;
 	height: 100%;
 	color: #fff;
-	background: #bfbfbb;
+	background: #444;
 	display: table-cell;
 	background-image: url(_layout/icon_dw2.png);
 	background-repeat: no-repeat;
@@ -444,19 +443,21 @@ footer a:visited{ text-decoration: none; }
 	border: 0;
 }
 
-#busca_em:hover{background-color: #9c6;}
+#buscar_em:hover{background-color: #9c6;}
  
 #busca_x{
-	width: 26px;
-	height: 26px;
-	border-radius: 3px;
-	background: #bfbfbb;
+	width: 22px;
+	height: 22px;
+	border-radius: 30px;
+	background: #444;
 	cursor: pointer;
 	position: absolute;
-	right: 190px;
-	top: 8px;
+	right: 195px;
+	top: 10px;
 	background-image: url(_layout/icon_close.png);
 	background-position: center;
+	background-size: 130%;
+	display: none;
 }
 
 #busca_x:hover{background-color: #9c6;}
@@ -468,8 +469,7 @@ footer a:visited{ text-decoration: none; }
 	width: 180px;
 	text-align: center;
 	overflow: hidden;
-	background: #fff;
-	border:#fff 1px solid;
+	border: 0;
 	border-bottom: 0;
 	z-index: 3;
 	display: none;
@@ -479,12 +479,19 @@ footer a:visited{ text-decoration: none; }
 	width: 100%;
 	margin-bottom: 1px;
 	padding: 15px 0;
-	background: #f4f3ec; 
-	color: #999;
+	background: #444; 
+	color: #fff;
 	cursor: pointer;
 } 
 
-.busca_opt.select{ color: #fff; background-color: #9c6;  } 
+.busca_opt.select{ 
+	color: #fff; 
+	background-color: #9c6; 
+	background-image: url(_layout/icon_minus.png); 
+	background-repeat: no-repeat;
+	background-position: right;
+} 
+
 .busca_opt:hover{background-color: #9c6; color: #fff;} 
 
 #lista{
@@ -507,7 +514,7 @@ footer a:visited{ text-decoration: none; }
 	border-left: #fff 1px solid;
 	width: 42px;
 	height: 42px;
-	background-color: #f4f3ec; 
+	background-color: #e8e7df; 
 	cursor: pointer;  
 	top: 0;
 }
@@ -537,10 +544,10 @@ footer a:visited{ text-decoration: none; }
 }
 
 #links a{text-decoration: none;}
-#links a:link{  color: #bfbfbb; }
+#links a:link{  color: #999; }
 #links a:hover{  color: #9C6; }
 #links a:active{  color: #9C6; }
-#links a:visited{ color: #bfbfbb; }
+#links a:visited{ color: #999; }
 
 #links b, #links strong{
 	font-size: 24px;
@@ -556,3 +563,4 @@ footer a:visited{ text-decoration: none; }
 .fr { float: right; } 
 .fl {float: left; }
 .mt0{ margin-top: 0; }
+.mt40{ margin-top: 40px; }
