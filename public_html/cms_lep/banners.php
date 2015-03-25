@@ -13,7 +13,7 @@ head("BANNERS");
 require_once("_tr/up_file_form.php");       
 ?>
 
-<body>  
+<body>
     
 	<?php menu($menu_arr, $lg_arr, "_layout/logo_admin.png", 5, true); ?>
 	 
@@ -26,35 +26,23 @@ require_once("_tr/up_file_form.php");
 			$dados = sql_select("banners","*","id DESC","",true); 
 
 			mensagem();	  
-			navega(array("BANNERS")); 
+			navega(array("BANNERS"));
 			
 			titulo("mt0","&darr; INSERIR IMAGENS ( 900x300 jpg, gif, png )",false);
 			up_file_form("_banners", "", "php/banners_up.php", "imagens[]", true, true, "jpg,jpeg,gif,png,bmp"); 
- 
-			hr();
-			
-			$ids = array();
+ 			 
+			for($i=0; $i<count($dados); $i++){
 
-			form1("altera", "", "php/banners_altera.php", "post");  
-			
-				for($i=0; $i<count($dados); $i++){
-					
-					$id = $dados[$i]['id'];
-					
-					array_push($ids, $id);
-					
-					div1("b".$id, "banner","",false);
-					
-					img("","","../banners/banner".$dados[$i]['id'].".jpg",false);
-					bt_del("banner".$id,"php/banner_remove.php?id=".$id, false);
-					
-					input("credito", "input", "credito".$id, $dados[$i]["credito"] , "text");
-					
-				} 
-				 
-				input("ids", "input", "ids", implode(',',$ids), "hidden");
+				$id = $dados[$i]['id']; 
 
-				submit("GRAVAR CR&Eacute;DITOS"); 
+				div1( "b".$id, "banner","",false);
+
+					a_link('', '', 'banner.php?id='.$id, img("","","../banners/banner".$dados[$i]['id'].".jpg",true), '', false );
+					bt_del("banner".$id,"php/banner_remove.php?id=".$id, false); 
+
+				div2();
+
+			}
 				
 			form2(); 	   
 

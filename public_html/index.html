@@ -27,21 +27,88 @@
 		<meta property="og:image:height" content="300">
 
 		<link rel="shortcut icon" href="_layout/fav_icon.png" type="ico" />
-		<link rel="image_src" href="####################" />   
-
-		<script type="text/javascript" src="_tools/jquery-2.0.2.min.js"></script>
-		<script type="text/javascript" src="_tools/jquery.easing.js"></script>
-		<script type="text/javascript" src="_tools/jquery.scrollTo-min.js"></script>
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.3&sensor=false"></script>
-		<script type="text/javascript" src="wwf_lep.js" charset="UTF-8"></script> 
-
-		<link rel="stylesheet" type="text/css" href="_tools/reset.css"> 
-		<link rel="stylesheet" type="text/css" href="wwf_lep.css"> 
+		<link rel="image_src" href="####################" />    
 
 	</head> 
 	<body>
 
-		<script type="text/javascript"> document.location.href = "projetos.html" </script>
-		
+		<script type="text/javascript">  
+
+			var myRequest1;	
+			var xml_banners;	
+			var banners_arr = [];
+			var banner_id;
+			var tema;
+
+			if(window.XMLHttpRequest){ 
+				myRequest1 = new XMLHttpRequest();
+			}else if(window.ActiveXObject){ 
+				myRequest1 = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+
+			myRequest1.onreadystatechange = function(){  
+				if(this.readyState === 4){ 
+					xml_banners = this.responseXML;    
+					banners_arr = xml2arr ( 
+						xml_banners, "banner", 
+						["id",
+						 "tema",
+						 "credito"]); 
+
+					banner_id = Math.floor( Math.random() * banners_arr.length );
+					d = banners_arr[banner_id];
+					tema = d.tema;
+
+					sessionStorage.setItem("tema", tema);
+					sessionStorage.setItem("banner_id", banner_id);					 
+
+					document.location.href = "projetos.html";
+
+				}
+			} 
+
+			function xml2arr(_xml, obj_lb, atts){  
+				var arr = [];
+				var id = '';
+				var obj;
+				var xml;
+
+				xml = _xml.getElementsByTagName(obj_lb);  
+
+				for(var i=0; i<xml.length; i++){
+					obj = {}; 
+					if( obj_lb != 'dados' ) id = ponteiro_lista(xml,i,"id"); 
+					for( var a=0; a<atts.length; a++ ){ 
+						obj[atts[a]] = ponteiro_lista(xml,i,atts[a]);
+					}
+					arr.push(obj);
+					arr[obj_lb + id] = obj;
+				}
+
+				return arr;
+
+			}  
+
+			// att
+			function ponteiro_att(xml, ID, att){  
+				if( xml[ID] ){
+					return xml[ID].getAttribute(att); 
+				}
+			}    
+
+			// nodes
+			function ponteiro_lista(xml,i,lb){ //  ponteiro que retorna conteúdo da tag com index = i
+				if(xml[i].getElementsByTagName(lb)[0].firstChild){ // se a tag estiver vazia, o firstChild = null da bug no retorno da proxima linha
+					return xml[i].getElementsByTagName(lb)[0].firstChild.nodeValue;  
+				}
+			}	 
+ 
+
+			var rand = Math.random() * 1000; 
+			myRequest1.open("GET", "xml/banners.xml?rand="+rand, true);
+			myRequest1.send(null);  
+			
+		</script>
+
 	</body>
 </html>

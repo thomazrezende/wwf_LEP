@@ -19,6 +19,8 @@ body , html{
 .verde{color:#9C6}
 .bg_verde{ background-color:#9C6}
 
+
+
 p { margin-bottom:20px; } 
 ul{list-style: none} 
 .bold{ font-weight:700 } 
@@ -72,8 +74,20 @@ header{
 
 #logo_lep{
 	position: absolute;
-	top: 15px;
-	left: 150px;
+	top: 0;
+	left: 160px;
+}
+
+#logo_lep_lb{
+	position: absolute;
+	top: 23px;
+	left: 60px;
+	width: 120px;
+	font-size: 10px;
+	line-height: 12px;
+	font-family: Arial, sans-serif;
+	font-weight: bold;
+	color: #fff;
 }
 
 #contato{
@@ -88,14 +102,11 @@ header{
 	height: 26px;
 	display: inline-block;
 	margin-left: 5px;
-	background-color: #444;
+	background-color: #555;
 	border-radius: 20px;
 	float: right;
 	cursor: pointer;
 }
-
-.contato_bt:hover{background-color:#99cc66}
-
 
 /* BANNER */
 
@@ -108,6 +119,16 @@ header{
 	z-index: 0;
 }
 
+#banner_cor{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	opacity: .25;
+	z-index: 1;
+}
+
 #banner_psc{
 	position: absolute;
 	top: 0;
@@ -117,6 +138,7 @@ header{
 	background-image:url(_layout/banner_psc.png);
 	background-position: center;
 	background-size: cover;
+	z-index: 2;
 }
 
 #banner_credito{
@@ -153,14 +175,9 @@ header{
 	vertical-align: middle;
 	cursor: pointer;
 	font-weight: 400;
-}
-
-.menu_bt:hover, .menu_bt:active{
-	color: #9C6;
-}
+} 
 
 .menu_bt.select{
-	color: #9C6;
 	font-weight: 700;
 	pointer-events: none;
 } 
@@ -195,10 +212,6 @@ footer{
 }
 
 footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
-footer a:link{ text-decoration: none; }
-footer a:hover{ text-decoration: underline; }
-footer a:active{ text-decoration: underline; }
-footer a:visited{ text-decoration: none; }
 
 
 /* PROJETO */
@@ -275,8 +288,7 @@ footer a:visited{ text-decoration: none; }
 }
 
 .mapa_bt{background-color: rgba(34,34,34,.8); cursor: pointer}
-.mapa_bt{background-color: rgba(34,34,34,.8); cursor: pointer}
-.mapa_bt:hover, .mapa_bt:active{background-color: rgba(153,204,102,.8);}
+.mapa_bt{background-color: rgba(34,34,34,.8); cursor: pointer} 
 
 .resultados{
 	padding:  10px 15px 10px 52px;
@@ -386,11 +398,7 @@ footer a:visited{ text-decoration: none; }
 	color: #999;
 } 
 
-#sobre a{ text-decoration: none;}
-#sobre a:link{  color: #9C6; }
-#sobre a:hover{  color: #9C6; text-decoration: underline;}
-#sobre a:active{  color: #9C6; text-decoration: underline;}
-#sobre a:visited{ color: #9C6; }
+#sobre a{ text-decoration: none;} 
 
 #sobre b, #sobre strong{ font-weight: 700; color: #444 }
 
@@ -434,33 +442,28 @@ footer a:visited{ text-decoration: none; }
 	width: 180px;
 	height: 100%;
 	color: #fff;
-	background: #444;
+	background: #888;
 	display: table-cell;
 	background-image: url(_layout/icon_dw2.png);
 	background-repeat: no-repeat;
 	background-position: right;
 	cursor: pointer;
 	border: 0;
-}
+} 
 
-#buscar_em:hover{background-color: #9c6;}
- 
 #busca_x{
 	width: 22px;
 	height: 22px;
 	border-radius: 30px;
-	background: #444;
+	background-color: #888;
 	cursor: pointer;
 	position: absolute;
 	right: 195px;
 	top: 10px;
-	background-image: url(_layout/icon_close.png);
+	background-image: url(_layout/icon_close2.png);
 	background-position: center;
-	background-size: 130%;
 	display: none;
-}
-
-#busca_x:hover{background-color: #9c6;}
+} 
 
 #busca_opts{
 	position: absolute;
@@ -479,7 +482,7 @@ footer a:visited{ text-decoration: none; }
 	width: 100%;
 	margin-bottom: 1px;
 	padding: 15px 0;
-	background: #444; 
+	background: #888; 
 	color: #fff;
 	cursor: pointer;
 } 
@@ -492,7 +495,7 @@ footer a:visited{ text-decoration: none; }
 	background-position: right;
 } 
 
-.busca_opt:hover{background-color: #9c6; color: #fff;} 
+
 
 #lista{
 	padding: 0 30px 50px 30px;
@@ -510,6 +513,7 @@ footer a:visited{ text-decoration: none; }
 }
 
 .bt_item{
+	position: relative;
 	float: right;
 	border-left: #fff 1px solid;
 	width: 42px;
@@ -517,10 +521,10 @@ footer a:visited{ text-decoration: none; }
 	background-color: #e8e7df; 
 	cursor: pointer;  
 	top: 0;
+	z-index: 2;
 }
 
-.bt_item:hover{ background-color: #9c6;}
-
+ 
 .item_link{	background-image: url(_layout/icon_link.png);}
 .item_link:hover{ background-image: url(_layout/icon_link2.png) }
 
@@ -528,8 +532,15 @@ footer a:visited{ text-decoration: none; }
 .item_downlaod:hover{ background-image: url(_layout/icon_download2.png) }
 
 .item_lb{ 
-	float: left;
+	position: absolute;
+	left: 0;
+	top: 0;
 	padding: 15px 0 0 15px;
+	z-index: 1;
+} 
+
+.item_lb .cinza{
+	color: #b3b2ab;
 }
 
 /* LINKS */
@@ -545,9 +556,8 @@ footer a:visited{ text-decoration: none; }
 
 #links a{text-decoration: none;}
 #links a:link{  color: #999; }
-#links a:hover{  color: #9C6; }
-#links a:active{  color: #9C6; }
 #links a:visited{ color: #999; }
+
 
 #links b, #links strong{
 	font-size: 24px;

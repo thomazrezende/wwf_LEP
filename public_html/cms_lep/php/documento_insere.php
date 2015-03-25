@@ -13,7 +13,7 @@
 		$prox = next_id("documentos"); 
 		mkdir("../../documentos/documento".$prox,0755);
 		
-		$valores = array(	array("titulo",$_POST["titulo"]), 
+		$valores = array(	mysql_real_escape_string (array("titulo",$_POST["titulo"])), 
 							array("publicado",0)
 						); 
 		 

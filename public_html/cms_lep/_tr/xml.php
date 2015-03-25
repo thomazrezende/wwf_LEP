@@ -78,7 +78,7 @@ function xml_dados(){
 
 function xml_banners(){
 	$arquivo="../../xml/banners.xml";
-	$colunas=array("id","credito");
+	$colunas=array("id","credito","link","tema");
 	xml($arquivo, "banners", "banner", "banners", $colunas, "",false);
 }
 
@@ -91,7 +91,7 @@ function xml_projetos(){
 function xml_documentos(){
 	$arquivo="../../xml/documentos.xml";
 	$colunas=array("id","publicado","titulo","autor","ano","veiculo","link", "palavras_chave","arquivo");
-	xml($arquivo, "documentos", "documento", "documentos", $colunas, "ORDER BY id DESC",false);
+	xml($arquivo, "documentos", "documento", "documentos", $colunas, "ORDER BY titulo",false);
 }
 
  ////////////// xml especÌfico

@@ -13,8 +13,8 @@
 	
 	$dados = array(
 					array("publicado", $_POST["publicado"]),
-					array("titulo", $_POST["titulo"]),
-					array("autor", $_POST["autor"]),
+					array("titulo", mysql_real_escape_string ($_POST["titulo"])),
+					array("autor", mysql_real_escape_string ($_POST["autor"])),
 					array("ano", $_POST["ano"]),
 					array("veiculo",$_POST["veiculo"]),
 					array("link", $_POST["link"]),

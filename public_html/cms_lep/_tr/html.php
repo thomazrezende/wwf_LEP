@@ -44,7 +44,7 @@ function div1( $id, $cls, $html, $close ){
 }  
 
 function div2(){
-	print "</div>\r\n"; 	
+	print "</div>\r\n";
 }
 
 function a_link( $id, $cls, $url, $lb, $trgt, $rtn ){
