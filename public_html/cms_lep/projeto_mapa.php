@@ -131,8 +131,7 @@ head("PROJETO ".$_SESSION["id"]);
 			
 			// dados legendas para js
 			input("legendas", "", "legendas", $legendas , "hidden");   
-			input("kmzs", "", "kmzs", $kmzs , "hidden"); 
-			
+			input("kmzs", "", "kmzs", $kmzs , "hidden");  
 			
 			form1("altera", "", "php/projeto_mapa_altera.php", "post");
 				

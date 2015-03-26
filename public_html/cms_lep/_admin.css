@@ -256,7 +256,7 @@ hr{
 	padding:15px 0;
 	background-size:1px 45px;
 } 
-   
+
 .btp_tb{
 	position:absolute;
 	right:40px;
@@ -283,6 +283,7 @@ hr{
 
 .banner img { width:900px; position: absolute; left: 0; top: 0;}
 .banner .bt_del{ position: absolute; top: 10px; right: 10px; }
+.banner a:hover{opacity: .7}
 
 .input{
 	width:100%;

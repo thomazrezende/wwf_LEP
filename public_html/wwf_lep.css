@@ -323,7 +323,7 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 	white-space: nowrap;
 } 
 
-.resultados_lista li.selecselect{
+.resultados_lista li.select{
 	background-color: rgba(34,34,34,.8);  
 	color: #666;
 } 
@@ -488,12 +488,12 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 } 
 
 .busca_opt.select{ 
-	color: #fff; 
-	background-color: #9c6; 
 	background-image: url(_layout/icon_minus.png); 
 	background-repeat: no-repeat;
 	background-position: right;
 } 
+
+.busca_opt.select:hover{background-color: #fff;}
 
 
 
@@ -518,7 +518,7 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 	border-left: #fff 1px solid;
 	width: 42px;
 	height: 42px;
-	background-color: #e8e7df; 
+	background-color: #f4f3ec; 
 	cursor: pointer;  
 	top: 0;
 	z-index: 2;

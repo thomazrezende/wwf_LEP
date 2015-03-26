@@ -19,11 +19,9 @@
 					array("veiculo",$_POST["veiculo"]),
 					array("link", $_POST["link"]),
 					array("palavras_chave", $_POST["palavras_chave"])
-					);
+					); 
  
- 
-	sql_update("documentos", $dados, "id='".$id."'" ); 
-	
+	sql_update("documentos", $dados, "id='".$id."'" );  
   	xml_documentos(); 
 
 	location("../documento.php","id=".$id."&msg_ok=DADOS ALTERADOS COM SUCESSO"); 

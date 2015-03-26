@@ -4,27 +4,71 @@
 		<id>8</id>
 		<publicado>1</publicado>
 		<titulo><![CDATA[Cavalinho]]></titulo>
-		<lat><![CDATA[-16.5]]></lat>
-		<lng><![CDATA[-58.9]]></lng>
-		<zoom><![CDATA[3]]></zoom>
-		<resumo><![CDATA[]]></resumo>
+		<lat>-16.5</lat>
+		<lng>-58.9</lng>
+		<zoom>3</zoom>
+		<resumo><![CDATA[aaaaasssss222111aaa221]]></resumo>
+		<resultados>
+		</resultados>
+		<arquivos>
+		</arquivos>
 	</projeto>
 	<projeto>
 		<id>7</id>
 		<publicado>1</publicado>
 		<titulo><![CDATA[asdad]]></titulo>
-		<lat><![CDATA[-10.5209]]></lat>
-		<lng><![CDATA[-51.693]]></lng>
-		<zoom><![CDATA[4]]></zoom>
+		<lat>-10.5209</lat>
+		<lng>-51.693</lng>
+		<zoom>4</zoom>
 		<resumo><![CDATA[]]></resumo>
+		<resultados>
+			<resultado>
+				<id>5</id>
+				<titulo><![CDATA[]]></titulo>
+				<label><![CDATA[asd]]></label>
+			</resultado>
+		</resultados>
+		<arquivos>
+		</arquivos>
 	</projeto>
 	<projeto>
 		<id>6</id>
 		<publicado>1</publicado>
 		<titulo><![CDATA[a6]]></titulo>
-		<lat><![CDATA[-2.82307]]></lat>
-		<lng><![CDATA[-60.1964]]></lng>
-		<zoom><![CDATA[5]]></zoom>
+		<lat>-2.82307</lat>
+		<lng>-60.1964</lng>
+		<zoom>5</zoom>
 		<resumo><![CDATA[asdasdasd]]></resumo>
+		<resultados>
+			<resultado>
+				<id>2</id>
+				<titulo><![CDATA[Bases da aeronáutica 1]]></titulo>
+				<label><![CDATA[aeronautica1]]></label>
+			</resultado>
+			<resultado>
+				<id>3</id>
+				<titulo><![CDATA[Bases da aeronáutica 2]]></titulo>
+				<label><![CDATA[aeronautica2]]></label>
+			</resultado>
+			<resultado>
+				<id>4</id>
+				<titulo><![CDATA[Bases da aeronáutica 3]]></titulo>
+				<label><![CDATA[aeronautica3]]></label>
+			</resultado>
+		</resultados>
+		<arquivos>
+			<arquivo>
+				<id>7</id>
+				<grupo>0</grupo>
+				<titulo><![CDATA[Arquivo de Teste]]></titulo>
+				<label><![CDATA[arquivo_de_teste]]></label>
+			</arquivo>
+			<arquivo>
+				<id>8</id>
+				<grupo>1</grupo>
+				<titulo><![CDATA[asdasd]]></titulo>
+				<label><![CDATA[novo]]></label>
+			</arquivo>
+		</arquivos>
 	</projeto>
 </projetos>

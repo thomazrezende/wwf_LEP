@@ -8,6 +8,9 @@ window.onload = function (){
 		tag2,
 		tag3,
 		tag4,
+		tag5,
+		tag6,
+		tag7,
 		temp,
 		page,
 		rand,
@@ -15,7 +18,8 @@ window.onload = function (){
 		win_w,
 		win_h,
 		tema,
-		banner_id;
+		banner_id,
+		layout_home;
 	
 	var pages = [
 		["PROJETOS","projetos.html"],
@@ -31,20 +35,6 @@ window.onload = function (){
 		root += path[i] + '/';
 	} 
 	
-	// hover
-
-	/* 
-	
-	busca_opt:hover{background-color: #9c6; color: #fff;}   
-	#buscar_em:hover{background-color: #9c6;} 
-	#busca_x:hover{background-color: #9c6;}
-	.bt_item:hover{ background-color: #9c6;} 
-	
-	footer a:hover{ color: #99cc66; }
-	footer a:active{ color: #99cc66; }  
-	
-	*/ 
-	 
 	console.log("_root: " + root);  
 	
 	// OBJETOS //
@@ -74,6 +64,8 @@ window.onload = function (){
 	
 	var links = document.getElementById('links');
 	var banner = document.getElementById('banner');
+	
+	var projetos = document.getElementById('projetos');
 	
 	$(document.body).hide().fadeIn(300);
 	
@@ -150,7 +142,7 @@ window.onload = function (){
 			},function(){
 				$( this ).css({backgroundColor:''})
 			});  
-		}
+		} 
 
 		//sobre
 		if(page == 1){ 
@@ -160,7 +152,31 @@ window.onload = function (){
 			},function(){
 				$( this ).css({color:temas[tema], textDecoration:"none"})
 			}); 
-		}
+		} 
+		
+		// documentos
+		if(page == 2){  
+			$('#buscar_em').hover(function(){
+				$( this ).css({backgroundColor:temas[tema]})
+			},function(){
+				$( this ).css({backgroundColor:''})
+			});
+			$('.bt_item').hover(function(){
+				$( this ).css({backgroundColor:temas[tema]})
+			},function(){
+				$( this ).css({backgroundColor:''})
+			});
+			$('#busca_x').hover(function(){
+				$( this ).css({backgroundColor:temas[tema]})
+			},function(){
+				$( this ).css({backgroundColor:''})
+			});
+			$('.busca_opt').hover(function(){
+				$( this ).css({backgroundColor:temas[tema], color:'#fff'})
+			},function(){
+				$( this ).css({backgroundColor:'', color:''})
+			});
+		} 
 
 		// links 
 		if(page == 3){  
@@ -169,7 +185,15 @@ window.onload = function (){
 			},function(){
 				$( this ).css({color:''})
 			});
-		} 
+		}
+		
+		// footer  
+		$('footer a').hover(function(){
+			$( this ).css({color:temas[tema]})
+		},function(){
+			$( this ).css({color:''})
+		});
+		
 	}
 	 
 	// BANNERS //
@@ -277,7 +301,7 @@ window.onload = function (){
 			f_email.href = 'mailto:' + d.email;
 			f_fbook.href = d.fbook;
 			f_twitter.href = d.twitter; 
-			
+			 
 			// sobre  
 			if(page == 1){ 
 				$(sobre_lep).html(d.sobre_lep);
@@ -289,30 +313,139 @@ window.onload = function (){
 				$(links).html(d.links);  
 			}	
 			
-			// 3.documentos
+			// 3.PROJETOS
 			rand = Math.random() * 1000; 
-			myRequest3.open("GET", "xml/documentos.xml?rand="+rand, true);
-			myRequest3.send(null);   
-			
+			myRequest3.open("GET", "xml/projetos.xml?rand="+rand, true);
+			myRequest3.send(null);
 			
 		}
 	}  
 	
+	// PROJETOS //
+	
+	var myRequest3;	
+	var xml_projetos;	
+	var projetos_arr = [];
+	
+	if(window.XMLHttpRequest){
+		myRequest3 = new XMLHttpRequest();
+	}else if(window.ActiveXObject){ 
+		myRequest3 = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	myRequest3.onreadystatechange = function(){  
+		if(this.readyState === 4){ 
+			xml_projetos = this.responseXML;    
+			projetos_arr = xml2arr ( 
+				xml_projetos, "projeto", 
+					["id",
+					"publicado",
+					"titulo",
+					"lat",
+					"lng",
+					"zoom",
+					"resumo"]);
+			
+				// lista 
+			
+			// projetos
+			
+			var projeto_id;
+			
+			if(page == 0){ 
+				
+				layout_home = dados_arr['dados'].layout_home.split(',');
+				
+				for(i in layout_home){
+					
+					projeto_id = layout_home[i].split("item")[1];
+					d = projetos_arr["projeto" + projeto_id];
+					
+					tag = document.createElement('li');
+					tag.ID = projeto_id;
+					tag.id = 'projeto' + projeto_id;
+					tag.className = 'projeto';
+					
+					tag2 = document.createElement('div');
+					tag2.className = 'projeto_bts';
+					tag.appendChild(tag2);
+					
+					tag3 = document.createElement('div');
+					tag3.className = 'titulo wwf mapa_bt';
+					tag3.id = 'titulo' + projeto_id;
+					tag3.innerHTML = d.titulo;
+					tag2.appendChild(tag3);
+										
+					tag4 = document.createElement('div');
+					tag4.id = 'resultado' + projeto_id;
+					tag4.className = 'resultados mapa_bt';
+					tag2.appendChild(tag4); 
+					
+					tag5 = document.createElement('ul');
+					tag5.id = 'resultados' + projeto_id;
+					tag5.className = 'resultados_lista';
+					tag2.appendChild(tag5); 
+					
+					
+					
+					tag6 = document.createElement('div');
+					tag6.id = 'zoom_in'+ projeto_id;
+					tag6.className = 'mapa_bt zoom_in';
+					tag2.appendChild(tag6); 
+					
+					tag7 = document.createElement('div');
+					tag7.id = 'zoom_out'+ projeto_id;
+					tag7.className = 'mapa_bt zoom_out';
+					tag2.appendChild(tag7);
+					
+					projetos.appendChild(tag);
+					
+				} 
+			}
+			
+			/*
+			<li id="projeto1" class="projeto">
+				<div class="projeto_bts">
+					<div class="titulo wwf mapa_bt">Áreas Prioritárias para conservação no cerrado e Pantanal</div> 
+					<div class="resultados mapa_bt">ÁREAS PRIORITÁRIAS PARA CONSERVAÇÃO</div> 
+
+					<ul class="resultados_lista">
+						<li class="select">ÁREAS PRIORITÁRIAS PARA CONSERVAÇÃO</li>
+						<li class="mapa_bt" >ÁREAS PRIORI CONSERVAÇÃO</li>
+						<li class="mapa_bt" >ÁREAS  CONSERVAÇÃO PARA CONSERVAÇÃO DE ÁREAS</li>
+					</ul>
+
+					<div class="mapa_bt zoom_in"></div>
+					<div class="mapa_bt zoom_out"></div>
+
+					<div class="mapa_bt resumo">Lorem ipsum dolor sit amet leo. Maecenas sapien ultrices ante aliquam ipsum. Faucibus lorem leo odio vitae nam. Tellus mauris vivamus viverra convallis donec. Mi odio sodales orci at elit. Sodales consequat ante. Congue magna massa at enim ut turpis in quos neque laoreet placerat. In ea congue condimentum accumsan a duis commodo donec accumsan urna integer. Non elit et. Turpis suspendisse felis orci cillum nulla integer dolor congue. Mollis mollit augue. Massa massa ut. Dui hac maecenas. Tincidunt a nec. Suscipit convallis quam. Donec a penatibus cursus wisi risus enim molestie phasellus massa sit non malesuada commodo platea mattis quis facilisis. A faucibus sodales enim quam non. Lectus ultricies sem vestibulum molestie ut ut ac ultricies lectus metus nibh accumsan dignissim nam volutpat hendrerit purus. Sed orci tincidunt. Lacinia suspendisse suscipit. Et id pharetra. Nibh nec suspendisse. Imperdiet quis eu elementum at facilisis nec vitae pharetra. Non diam amet. Ante dolor mattis parturient auctor duis. Luctus sit tempus. Id dictum mi et platea odio. Tempor ac eu iaculis est interdum arcu dictumst nulla. Orci est massa. Tellus posuere at.</div> 
+				</div>
+			</li> 
+			*/
+			
+			// 4.documentos
+			rand = Math.random() * 1000; 
+			myRequest4.open("GET", "xml/documentos.xml?rand="+rand, true);
+			myRequest4.send(null);
+			
+		}
+	}
+	
 	// DOCUMENTOS // 
 		
-	var myRequest3;	
+	var myRequest4;	
 	var xml_documentos;	
 	var documentos_arr = [];
 
 	var lista_arr = [];
 
 	if(window.XMLHttpRequest){ 
-		myRequest3 = new XMLHttpRequest();
+		myRequest4 = new XMLHttpRequest();
 	}else if(window.ActiveXObject){ 
-		myRequest3 = new ActiveXObject("Microsoft.XMLHTTP");
+		myRequest4 = new ActiveXObject("Microsoft.XMLHTTP");
 	}
 
-	myRequest3.onreadystatechange = function(){  
+	myRequest4.onreadystatechange = function(){  
 		if(this.readyState === 4){ 
 			xml_documentos = this.responseXML;    
 			documentos_arr = xml2arr ( 
@@ -377,8 +510,7 @@ window.onload = function (){
 						tag.palavras_chave = d.palavras_chave.toUpperCase();
 
 						lista.appendChild(tag);
-						lista_arr.push(tag); 
-
+						d.item = tag;	
 					} 
 				} 
 				
@@ -417,9 +549,9 @@ window.onload = function (){
 
 					var t = busca_tx.value.toUpperCase();
 
-					for(i in lista_arr){
+					for(i in documentos_arr){
 
-						d = lista_arr[i]; 
+						d = documentos_arr[i].item; 
 						if (t==''){
 							$(d).show();
 						}else{
@@ -443,7 +575,9 @@ window.onload = function (){
 				var filtro = 0; 
 
 				buscar_em.onclick = function(){
-					$(busca_opts).fadeIn(100).css({top: -43 * this.select});
+					$(busca_opts).fadeIn(100).css({top: -43 * filtro});
+					tag = document.getElementById('opt' + filtro);
+					$(tag).css({backgroundColor:temas[tema]})
 				}
 
 				$(busca_opts).mouseleave(function(){
@@ -466,20 +600,26 @@ window.onload = function (){
 					tag.id = 'opt'+i;
 					tag.lb = opts[i][1];
 					tag.className = 'busca_opt';
-					if(i==0) tag.className += ' select';
+					if(i==0) {
+						tag.className += ' select';
+					}
 					tag.innerHTML = opts[i][0];
 
 					tag.onclick = function(){
 						filtro = this.ID;
-						buscar_em.innerHTML = opts[this.ID][0];
-						$(busca_opts).fadeOut(100);
-						filtrar();
 
 						for(i=0; i<opts.length; i++){
 							tag = document.getElementById('opt' + i);
-							if(i == this.ID) tag.className = 'busca_opt select';
-							else tag.className = 'busca_opt';
+							if(i == filtro){
+								tag.className = 'busca_opt select';
+							}else{
+								tag.className = 'busca_opt';
+							} 
 						} 
+						
+						buscar_em.innerHTML = opts[this.ID][0];
+						filtrar();
+						$(busca_opts).fadeOut(100);
 					}
 
 					busca_opts.appendChild(tag);
