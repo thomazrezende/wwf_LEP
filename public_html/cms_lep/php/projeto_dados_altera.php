@@ -21,28 +21,22 @@
 	sql_update("projetos", $dados, "id='".$id."'" ); 
   	xml_projeto($id);
 
-	if($_POST["publicado"] == 0){
-		
-		$dados = sql_select("dados","layout_home","","",false);  
-		$layout_home = explode(",",$dados["layout_home"]); 
-		$key = array_search("item".$id, $layout_home);
-		
+	$dados = sql_select("dados","layout_home","","",false);  
+	$layout_home = explode(",",$dados["layout_home"]); 
+	$key = array_search("item".$id, $layout_home);
+
+	if($_POST["publicado"] == 0){  
 		if( $key !== false ){  
 			unset( $layout_home[$key] );  
 			$layout_novo = implode(",",$layout_home);
-			
 			sql_update("dados", array(array("layout_home",$layout_novo)), "" ); 
-		}
-		
-	}else{
-		
-		$dados = sql_select("dados","layout_home","","",false);  
-		$layout_home = explode(",", $dados["layout_home"]); 
-		
-		array_push($layout_home, "item".$id ); 
-		$layout_novo = implode(",",$layout_home);
-		sql_update("dados", array(array("layout_home",$layout_novo)), "" );   
-		
+		} 
+	}else{  
+		if( $key == false ){  
+			array_push($layout_home, "item".$id ); 
+			$layout_novo = implode(",",$layout_home);
+			sql_update("dados", array(array("layout_home",$layout_novo)), "" );  
+		} 
 	}	
 	
 	xml_dados();

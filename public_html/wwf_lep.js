@@ -11,6 +11,7 @@ window.onload = function (){
 		tag5,
 		tag6,
 		tag7,
+		br,
 		temp,
 		page, 
 		page_y,
@@ -275,7 +276,7 @@ window.onload = function (){
 	
 	myRequest2.onreadystatechange = function(){  
 		if(this.readyState === 4){ 
-			xml_dados = this.responseXML;    
+			xml_dados = this.responseXML; 
 			dados_arr = xml2arr ( 
 				xml_dados, "dados",
 					["email",
@@ -289,7 +290,7 @@ window.onload = function (){
 			
 			// contato
 			
-			d = dados_arr['dados'];
+			d = dados_arr['dados']; 
 			
 			email.onclick = function(){ 
 				document.location.href = 'mailto:' + d.email;
@@ -351,20 +352,18 @@ window.onload = function (){
 					"zoom",
 					"resumo"]);
 			
-				// lista 
-			
 			// projetos
 			
 			var projeto_id;
-			var resultados;
-			
-			console.log(projetos_arr);
+			var resultados; 
 			
 			if(page == 0){ 
 				
-				layout_home = dados_arr['dados'].layout_home.split(',');
+				layout_home = dados_arr['dados'].layout_home.split(','); 
 				
-				for(i in layout_home){
+				console.log(dados_arr['dados']);
+				
+				for(i=0; i<layout_home.length; i++){
 					
 					projeto_id = layout_home[i].split("item")[1];
 					d = projetos_arr["projeto" + projeto_id];
@@ -383,38 +382,67 @@ window.onload = function (){
 					tag3.id = 'titulo' + projeto_id;
 					tag3.innerHTML = d.titulo;
 					tag2.appendChild(tag3);
-										
-					tag4 = document.createElement('div');
-					tag4.id = 'resultado' + projeto_id;
-					tag4.className = 'resultados mapa_bt';
-					tag2.appendChild(tag4); 
 					
-					tag5 = document.createElement('ul');
-					tag5.id = 'resultados' + projeto_id;
-					tag5.className = 'resultados_lista';
-					tag2.appendChild(tag5); 
+					br = document.createElement('br');
+					tag2.appendChild(br);
 					
-					//resultados = 
+					if(d.resultados.length > 0){ 
+						tag3 = document.createElement('div');
+						tag3.id = 'resultado' + projeto_id;
+						tag3.className = 'resultados mapa_bt';
+						tag3.innerHTML = d.resultados[0].titulo.toUpperCase();
+						tag2.appendChild(tag3); 
+						
+						br = document.createElement('br');
+						tag2.appendChild(br);
+
+						tag3 = document.createElement('ul');
+						tag3.id = 'resultados' + projeto_id;
+						tag3.className = 'resultados_lista';
+						//tag3.style.display = 'none';
+						tag2.lista = tag3;
+						tag2.appendChild(tag3); 
+						
+						for(r=0; r<d.resultados.length; r++){ 
+							tag4 = document.createElement('li');
+							tag4.id = 'resultado' + d.resultados[r].id;
+							tag4.innerHTML = d.resultados[r].titulo.toUpperCase();
+							if(r==0) tag4.className = 'select';
+							else tag4.className = 'mapa_bt'; 
+							tag3.appendChild(tag4);
+							
+							br = document.createElement('br');
+							tag3.appendChild(br);
+						}
+					}  
 					
-					tag6 = document.createElement('div');
-					tag6.id = 'zoom_in'+ projeto_id;
-					tag6.className = 'mapa_bt zoom_in';
-					tag2.appendChild(tag6); 
+					tag3 = document.createElement('div');
+					tag3.id = 'zoom_in'+ projeto_id;
+					tag3.className = 'mapa_bt zoom_in';
+					tag2.appendChild(tag3); 
 					
-					tag7 = document.createElement('div');
-					tag7.id = 'zoom_out'+ projeto_id;
-					tag7.className = 'mapa_bt zoom_out';
-					tag2.appendChild(tag7);
+					tag3 = document.createElement('div');
+					tag3.id = 'zoom_out'+ projeto_id;
+					tag3.className = 'mapa_bt zoom_out';
+					tag2.appendChild(tag3);
 					
 					projetos.appendChild(tag);
 					
-				} 
+				}
 			}
 			
-			/*
-			<li id="projeto1" class="projeto">
+			// 4.documentos 
+			myRequest4.open("GET", "xml/documentos.xml?session="+session, true);
+			myRequest4.send(null);
+			
+		}
+	}
+	
+	/*
+	
+	<li id="projeto1" class="projeto">
 				<div class="projeto_bts">
-					<div class="titulo wwf mapa_bt">Áreas Prioritárias para conservação no cerrado e Pantanal</div> 
+					<div class="titulo wwf mapa_bt">ÁREAS PRIORITÁRIAS PARA CONSERVAÇÃO, UTILIZAÇÃO SUSTENTÁVEL E REPARTIÇÃO DOS BENEFÍCIOS DA BIODIVERSIDADE NO CERRADO E NO PANTANAL</div> 
 					<div class="resultados mapa_bt">ÁREAS PRIORITÁRIAS PARA CONSERVAÇÃO</div> 
 
 					<ul class="resultados_lista">
@@ -429,14 +457,8 @@ window.onload = function (){
 					 <div class="mapa_bt resumo">Lorem ipsum dolor sit amet leo. Maecenas sapien ultrices ante aliquam ipsum. Faucibus lorem leo odio vitae nam. Tellus mauris vivamus viverra convallis donec. Mi odio sodales orci at elit. Sodales consequat ante. Congue magna massa at enim ut turpis in quos neque laoreet placerat. In ea congue condimentum accumsan a duis commodo donec accumsan urna integer. Non elit et. Turpis suspendisse felis orci cillum nulla integer dolor congue. Mollis mollit augue. Massa massa ut. Dui hac maecenas. Tincidunt a nec. Suscipit convallis quam. Donec a penatibus cursus wisi risus enim molestie phasellus massa sit non malesuada commodo platea mattis quis facilisis. A faucibus sodales enim quam non. Lectus ultricies sem vestibulum molestie ut ut ac ultricies lectus metus nibh accumsan dignissim nam volutpat hendrerit purus. Sed orci tincidunt. Lacinia suspendisse suscipit. Et id pharetra. Nibh nec suspendisse. Imperdiet quis eu elementum at facilisis nec vitae pharetra. Non diam amet. Ante dolor mattis parturient auctor duis. Luctus sit tempus. Id dictum mi et platea odio. Tempor ac eu iaculis est interdum arcu dictumst nulla. Orci est massa. Tellus posuere at.</div> 
 				</div>
 			</li> 
-			*/
-			
-			// 4.documentos 
-			myRequest4.open("GET", "xml/documentos.xml?session="+session, true);
-			myRequest4.send(null);
-			
-		}
-	}
+	
+	*/
 	
 	// DOCUMENTOS // 
 		
