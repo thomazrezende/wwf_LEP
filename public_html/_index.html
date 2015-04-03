@@ -39,8 +39,6 @@
 			var banners_arr = [];
 			var banner_id;
 			var tema;
-			var session = Math.random() * 1000; 
-			sessionStorage.setItem("session", session); 
 
 			if(window.XMLHttpRequest){ 
 				myRequest1 = new XMLHttpRequest();
@@ -103,9 +101,11 @@
 				if(xml[i].getElementsByTagName(lb)[0].firstChild){ // se a tag estiver vazia, o firstChild = null da bug no retorno da proxima linha
 					return xml[i].getElementsByTagName(lb)[0].firstChild.nodeValue;  
 				}
-			}	  
-			
-			myRequest1.open("GET", "xml/banners.xml?session="+session, true);
+			}	 
+ 
+
+			var rand = Math.random() * 1000; 
+			myRequest1.open("GET", "xml/banners.xml?rand="+rand, true);
 			myRequest1.send(null);  
 			
 		</script>
