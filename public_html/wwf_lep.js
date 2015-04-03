@@ -216,26 +216,27 @@ window.onload = function (){
 				xml_banners, "banner", 
 					["id",
 					 "tema",
-					 "credito"]);
+					 "credito"]); 
 			
 			tema = sessionStorage.getItem("tema");
 			banner_id = sessionStorage.getItem("banner_id");
-			session = sessionStorage.getItem("session");
-			 
+			session = sessionStorage.getItem("session"); 
+			
 			if( !tema || !session || !banner_id ){ 
 				
-				session = Math.random() * 1000; 
-				sessionStorage.setItem("session", session);
-				
+				session = Math.random() * 1000;  
 				banner_id = Math.floor( Math.random() * banners_arr.length ); 
 				
 				d = banners_arr[banner_id];
 				
 				sessionStorage.setItem("tema", d.tema);
-				sessionStorage.setItem("banner_id", d.id);
+				sessionStorage.setItem("banner_id", banner_id);
+				sessionStorage.setItem("session", session);
 			}  
 			
 			d = banners_arr[banner_id]; 
+			
+			console.log(banners_arr[banner_id]);
 			
 			if(d.credito != ''){
 				$(banner_credito).html('foto: ' + d.credito);
@@ -289,8 +290,6 @@ window.onload = function (){
 			// contato
 			
 			d = dados_arr['dados'];
-			
-			console.log(">>>"+d);
 			
 			email.onclick = function(){ 
 				document.location.href = 'mailto:' + d.email;
@@ -348,7 +347,7 @@ window.onload = function (){
 					"titulo",
 					"lat",
 					"lng",
-					//["resultados", ["label","titulo","id"]],
+					["resultados", "resultado", ["label","titulo","id"]],
 					"zoom",
 					"resumo"]);
 			
@@ -395,7 +394,7 @@ window.onload = function (){
 					tag5.className = 'resultados_lista';
 					tag2.appendChild(tag5); 
 					
-					resultados = 
+					//resultados = 
 					
 					tag6 = document.createElement('div');
 					tag6.id = 'zoom_in'+ projeto_id;
@@ -664,9 +663,11 @@ window.onload = function (){
 	function xml2arr(_xml, obj_lb, atts){  
 		var arr = [];
 		var id = '';
+		var _id = '';
 		var obj;
 		var join;
 		var xml;
+		var sub;
 		
 		xml = _xml.getElementsByTagName(obj_lb);   
 		
@@ -677,28 +678,26 @@ window.onload = function (){
 			if( obj_lb != 'dados' ) id = ponteiro_lista(xml,i,"id"); 
 			for( var a=0; a<atts.length; a++ ){  
 				
-				/*if(isArray(atts[a])){
+				if(isArray(atts[a])){
 					
-					obj[atts[a][0]]	= [];
+					sub = xml[i].getElementsByTagName(atts[a][1]); 
+					obj[atts[a][0]]	= []; 
 					
-					for(n_registros){ 
+					for(_i=0; _i<sub.length; _i++){ 
+						join = {};	 
+						for( var b=0; b<atts[a][2].length; b++ ){  // atts
+							join[atts[a][2][b]] = ponteiro_lista(sub,_i,atts[a][2][b]);						
+						}
 						
-						join = {};  
+						if( atts[a][1] != 'dados' ) _id = ponteiro_lista(sub,_i,"id");
 						
-						for( var b=0; b<atts[a][1].length; b++ ){ 
-							join[atts[a][1][b]] = ponteiroXYZ;						
-						}	
-					
+						obj[atts[a][0]].push(join);
+						obj[atts[a][0]][ atts[a][1] + _id ] = join;
 					}
-					
-					obj[atts[a][0]].push(join);
-					
-				}else{ */
-					
+						
+				}else{ 
 					obj[atts[a]] = ponteiro_lista(xml,i,atts[a]); 
-					
-				//}
-				
+				} 
 			}
 			
 			arr.push(obj);
@@ -717,17 +716,17 @@ window.onload = function (){
 	}
 
 	// nodes
-	function ponteiro_lista(xml,i,lb){ //  ponteiro que retorna conteúdo da tag com index = i
-		if(xml[i].getElementsByTagName(lb)[0].firstChild){ // se a tag estiver vazia, o firstChild = null da bug no retorno da proxima linha
-			return xml[i].getElementsByTagName(lb)[0].firstChild.nodeValue;  
+	function ponteiro_lista(xml,a,lb){ //  ponteiro que retorna conteúdo da tag com index [a] e tags internas do index [a][b]
+		if(xml[a].getElementsByTagName(lb)[0].firstChild){ // se a tag estiver vazia, o firstChild = null da bug no retorno da proxima linha
+			if(xml[a].getElementsByTagName(lb)[0].firstChild){
+				return xml[a].getElementsByTagName(lb)[0].firstChild.nodeValue;   
+			} 
 		}
 	}
 	
 	function isArray( obj ) {
 		return toString.call(obj) === "[object Array]";
-	};
-	
-	
+	}; 
 	
 	
 }

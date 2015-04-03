@@ -40,7 +40,6 @@
 			var banner_id;
 			var tema;
 			var session = Math.random() * 1000; 
-			sessionStorage.setItem("session", session); 
 
 			if(window.XMLHttpRequest){ 
 				myRequest1 = new XMLHttpRequest();
@@ -62,7 +61,8 @@
 					tema = d.tema;
 
 					sessionStorage.setItem("tema", tema);
-					sessionStorage.setItem("banner_id", banner_id);					 
+					sessionStorage.setItem("banner_id", banner_id);	
+					sessionStorage.setItem("session", session); 				 
 
 					document.location.href = "projetos.html";
 
