@@ -23,6 +23,7 @@
 		$layout_novo = implode(",",$layout_home); 
 		sql_update("dados", array(array("layout_home",$layout_novo)), "" ); 
 		xml_dados();
+		xml_projetos();
 	}
 
 	location("../projetos.php","msg_ok=PROJETO REMOVIDO COM SUCESSO");

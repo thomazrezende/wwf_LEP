@@ -12,12 +12,12 @@ window.onload = function (){
 		tag6,
 		tag7,
 		temp,
-		page,
-		rand,
+		page, 
 		page_y,
 		win_w,
 		win_h,
 		tema,
+		session,
 		banner_id,
 		layout_home;
 	
@@ -35,7 +35,8 @@ window.onload = function (){
 		root += path[i] + '/';
 	} 
 	
-	console.log("_root: " + root);  
+	console.log("_root: " + root); 
+	
 	
 	// OBJETOS //
 	
@@ -219,9 +220,14 @@ window.onload = function (){
 			
 			tema = sessionStorage.getItem("tema");
 			banner_id = sessionStorage.getItem("banner_id");
-			
-			if(!tema){ 
-				var banner_id = Math.floor( Math.random() * banners_arr.length ); 
+			session = sessionStorage.getItem("session");
+			 
+			if( !tema || !session || !banner_id ){ 
+				
+				session = Math.random() * 1000; 
+				sessionStorage.setItem("session", session);
+				
+				banner_id = Math.floor( Math.random() * banners_arr.length ); 
 				
 				d = banners_arr[banner_id];
 				
@@ -243,17 +249,15 @@ window.onload = function (){
 			
 			// 2.dados
 
-			rand = Math.random() * 1000; 
-			myRequest2.open("GET", "xml/dados.xml?rand="+rand, true);
+			myRequest2.open("GET", "xml/dados.xml?session="+session, true);
 			myRequest2.send(null);  
 			 
 		}
 	} 
 	
 	// 1.banners
-	
-	rand = Math.random() * 1000; 
-	myRequest1.open("GET", "xml/banners.xml?rand="+rand, true);
+	 
+	myRequest1.open("GET", "xml/banners.xml?session="+session, true);
 	myRequest1.send(null); 
 	
 	// DADOS //
@@ -286,6 +290,8 @@ window.onload = function (){
 			
 			d = dados_arr['dados'];
 			
+			console.log(">>>"+d);
+			
 			email.onclick = function(){ 
 				document.location.href = 'mailto:' + d.email;
 			}
@@ -313,9 +319,8 @@ window.onload = function (){
 				$(links).html(d.links);  
 			}	
 			
-			// 3.PROJETOS
-			rand = Math.random() * 1000; 
-			myRequest3.open("GET", "xml/projetos.xml?rand="+rand, true);
+			// 3.PROJETOS 
+			myRequest3.open("GET", "xml/projetos.xml?session="+session, true);
 			myRequest3.send(null);
 			
 		}
@@ -343,6 +348,7 @@ window.onload = function (){
 					"titulo",
 					"lat",
 					"lng",
+					//["resultados", ["label","titulo","id"]],
 					"zoom",
 					"resumo"]);
 			
@@ -351,6 +357,9 @@ window.onload = function (){
 			// projetos
 			
 			var projeto_id;
+			var resultados;
+			
+			console.log(projetos_arr);
 			
 			if(page == 0){ 
 				
@@ -386,7 +395,7 @@ window.onload = function (){
 					tag5.className = 'resultados_lista';
 					tag2.appendChild(tag5); 
 					
-					
+					resultados = 
 					
 					tag6 = document.createElement('div');
 					tag6.id = 'zoom_in'+ projeto_id;
@@ -418,14 +427,13 @@ window.onload = function (){
 					<div class="mapa_bt zoom_in"></div>
 					<div class="mapa_bt zoom_out"></div>
 
-					<div class="mapa_bt resumo">Lorem ipsum dolor sit amet leo. Maecenas sapien ultrices ante aliquam ipsum. Faucibus lorem leo odio vitae nam. Tellus mauris vivamus viverra convallis donec. Mi odio sodales orci at elit. Sodales consequat ante. Congue magna massa at enim ut turpis in quos neque laoreet placerat. In ea congue condimentum accumsan a duis commodo donec accumsan urna integer. Non elit et. Turpis suspendisse felis orci cillum nulla integer dolor congue. Mollis mollit augue. Massa massa ut. Dui hac maecenas. Tincidunt a nec. Suscipit convallis quam. Donec a penatibus cursus wisi risus enim molestie phasellus massa sit non malesuada commodo platea mattis quis facilisis. A faucibus sodales enim quam non. Lectus ultricies sem vestibulum molestie ut ut ac ultricies lectus metus nibh accumsan dignissim nam volutpat hendrerit purus. Sed orci tincidunt. Lacinia suspendisse suscipit. Et id pharetra. Nibh nec suspendisse. Imperdiet quis eu elementum at facilisis nec vitae pharetra. Non diam amet. Ante dolor mattis parturient auctor duis. Luctus sit tempus. Id dictum mi et platea odio. Tempor ac eu iaculis est interdum arcu dictumst nulla. Orci est massa. Tellus posuere at.</div> 
+					 <div class="mapa_bt resumo">Lorem ipsum dolor sit amet leo. Maecenas sapien ultrices ante aliquam ipsum. Faucibus lorem leo odio vitae nam. Tellus mauris vivamus viverra convallis donec. Mi odio sodales orci at elit. Sodales consequat ante. Congue magna massa at enim ut turpis in quos neque laoreet placerat. In ea congue condimentum accumsan a duis commodo donec accumsan urna integer. Non elit et. Turpis suspendisse felis orci cillum nulla integer dolor congue. Mollis mollit augue. Massa massa ut. Dui hac maecenas. Tincidunt a nec. Suscipit convallis quam. Donec a penatibus cursus wisi risus enim molestie phasellus massa sit non malesuada commodo platea mattis quis facilisis. A faucibus sodales enim quam non. Lectus ultricies sem vestibulum molestie ut ut ac ultricies lectus metus nibh accumsan dignissim nam volutpat hendrerit purus. Sed orci tincidunt. Lacinia suspendisse suscipit. Et id pharetra. Nibh nec suspendisse. Imperdiet quis eu elementum at facilisis nec vitae pharetra. Non diam amet. Ante dolor mattis parturient auctor duis. Luctus sit tempus. Id dictum mi et platea odio. Tempor ac eu iaculis est interdum arcu dictumst nulla. Orci est massa. Tellus posuere at.</div> 
 				</div>
 			</li> 
 			*/
 			
-			// 4.documentos
-			rand = Math.random() * 1000; 
-			myRequest4.open("GET", "xml/documentos.xml?rand="+rand, true);
+			// 4.documentos 
+			myRequest4.open("GET", "xml/documentos.xml?session="+session, true);
 			myRequest4.send(null);
 			
 		}
@@ -657,37 +665,67 @@ window.onload = function (){
 		var arr = [];
 		var id = '';
 		var obj;
+		var join;
 		var xml;
 		
-		xml = _xml.getElementsByTagName(obj_lb);  
+		xml = _xml.getElementsByTagName(obj_lb);   
+		
+		console.log(obj_lb);
 		
 		for(var i=0; i<xml.length; i++){
 			obj = {}; 
 			if( obj_lb != 'dados' ) id = ponteiro_lista(xml,i,"id"); 
-			 for( var a=0; a<atts.length; a++ ){ 
-				obj[atts[a]] = ponteiro_lista(xml,i,atts[a]);
+			for( var a=0; a<atts.length; a++ ){  
+				
+				/*if(isArray(atts[a])){
+					
+					obj[atts[a][0]]	= [];
+					
+					for(n_registros){ 
+						
+						join = {};  
+						
+						for( var b=0; b<atts[a][1].length; b++ ){ 
+							join[atts[a][1][b]] = ponteiroXYZ;						
+						}	
+					
+					}
+					
+					obj[atts[a][0]].push(join);
+					
+				}else{ */
+					
+					obj[atts[a]] = ponteiro_lista(xml,i,atts[a]); 
+					
+				//}
+				
 			}
+			
 			arr.push(obj);
 			arr[obj_lb + id] = obj;
 		}
 
 		return arr;
 		
-	}  
-	
+	}
+
 	// att
 	function ponteiro_att(xml, ID, att){  
 		if( xml[ID] ){
 			return xml[ID].getAttribute(att); 
 		}
-	}    
+	}
 
 	// nodes
 	function ponteiro_lista(xml,i,lb){ //  ponteiro que retorna conteúdo da tag com index = i
 		if(xml[i].getElementsByTagName(lb)[0].firstChild){ // se a tag estiver vazia, o firstChild = null da bug no retorno da proxima linha
 			return xml[i].getElementsByTagName(lb)[0].firstChild.nodeValue;  
 		}
-	}	 
+	}
+	
+	function isArray( obj ) {
+		return toString.call(obj) === "[object Array]";
+	};
 	
 	
 	
