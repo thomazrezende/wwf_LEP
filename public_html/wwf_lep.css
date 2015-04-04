@@ -248,6 +248,19 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 	user-select: none;
 }
 
+.preloader{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top:0;
+	left: 0;
+	z-index: 10;
+	background-color: #fff;
+	background-image: url(_layout/preloader.gif);
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
 .projeto_bts{
 	width: 100%;
 	height: 100%;
