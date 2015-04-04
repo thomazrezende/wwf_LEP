@@ -1,37 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <projetos>
 	<projeto>
-		<id>8</id>
-		<publicado>1</publicado>
-		<titulo><![CDATA[Áreas Prioritárias para Conservação, Utilização Sustentável e da Biodiversidade da Bahia]]></titulo>
-		<lat>-16.5</lat>
-		<lng>-58.9</lng>
-		<zoom>3</zoom>
-		<resumo><![CDATA[Praesent ipsum ultricies. Dolor maecenas morbi nunc con blandit. Neque eget ornare ac ultrices dui. Eros mauris vel nibh viverra velit nunc leo quisque lacinia interdum aliquam. Dis lorem ut. Nonummy etiam magna elementum posuere suscipit a odio ultrices lacinia morbi nunc ipsum per suscipit. Phasellus purus torquent. Dolor egestas sollicitudin. Mollis auctor potenti suspendisse quisque erat. Posuere felis suscipit. Per lacus curabitur eros nunc nunc sed eleifend auctor. Ac nonummy dui. Mi ante sociosqu non tellus in lacus quis luctus platea convallis ullamcorper. Dui adipiscing sed ac quis neque etiam felis ut pellentesque mi quisque. Tellus elit nec. Condimentum nullam vestibulum. Sem suscipit odio tincidunt malesuada fusce. Nulla ac facere et eu quas. Risus augue ac. Erat viverra curae leo mattis semper sapien ac accumsan mollis semper tempus. Sit ipsum quis. Neque posuere elementum vitae ut et. Tincidunt in lacinia mauris facilisi et. Magnis risus ut. Pede placeat nec. Erat ducimus neque a dolor vulputate. Consequat pede eros cras risus sit. Gravida quas vivamus lacus nulla eleifend ut et nec. Eu fermentum metus sit quam non. Aliquam sollicitudin aenean.]]></resumo>
-		<resultados>
-		</resultados>
-		<arquivos>
-		</arquivos>
-	</projeto>
-	<projeto>
-		<id>7</id>
-		<publicado>1</publicado>
-		<titulo><![CDATA[Áreas Prioritárias para Conservação, Utilização Sustentável e Repartição dos Benefícios da Biodiversidade no Cerrado e no Pantanal]]></titulo>
-		<lat>-10.5209</lat>
-		<lng>-51.693</lng>
-		<zoom>4</zoom>
-		<resumo><![CDATA[Nisl lectus con. Tincidunt orci nec. Ipsum condimentum ipsum. Potenti integer aliquet. Vel in nulla. Quis at augue. Sit dui pulvinar. Tenetur amet rhoncus mattis aliquet vel. Fringilla mauris justo. Velit tortor a. Et nisl ante in cras nec morbi massa eget. Ipsum ante erat ut sed dolor a aenean nec risus et sit etiam justo lacus sociis lorem vel. Eget aptent venenatis tellus massa est non fringilla odio in vehicula vulputate morbi morbi eget. Ac tincidunt ad. Eu lobortis at et mattis orci ante orci eu dui tristique egestas.]]></resumo>
-		<resultados>
-			<resultado>
-				<id>5</id>
-				<titulo><![CDATA[titulo do documento1]]></titulo>
-				<label><![CDATA[asd]]></label>
-			</resultado>
-		</resultados>
-		<arquivos>
-		</arquivos>
-	</projeto>
-	<projeto>
 		<id>6</id>
 		<publicado>1</publicado>
 		<titulo><![CDATA[Visão de Conservação para a Bacia do Tapajós2]]></titulo>

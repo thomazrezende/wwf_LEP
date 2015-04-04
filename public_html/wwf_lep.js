@@ -11,8 +11,9 @@ window.onload = function (){
 		tag4,
 		tag5,
 		tag6,
-		tag7,
+		preloader,
 		map,
+		layer,
 		mapOptions,
 		br,
 		temp,
@@ -100,7 +101,9 @@ window.onload = function (){
 		menu_bts.appendChild(tag);
 	}
 	
-	// CORES //
+	// CORES // 
+	
+	//BUG! TEMAS NAO FUNCIONAM NA HOME!!!! hover dos botoes nos mapas
 	
 	function aplicar_tema(){
 		
@@ -122,13 +125,13 @@ window.onload = function (){
 		}); 
 		$('.menu_bt.select').css({color:temas[tema]}); 
   
-		// projetos 
+		// projetos  
 		if(page == 0){ 
-			$('.mapa_bt').hover(function(){
+			$('.resultados_lista li').hover(function(){
 				$( this ).css({backgroundColor:temas[tema]})
 			},function(){
 				$( this ).css({backgroundColor:''})
-			});  
+			}); 
 		} 
 
 		//sobre
@@ -398,11 +401,16 @@ window.onload = function (){
 						zoomControl: false
 					};
 					
-					map = new google.maps.Map(tag, mapOptions);
+					map = new google.maps.Map(tag, mapOptions);   
 					
 					tag2 = document.createElement('div');
 					tag2.className = 'projeto_bts';
 					tag.appendChild(tag2); 
+					
+					google.maps.event.addListener(map, 'dragstart', function() { 
+						fechar_lista(this);
+						fechar_texto(this);
+					}); 
 					
 					tag3 = document.createElement('div');
 					tag3.id = 'zoom_in'+ projeto_id;
@@ -440,18 +448,16 @@ window.onload = function (){
 						tag3.id = 'resultado' + projeto_id;
 						tag3.className = 'resultados mapa_bt';
 						tag3.innerHTML = d.resultados[0].titulo.toUpperCase();
+						tag3.map = map;
+						map.bt_lista = tag3;
 						tag2.appendChild(tag3); 
 						
-						tag3.onclick = function(){ 
-							if(this.lista.visible){
-								this.lista.visible = false;
-								$(this.lista).fadeOut(dur);
-								$(this).css({backgroundImage:'url(_layout/icon_dw2.png)'});
-							}else{
-								this.lista.visible = true;
-								$(this.lista).fadeIn(dur);
-								$(this).css({backgroundImage:'url(_layout/icon_up2.png)'});
-							} 
+						tag3.onclick = function(){  
+							if(this.map.lista.visible){ 
+								fechar_lista(this.map);
+							}else{ 
+								abrir_lista(this.map);
+							}
 						}
 						
 						br = document.createElement('br');
@@ -459,58 +465,99 @@ window.onload = function (){
 
 						tag4 = document.createElement('ul');
 						tag4.id = 'resultados' + projeto_id;
-						tag4.className = 'resultados_lista';
-						tag3.lista = tag4;
+						tag4.className = 'resultados_lista'; 
+						map.lista = tag4;
 						tag2.appendChild(tag4);
 						
 						$(tag4).hide();
-						tag4.visible = false;
+						tag4.visible = false; 
+						
+						preloader = document.createElement('div');
+						preloader.className = 'preloader';
+						tag.appendChild(preloader);
+						$(preloader).hide(); 
+						
+						map.resultados = []; 
+						
 						
 						for(r=0; r<d.resultados.length; r++){ 
 							tag5 = document.createElement('li');
 							tag5.id = 'resultado' + d.resultados[r].id;
-							tag5.innerHTML = d.resultados[r].titulo.toUpperCase();
+							tag5.ID = d.resultados[r].id;
+							tag5.map = map;  
+							tag5.lb = d.resultados[r].titulo.toUpperCase();
+							tag5.innerHTML = tag5.lb;
+							
 							if(r==0) tag5.className = 'select';
 							else tag5.className = 'mapa_bt';
-							tag4.appendChild(tag5);
 							
+							tag4.appendChild(tag5); 
+							map.resultados.push(tag5);
 							tag5.onclick = function(){
-								if(this.className != 'select'){
-									console.log("foi");	
-								}
-							}
+								chamar_kmz(this);	
+							} 
+							
+							layer = new google.maps.KmlLayer({ 
+								suppressInfoWindows: true,
+								preserveViewport: true,
+								url:root + "projetos/projeto" + d.id + "/" + d.resultados[r].label + ".kmz?session=" + session
+							});
+							
+							layer.preloader = preloader;  
+							google.maps.event.addListener(layer, 'status_changed', function () { 
+								$(this.preloader).stop(true).fadeOut(dur); 
+							});
+						
+							if(r==0) layer.setMap(map);
+							
+							tag5.layer = layer;
 							
 							br = document.createElement('br');
 							tag4.appendChild(br);
-						}  
+						}
+						 
+					}
+					
+					function chamar_kmz(alvo){ 
+						for(r=0; r<alvo.map.resultados.length; r++){ 
+							d = alvo.map.resultados[r];
+							if(d == alvo){
+								console.log("carregar layer: " + d.layer);
+								d.map.bt_lista.innerHTML = d.lb;
+								d.className = "select";
+								$(d.layer.preloader).fadeTo(dur,.75);	
+								d.layer.setMap(d.map);				 
+							}else{
+								d.layer.setMap(null);
+								d.className = "mapa_bt";
+							}
+						}
+						fechar_lista(alvo.map);
 					}
 					
 					//resumo
 						
 					tag3 = document.createElement('div');
 					tag3.className = 'resumo mapa_bt'; 
-					tag3.innerHTML = d.resumo;
+					tag3.innerHTML = d.resumo; 
+					tag3.map = map;
+					map.bt_texto = tag3;
 					tag2.appendChild(tag3); 
 					
 					tag4 = document.createElement('div');
 					tag4.className = 'resumo_tx'; 
 					tag4.innerHTML = d.resumo;
+					map.texto = tag4;
 					tag2.appendChild(tag4); 
 					
-					$(tag4).hide();
-					tag3.texto = tag4;
+					$(tag4).hide(); 
 					tag4.visible = false;
 					
 					tag3.onclick = function(){
-						if(this.texto.visible){
-							this.texto.visible = false;
-							$(this.texto).fadeOut(dur);
-							$(this).css({backgroundImage:'url(_layout/icon_up2.png)', color:'#fff'}); 
+						if(this.map.texto.visible){
+							fechar_texto(this.map);
 						}else{
-							this.texto.visible = true;
-							$(this.texto).fadeIn(dur);
-							$(this).css({backgroundImage:'url(_layout/icon_dw2.png)', color:'rgba(255,255,255,.3)'}); 
-							this.texto.scrollTop = 0;
+							abrir_texto(this.map);
 						}
 					}
 					
@@ -525,6 +572,32 @@ window.onload = function (){
 		}
 	}
 	 
+	function abrir_lista(alvo){
+		alvo.lista.visible = true; 
+		$(alvo.lista).fadeIn(dur);
+		$(alvo.bt_lista).css({backgroundImage:'url(_layout/icon_up2.png)'});
+		if(alvo.texto) fechar_texto(alvo);
+	}
+
+	function fechar_lista(alvo){
+		alvo.lista.visible = false; 
+		$(alvo.lista).fadeOut(dur);
+		$(alvo.bt_lista).css({backgroundImage:'url(_layout/icon_dw2.png)'});
+	}
+
+	function abrir_texto(alvo){
+		alvo.texto.visible = true;
+		$(alvo.texto).fadeIn(dur);
+		$(alvo.bt_texto).css({backgroundImage:'url(_layout/icon_dw2.png)', color:'rgba(255,255,255,.3)'}); 
+		alvo.texto.scrollTop = 0;
+		if(alvo.lista) fechar_lista(alvo);
+	}
+
+	function fechar_texto(alvo){
+		alvo.texto.visible = false;
+		$(alvo.texto).fadeOut(dur);
+		$(alvo.bt_texto).css({backgroundImage:'url(_layout/icon_up2.png)', color:'#fff'}); 
+	} 
 	
 	// DOCUMENTOS // 
 		
