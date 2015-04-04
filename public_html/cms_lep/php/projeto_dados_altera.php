@@ -32,7 +32,7 @@
 			sql_update("dados", array(array("layout_home",$layout_novo)), "" ); 
 		} 
 	}else{  
-		if( $key == false ){  
+		if( $key === false ){  
 			array_push($layout_home, "item".$id ); 
 			$layout_novo = implode(",",$layout_home);
 			sql_update("dados", array(array("layout_home",$layout_novo)), "" );  

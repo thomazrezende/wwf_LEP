@@ -4,6 +4,7 @@ window.onload = function (){
 	
 	var i,
 		d,
+		dur=100,
 		tag,
 		tag2,
 		tag3,
@@ -11,6 +12,8 @@ window.onload = function (){
 		tag5,
 		tag6,
 		tag7,
+		map,
+		mapOptions,
 		br,
 		temp,
 		page, 
@@ -67,33 +70,15 @@ window.onload = function (){
 	var links = document.getElementById('links');
 	var banner = document.getElementById('banner');
 	
-	var projetos = document.getElementById('projetos');
-	
-	$(document.body).hide().fadeIn(300);
+	var projetos = document.getElementById('projetos'); 
 	
 	// temas
 	var temas = [
-		'#cc6666',
-		'#ff6666',
-		'#ff9966',
-		'#ffcc66',
-		'#cc9966',
-		'#cccc66',
-		'#66cc66',
-		'#99cc66',
-		'#66cc99',
-		'#66cccc',
-		'#6699cc',
-		'#66ccff',
-		'#99ccff',
-		'#6666cc',
-		'#9999ff',
-		'#9966cc',
-		'#cc66cc',
-		'#cc99ff',
-		'#cc6699',
-		'#ff6699'];
-
+		'#cc6666','#ff6666','#ff9966','#ffcc66',
+		'#cc9966','#cccc66','#66cc66','#99cc66',
+		'#66cc99','#66cccc','#6699cc','#66ccff',
+		'#99ccff','#6666cc','#9999ff','#9966cc',
+		'#cc66cc','#cc99ff','#cc6699','#ff6699'];
 	
 	// FUNCS //
 	
@@ -359,23 +344,85 @@ window.onload = function (){
 			
 			if(page == 0){ 
 				
-				layout_home = dados_arr['dados'].layout_home.split(','); 
+				layout_home = dados_arr['dados'].layout_home.split(',');   
 				
-				console.log(dados_arr['dados']);
+				
+				/*
+				var map_canvas = document.getElementById("map_canvas"); 
+				var zoom = document.getElementById("zoom"); 
+				var centro_at;
+				var zoom_at; 
+				var bd_lat = Number(lat.value);
+				var bd_lng = Number(lng.value);
+				var bd_zoom = Number(zoom.value);
+				
+				google.maps.event.addListener(map, 'drag', function() {  
+						centro_at = map.getCenter();
+						lat.value = centro_at.k;
+						lng.value = centro_at.B;
+					});
+
+					google.maps.event.addListener(map,'zoom_changed', function ()  { 
+						zoom_at = map.getZoom();
+						zoom.value = zoom_at;
+					});
+				
+				*/
+				var map;
 				
 				for(i=0; i<layout_home.length; i++){
 					
 					projeto_id = layout_home[i].split("item")[1];
 					d = projetos_arr["projeto" + projeto_id];
-					
+										
 					tag = document.createElement('li');
 					tag.ID = projeto_id;
 					tag.id = 'projeto' + projeto_id;
-					tag.className = 'projeto';
+					tag.className = 'projeto';  
+					
+					//map
+					
+					mapOptions = {
+						center: new google.maps.LatLng(d.lat,d.lng), 
+						zoom: Number(d.zoom),
+						mapTypeId: google.maps.MapTypeId.SATELLITE,
+						panControl: false,
+						mapTypeControl: false,
+						streetViewControl: false,
+						scrollwheel: true,
+						scaleControl: true, 
+						overviewMapControl: false,
+						rotateControl: false, 
+						backgroundColor: '#f1f1f1',
+						scrollwheel: false,
+						zoomControl: false
+					};
+					
+					map = new google.maps.Map(tag, mapOptions);
 					
 					tag2 = document.createElement('div');
 					tag2.className = 'projeto_bts';
-					tag.appendChild(tag2);
+					tag.appendChild(tag2); 
+					
+					tag3 = document.createElement('div');
+					tag3.id = 'zoom_in'+ projeto_id;
+					tag3.className = 'mapa_bt zoom_in';
+					tag3.map = map;
+					tag3.onclick = function(){
+						this.map.setZoom(this.map.getZoom() + 1);
+					}
+					tag2.appendChild(tag3); 
+					
+					tag3 = document.createElement('div');
+					tag3.id = 'zoom_out'+ projeto_id;
+					tag3.className = 'mapa_bt zoom_out';
+					tag3.map = map;
+					tag3.onclick = function(){
+						if(this.map.getZoom() > 3) this.map.setZoom(this.map.getZoom() - 1);
+					}
+					tag2.appendChild(tag3); 
+					
+					//titulo
 					
 					tag3 = document.createElement('div');
 					tag3.className = 'titulo wwf mapa_bt';
@@ -386,6 +433,8 @@ window.onload = function (){
 					br = document.createElement('br');
 					tag2.appendChild(br);
 					
+					//resultados
+					
 					if(d.resultados.length > 0){ 
 						tag3 = document.createElement('div');
 						tag3.id = 'resultado' + projeto_id;
@@ -393,41 +442,79 @@ window.onload = function (){
 						tag3.innerHTML = d.resultados[0].titulo.toUpperCase();
 						tag2.appendChild(tag3); 
 						
+						tag3.onclick = function(){ 
+							if(this.lista.visible){
+								this.lista.visible = false;
+								$(this.lista).fadeOut(dur);
+								$(this).css({backgroundImage:'url(_layout/icon_dw2.png)'});
+							}else{
+								this.lista.visible = true;
+								$(this.lista).fadeIn(dur);
+								$(this).css({backgroundImage:'url(_layout/icon_up2.png)'});
+							} 
+						}
+						
 						br = document.createElement('br');
 						tag2.appendChild(br);
 
-						tag3 = document.createElement('ul');
-						tag3.id = 'resultados' + projeto_id;
-						tag3.className = 'resultados_lista';
-						//tag3.style.display = 'none';
-						tag2.lista = tag3;
-						tag2.appendChild(tag3); 
+						tag4 = document.createElement('ul');
+						tag4.id = 'resultados' + projeto_id;
+						tag4.className = 'resultados_lista';
+						tag3.lista = tag4;
+						tag2.appendChild(tag4);
+						
+						$(tag4).hide();
+						tag4.visible = false;
 						
 						for(r=0; r<d.resultados.length; r++){ 
-							tag4 = document.createElement('li');
-							tag4.id = 'resultado' + d.resultados[r].id;
-							tag4.innerHTML = d.resultados[r].titulo.toUpperCase();
-							if(r==0) tag4.className = 'select';
-							else tag4.className = 'mapa_bt'; 
-							tag3.appendChild(tag4);
+							tag5 = document.createElement('li');
+							tag5.id = 'resultado' + d.resultados[r].id;
+							tag5.innerHTML = d.resultados[r].titulo.toUpperCase();
+							if(r==0) tag5.className = 'select';
+							else tag5.className = 'mapa_bt';
+							tag4.appendChild(tag5);
+							
+							tag5.onclick = function(){
+								if(this.className != 'select'){
+									console.log("foi");	
+								}
+							}
 							
 							br = document.createElement('br');
-							tag3.appendChild(br);
-						}
-					}  
+							tag4.appendChild(br);
+						}  
+					}
 					
+					//resumo
+						
 					tag3 = document.createElement('div');
-					tag3.id = 'zoom_in'+ projeto_id;
-					tag3.className = 'mapa_bt zoom_in';
+					tag3.className = 'resumo mapa_bt'; 
+					tag3.innerHTML = d.resumo;
 					tag2.appendChild(tag3); 
 					
-					tag3 = document.createElement('div');
-					tag3.id = 'zoom_out'+ projeto_id;
-					tag3.className = 'mapa_bt zoom_out';
-					tag2.appendChild(tag3);
+					tag4 = document.createElement('div');
+					tag4.className = 'resumo_tx'; 
+					tag4.innerHTML = d.resumo;
+					tag2.appendChild(tag4); 
+					
+					$(tag4).hide();
+					tag3.texto = tag4;
+					tag4.visible = false;
+					
+					tag3.onclick = function(){
+						if(this.texto.visible){
+							this.texto.visible = false;
+							$(this.texto).fadeOut(dur);
+							$(this).css({backgroundImage:'url(_layout/icon_up2.png)', color:'#fff'}); 
+						}else{
+							this.texto.visible = true;
+							$(this.texto).fadeIn(dur);
+							$(this).css({backgroundImage:'url(_layout/icon_dw2.png)', color:'rgba(255,255,255,.3)'}); 
+							this.texto.scrollTop = 0;
+						}
+					}
 					
 					projetos.appendChild(tag);
-					
 				}
 			}
 			
@@ -437,28 +524,7 @@ window.onload = function (){
 			
 		}
 	}
-	
-	/*
-	
-	<li id="projeto1" class="projeto">
-				<div class="projeto_bts">
-					<div class="titulo wwf mapa_bt">ÁREAS PRIORITÁRIAS PARA CONSERVAÇÃO, UTILIZAÇÃO SUSTENTÁVEL E REPARTIÇÃO DOS BENEFÍCIOS DA BIODIVERSIDADE NO CERRADO E NO PANTANAL</div> 
-					<div class="resultados mapa_bt">ÁREAS PRIORITÁRIAS PARA CONSERVAÇÃO</div> 
-
-					<ul class="resultados_lista">
-						<li class="select">ÁREAS PRIORITÁRIAS PARA CONSERVAÇÃO</li>
-						<li class="mapa_bt" >ÁREAS PRIORI CONSERVAÇÃO</li>
-						<li class="mapa_bt" >ÁREAS  CONSERVAÇÃO PARA CONSERVAÇÃO DE ÁREAS</li>
-					</ul>
-
-					<div class="mapa_bt zoom_in"></div>
-					<div class="mapa_bt zoom_out"></div>
-
-					 <div class="mapa_bt resumo">Lorem ipsum dolor sit amet leo. Maecenas sapien ultrices ante aliquam ipsum. Faucibus lorem leo odio vitae nam. Tellus mauris vivamus viverra convallis donec. Mi odio sodales orci at elit. Sodales consequat ante. Congue magna massa at enim ut turpis in quos neque laoreet placerat. In ea congue condimentum accumsan a duis commodo donec accumsan urna integer. Non elit et. Turpis suspendisse felis orci cillum nulla integer dolor congue. Mollis mollit augue. Massa massa ut. Dui hac maecenas. Tincidunt a nec. Suscipit convallis quam. Donec a penatibus cursus wisi risus enim molestie phasellus massa sit non malesuada commodo platea mattis quis facilisis. A faucibus sodales enim quam non. Lectus ultricies sem vestibulum molestie ut ut ac ultricies lectus metus nibh accumsan dignissim nam volutpat hendrerit purus. Sed orci tincidunt. Lacinia suspendisse suscipit. Et id pharetra. Nibh nec suspendisse. Imperdiet quis eu elementum at facilisis nec vitae pharetra. Non diam amet. Ante dolor mattis parturient auctor duis. Luctus sit tempus. Id dictum mi et platea odio. Tempor ac eu iaculis est interdum arcu dictumst nulla. Orci est massa. Tellus posuere at.</div> 
-				</div>
-			</li> 
-	
-	*/
+	 
 	
 	// DOCUMENTOS // 
 		
@@ -554,15 +620,15 @@ window.onload = function (){
 				busca_tx.onblur = function(){
 					if(this.value == ''){
 						this.placeholder = 'PESQUISAR';
-						$(busca_x).fadeOut(100);
+						$(busca_x).fadeOut(dur);
 					}
 				}
 
 				busca_tx.onkeyup = function(){
 					if(this.value == ''){
-						$(busca_x).fadeOut(100);
+						$(busca_x).fadeOut(dur);
 					}else{
-						$(busca_x).fadeIn(100);
+						$(busca_x).fadeIn(dur);
 					}
 					filtrar();
 				}
@@ -604,13 +670,13 @@ window.onload = function (){
 				var filtro = 0; 
 
 				buscar_em.onclick = function(){
-					$(busca_opts).fadeIn(100).css({top: -43 * filtro});
+					$(busca_opts).fadeIn(dur).css({top: -43 * filtro});
 					tag = document.getElementById('opt' + filtro);
 					$(tag).css({backgroundColor:temas[tema]})
 				}
 
 				$(busca_opts).mouseleave(function(){
-					$(this).fadeOut(100);
+					$(this).fadeOut(dur);
 				})
 
 				// opts
@@ -648,7 +714,7 @@ window.onload = function (){
 						
 						buscar_em.innerHTML = opts[this.ID][0];
 						filtrar();
-						$(busca_opts).fadeOut(100);
+						$(busca_opts).fadeOut(dur);
 					}
 
 					busca_opts.appendChild(tag);

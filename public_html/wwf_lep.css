@@ -223,8 +223,6 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 	position: absolute;
 	top:0;
 	left: 0;
-	background-image: url(_layout/MAPA_TESTE.jpg);
-	background-size: cover;
 	color: #fff;
 }
 
@@ -243,9 +241,6 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 	position: relative;
 	border:#fff 15px solid;
 	border-top: 0;
-	background-image: url(_layout/MAPA_TESTE.jpg);
-	background-position: center;
-	background-size: cover; 
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	-moz-user-select: none;
@@ -257,7 +252,10 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 	width: 100%;
 	height: 100%;
 	border: 20px rgba(0,0,0,0) solid;
+	border-bottom: 40px rgba(0,0,0,0) solid;
 	position: relative;
+	z-index: 2;
+	pointer-events: none;
 }
 
 .wwf{	
@@ -269,7 +267,7 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 	padding: 5px 22px 7px 52px;
 	background-image: url(_layout/icon_plus.png);
 	background-repeat: no-repeat;
-	background-position: left;
+	background-position:top left;
 	top: 0;
 	left: 0; 
 	font-weight: 400;
@@ -282,10 +280,10 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 	-moz-font-smoothing: antialiased !important;
 	-ms-font-smoothing: antialiased !important;
 	font-smoothing: antialiased !important;
+	pointer-events:all; 
 }
 
 .mapa_bt{background-color: rgba(34,34,34,.8); cursor: pointer}
-.mapa_bt{background-color: rgba(34,34,34,.8); cursor: pointer} 
 
 .resultados{
 	max-width: 85%;
@@ -297,6 +295,7 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 	font-family: Arial, sans-serif;
 	font-size: 10px;
 	display: inline-block;
+	pointer-events:all; 
 }
 
 .resultados_lista{
@@ -304,11 +303,10 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 	margin-top: 1px;
 	font-family: Arial, sans-serif;
 	font-size: 10px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	display: inline-block;
 	position: relative;
 	font-size: 0;
+	pointer-events:all; 
 }
 
 .resultados_lista li{
@@ -324,8 +322,7 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 } 
 
 .resultados_lista li.select{
-	background-color: rgba(34,34,34,.8);  
-	color: #666;
+	display: none;
 } 
 
 .zoom_in{
@@ -335,6 +332,7 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 	top: 0;
 	right: 0;
 	background-image: url(_layout/icon_zoom_in.png);
+	pointer-events:all; 
 }
 
 .zoom_out{
@@ -344,6 +342,7 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 	top: 43px;
 	right: 0;
 	background-image: url(_layout/icon_zoom_out.png);
+	pointer-events:all; 
 }
 
 .resumo{
@@ -360,34 +359,45 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;	 
+	pointer-events:all; 
+	font-weight: 300;
+	height: 32px;
 }
 
 .resumo_tx{
 	padding: 20px 15px 20px 52px;
 	background-color: rgba(34,34,34,.8); 	
 	position: absolute;
-	bottom: 34px;
+	bottom: 33px;
 	left: 0;
 	width: 50%;
 	min-width: 300px;
 	overflow: auto;
-	height: 135px;
+	max-height: 150px;
+	height: auto;
 	line-height: 18px;
-	color: #999;
+	color: #fff;
+	pointer-events:all;
+	font-weight: 300;
 }
 
+.resumo_tx::-webkit-scrollbar {
+	height: 10px;
+	width: 10px;
+} 
 .resumo_tx::-webkit-scrollbar-track {
-	background-color: #222;
+	background-color: rgba(51,51,51,0);
 } 
 .resumo_tx::-webkit-scrollbar-thumb {
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	border:#222 5px solid;
-	background-color:#999; 
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	background-color:#999;
+	border: #333 1px solid;
 }
 .resumo_tx::-webkit-scrollbar-thumb:hover{ 
 	background-color:#fff; 
-}  
+} 
+
 
 /* SOBRE */
 
