@@ -145,7 +145,7 @@ function xml_projetos(){
 		array(	"resultados", // table to join / pai
 			  	"resultado",  // filho
  				"id_projeto", // label id ex:id_projeto
-			    array("id", "titulo", "label")),// colunas join
+			    array("id", "titulo", "label", "titulo_legenda", "legenda")),// colunas join
 		array(	"arquivos", // table to join / pai
 			  	"arquivo",  // filho
  				"id_projeto", // label id ex:id_projeto
@@ -167,7 +167,7 @@ function xml_projeto($id){
 		array(	"resultados", // table to join / pai
 			  	"resultado",  // filho
  				"id_projeto", // label id ex:id_projeto
-			    array("id", "titulo", "label")),// colunas join
+			    array("id", "titulo", "label", "titulo_legenda", "legenda")),// colunas join
 		array(	"arquivos", // table to join / pai
 			  	"arquivo",  // filho
  				"id_projeto", // label id ex:id_projeto

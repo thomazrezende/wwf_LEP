@@ -13,16 +13,22 @@
 				<id>2</id>
 				<titulo><![CDATA[Bases da aeronáutica 1]]></titulo>
 				<label><![CDATA[aeronautica1]]></label>
+				<titulo_legenda><![CDATA[tropas e outra palavra pra deixar bem grande o titulo]]></titulo_legenda>
+				<legenda><![CDATA[tropas terrestres,#f00|tropas maritmas,#f66|tropas aereas,#ff0|]]></legenda>
 			</resultado>
 			<resultado>
 				<id>3</id>
 				<titulo><![CDATA[Bases da aeronáutica 2]]></titulo>
 				<label><![CDATA[aeronautica2]]></label>
+				<titulo_legenda><![CDATA[tropas2]]></titulo_legenda>
+				<legenda><![CDATA[tropas terrestres2,#c00|tropas maritmas2,#626|tropas aereas2,#966222|]]></legenda>
 			</resultado>
 			<resultado>
 				<id>4</id>
 				<titulo><![CDATA[Bases da aeronáutica 3]]></titulo>
 				<label><![CDATA[aeronautica3]]></label>
+				<titulo_legenda><![CDATA[tropas3]]></titulo_legenda>
+				<legenda><![CDATA[base3a,#c00|base3b,#ff6600|base3c,#966222|base3daaaaaa,#006699|]]></legenda>
 			</resultado>
 		</resultados>
 		<arquivos>
