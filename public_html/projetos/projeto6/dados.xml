@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<projeto>
+<dados>
 		<id>6</id>
 		<publicado>1</publicado>
 		<titulo><![CDATA[Visão de Conservação para a Bacia do Tapajós2]]></titulo>
@@ -118,4 +118,4 @@
 				<bites>1309</bites>
 			</repositorio>
 		</repositorios>
-</projeto>
+</dados>

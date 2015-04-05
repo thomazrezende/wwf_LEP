@@ -364,7 +364,7 @@ window.onload = function (){
 										
 					tag = document.createElement('li');
 					tag.id = 'projeto' + projeto_id;
-					tag.className = 'projeto';  
+					tag.className = 'cel_projeto';  
 					
 					//map
 					
@@ -925,11 +925,9 @@ window.onload = function (){
 
 	// nodes
 	function ponteiro_lista(xml,a,lb){ //  ponteiro que retorna conteúdo da tag com index [a] e tags internas do index [a][b]
-		if(xml[a].getElementsByTagName(lb)[0].firstChild){ // se a tag estiver vazia, o firstChild = null da bug no retorno da proxima linha
-			if(xml[a].getElementsByTagName(lb)[0].firstChild){
-				return xml[a].getElementsByTagName(lb)[0].firstChild.nodeValue;   
-			} 
-		}
+		if(xml[a].getElementsByTagName(lb)[0]){ // se a tag estiver vazia, o firstChild = null da bug no retorno da proxima linha
+			return xml[a].getElementsByTagName(lb)[0].firstChild.nodeValue;   
+		}  
 	}
 	
 	function isArray( obj ) {
