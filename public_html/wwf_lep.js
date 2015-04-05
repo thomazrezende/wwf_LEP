@@ -3,6 +3,8 @@ window.onload = function (){
 	// VARS //
 	
 	var i,
+		r,
+		a,
 		d,
 		dur=100,
 		tag,
@@ -14,6 +16,7 @@ window.onload = function (){
 		preloader,
 		map,
 		layer,
+		leg,
 		mapOptions,
 		br,
 		temp,
@@ -360,7 +363,6 @@ window.onload = function (){
 					d = projetos_arr["projeto" + projeto_id];
 										
 					tag = document.createElement('li');
-					tag.ID = projeto_id;
 					tag.id = 'projeto' + projeto_id;
 					tag.className = 'projeto';  
 					
@@ -415,10 +417,15 @@ window.onload = function (){
 					//titulo
 					
 					tag3 = document.createElement('div');
-					tag3.className = 'titulo wwf mapa_bt';
+					tag3.className = 'titulo wwf mapa_bt'; 
+					tag3.ID = projeto_id;
 					tag3.id = 'titulo' + projeto_id;
 					tag3.innerHTML = d.titulo;
 					tag2.appendChild(tag3);
+					
+					tag3.onclick = function(){
+						document.location.href = "projeto.html?id=" + this.ID ;
+					}
 					
 					br = document.createElement('br');
 					tag2.appendChild(br);
@@ -465,20 +472,19 @@ window.onload = function (){
 							tag5 = document.createElement('li');
 							tag5.id = 'resultado' + d.resultados[r].id;
 							tag5.ID = d.resultados[r].id;
-							tag5.map = map;  
+							tag5.map = map; 
+							tag5.titulo_legenda = d.resultados[r].titulo_legenda;
+							tag5.legenda = d.resultados[r].legenda.split('|');  
+							
 							tag5.lb = d.resultados[r].titulo.toUpperCase();
 							tag5.innerHTML = tag5.lb;
+							tag5.className = 'mapa_bt'; 
 							
-							console.log(d.resultados[r]);
-							
-							if(r==0) tag5.className = 'select';
-							else tag5.className = 'mapa_bt';
-							
-							tag4.appendChild(tag5); 
+							tag4.appendChild(tag5);
 							map.resultados.push(tag5);
 							tag5.onclick = function(){
 								chamar_kmz(this);
-							} 
+							}
 							
 							layer = new google.maps.KmlLayer({ 
 								suppressInfoWindows: true,
@@ -489,64 +495,39 @@ window.onload = function (){
 							layer.preloader = preloader;  
 							google.maps.event.addListener(layer, 'status_changed', function () { 
 								$(this.preloader).stop(true).fadeOut(dur); 
-							});
-						
-							if(r==0) layer.setMap(map);
+							}); 
 							
 							tag5.layer = layer;
 							
 							br = document.createElement('br');
 							tag4.appendChild(br);
-						}
+						}  
 						 
-					}
+						// legenda 
 					
-					function chamar_kmz(alvo){ 
-						for(r=0; r<alvo.map.resultados.length; r++){ 
-							d = alvo.map.resultados[r];
-							if(d == alvo){
-								d.map.bt_lista.innerHTML = d.lb;
-								d.className = "select";
-								$(d.layer.preloader).fadeTo(dur,.75);	
-								d.layer.setMap(d.map);	
-								
-								//legenda
-								
-								
+						tag3 = document.createElement('div');
+						tag3.className = 'legenda mapa_bt';
+						tag3.innerHTML = "LEGENDA"; 
+						tag3.map = map;
+						map.bt_legenda = tag3;
+						tag2.appendChild(tag3); 
+
+						tag4 = document.createElement('ul');
+						tag4.className = 'legenda_tx scroll2';  
+						map.legenda = tag4;
+						tag2.appendChild(tag4);  
+
+						$(tag4).hide(); 
+						tag4.visible = false;
+
+						tag3.onclick = function(){
+							if(this.map.legenda.visible){
+								fechar_legenda(this.map);
 							}else{
-								d.layer.setMap(null);
-								d.className = "mapa_bt";
+								abrir_legenda(this.map);
 							}
 						} 
-						
-						fechar_lista(alvo.map);
-					}
-					
-					// legenda 
-					
-					tag3 = document.createElement('div');
-					tag3.className = 'legenda mapa_bt';
-					tag3.innerHTML = "LEGENDA"; 
-					tag3.map = map;
-					map.bt_legenda = tag3;
-					tag2.appendChild(tag3); 
-					
-					tag4 = document.createElement('ul');
-					tag4.className = 'legenda_tx scroll2'; 
-					tag4.innerHTML = "<div class='legenda_titulo'>Titulo da Legenda em Ate Duas Linhas</div><li><span style='background-color:#f00'></span> LEGENDA GRANDE MESMO MAIOR DO QUE DEVERIA 1</li><li><span style='background-color:#f63'></span>LEGENDA 2</li><li><span style='background-color:#c00'></span>LEGENDA 3</li><li>LEGENDA 4</li><li>LEGENDA 5</li><li>LEGENDA 6</li><li>LEGENDA 1</li><li>LEGENDA 2</li><li>LEGENDA 3</li><li>LEGENDA 4</li><li>LEGENDA 5</li><li>LEGENDA 6</li>";
-					map.legenda = tag4;
-					tag2.appendChild(tag4);  
-					
-					$(tag4).hide(); 
-					tag4.visible = false;
-					
-					tag3.onclick = function(){
-						if(this.map.legenda.visible){
-							fechar_legenda(this.map);
-						}else{
-							abrir_legenda(this.map);
-						}
-					}
+					}  
 					
 					//resumo
 						
@@ -574,8 +555,9 @@ window.onload = function (){
 						}
 					}
 					
-					projetos.appendChild(tag);
-				}
+					projetos.appendChild(tag); 
+					chamar_kmz(map.resultados[0]);
+				} 
 			}
 			
 			// 4.documentos 
@@ -584,6 +566,41 @@ window.onload = function (){
 			
 		}
 	}
+	
+	function chamar_kmz(alvo){ 
+		for(r=0; r<alvo.map.resultados.length; r++){ 
+			d = alvo.map.resultados[r];
+			if(d == alvo){   
+				d.map.bt_lista.innerHTML = d.lb;
+				d.className = "select";
+				$(d.layer.preloader).fadeTo(dur,.75);	
+				d.layer.setMap(d.map);
+				
+				d.map.legenda.innerHTML = "";
+
+				tag = document.createElement('div');
+				tag.className  = 'legenda_titulo';
+				tag.innerHTML = d.titulo_legenda;
+				d.map.legenda.appendChild(tag);
+			
+				for(a=0; a<d.legenda.length; a++){  
+					leg = d.legenda[a].split(',');
+					tag = document.createElement('li'); 
+					tag.innerHTML = leg[0];
+					tag2 = document.createElement('span');
+					tag2.style.backgroundColor = leg[1];
+					tag.appendChild(tag2);			 
+					d.map.legenda.appendChild(tag); 
+				}
+
+			}else{
+				d.layer.setMap(null);
+				d.className = "mapa_bt";
+			}
+		} 
+
+		fechar_lista(alvo.map);
+	} 
 	 
 	function abrir_lista(alvo){
 		alvo.lista.visible = true; 
