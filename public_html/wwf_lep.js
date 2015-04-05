@@ -103,8 +103,6 @@ window.onload = function (){
 	
 	// CORES // 
 	
-	//BUG! TEMAS NAO FUNCIONAM NA HOME!!!! hover dos botoes nos mapas
-	
 	function aplicar_tema(){
 		
 		// topo		
@@ -128,6 +126,11 @@ window.onload = function (){
 		// projetos  
 		if(page == 0){ 
 			$('.resultados_lista li').hover(function(){
+				$( this ).css({backgroundColor:temas[tema]})
+			},function(){
+				$( this ).css({backgroundColor:''})
+			}); 
+			$('.mapa_bt').hover(function(){
 				$( this ).css({backgroundColor:temas[tema]})
 			},function(){
 				$( this ).css({backgroundColor:''})
@@ -336,7 +339,7 @@ window.onload = function (){
 					"titulo",
 					"lat",
 					"lng",
-					["resultados", "resultado", ["label","titulo","id"]],
+					["resultados", "resultado", ["label","titulo","id","titulo_legenda","legenda"]],
 					"zoom",
 					"resumo"]);
 			
@@ -349,28 +352,6 @@ window.onload = function (){
 				
 				layout_home = dados_arr['dados'].layout_home.split(',');   
 				
-				
-				/*
-				var map_canvas = document.getElementById("map_canvas"); 
-				var zoom = document.getElementById("zoom"); 
-				var centro_at;
-				var zoom_at; 
-				var bd_lat = Number(lat.value);
-				var bd_lng = Number(lng.value);
-				var bd_zoom = Number(zoom.value);
-				
-				google.maps.event.addListener(map, 'drag', function() {  
-						centro_at = map.getCenter();
-						lat.value = centro_at.k;
-						lng.value = centro_at.B;
-					});
-
-					google.maps.event.addListener(map,'zoom_changed', function ()  { 
-						zoom_at = map.getZoom();
-						zoom.value = zoom_at;
-					});
-				
-				*/
 				var map;
 				
 				for(i=0; i<layout_home.length; i++){
@@ -396,7 +377,7 @@ window.onload = function (){
 						scaleControl: true, 
 						overviewMapControl: false,
 						rotateControl: false, 
-						backgroundColor: '#f1f1f1',
+						backgroundColor: '#fff',
 						scrollwheel: false,
 						zoomControl: false
 					};
@@ -410,6 +391,7 @@ window.onload = function (){
 					google.maps.event.addListener(map, 'dragstart', function() { 
 						fechar_lista(this);
 						fechar_texto(this);
+						fechar_legenda(this);
 					}); 
 					
 					tag3 = document.createElement('div');
@@ -419,7 +401,7 @@ window.onload = function (){
 					tag3.onclick = function(){
 						this.map.setZoom(this.map.getZoom() + 1);
 					}
-					tag2.appendChild(tag3); 
+					tag2.appendChild(tag3);
 					
 					tag3 = document.createElement('div');
 					tag3.id = 'zoom_out'+ projeto_id;
@@ -428,7 +410,7 @@ window.onload = function (){
 					tag3.onclick = function(){
 						if(this.map.getZoom() > 3) this.map.setZoom(this.map.getZoom() - 1);
 					}
-					tag2.appendChild(tag3); 
+					tag2.appendChild(tag3);
 					
 					//titulo
 					
@@ -440,7 +422,7 @@ window.onload = function (){
 					
 					br = document.createElement('br');
 					tag2.appendChild(br);
-					
+					 
 					//resultados
 					
 					if(d.resultados.length > 0){ 
@@ -479,7 +461,6 @@ window.onload = function (){
 						
 						map.resultados = []; 
 						
-						
 						for(r=0; r<d.resultados.length; r++){ 
 							tag5 = document.createElement('li');
 							tag5.id = 'resultado' + d.resultados[r].id;
@@ -488,13 +469,15 @@ window.onload = function (){
 							tag5.lb = d.resultados[r].titulo.toUpperCase();
 							tag5.innerHTML = tag5.lb;
 							
+							console.log(d.resultados[r]);
+							
 							if(r==0) tag5.className = 'select';
 							else tag5.className = 'mapa_bt';
 							
 							tag4.appendChild(tag5); 
 							map.resultados.push(tag5);
 							tag5.onclick = function(){
-								chamar_kmz(this);	
+								chamar_kmz(this);
 							} 
 							
 							layer = new google.maps.KmlLayer({ 
@@ -522,17 +505,47 @@ window.onload = function (){
 						for(r=0; r<alvo.map.resultados.length; r++){ 
 							d = alvo.map.resultados[r];
 							if(d == alvo){
-								console.log("carregar layer: " + d.layer);
 								d.map.bt_lista.innerHTML = d.lb;
 								d.className = "select";
 								$(d.layer.preloader).fadeTo(dur,.75);	
-								d.layer.setMap(d.map);				 
+								d.layer.setMap(d.map);	
+								
+								//legenda
+								
+								
 							}else{
 								d.layer.setMap(null);
 								d.className = "mapa_bt";
 							}
-						}
+						} 
+						
 						fechar_lista(alvo.map);
+					}
+					
+					// legenda 
+					
+					tag3 = document.createElement('div');
+					tag3.className = 'legenda mapa_bt';
+					tag3.innerHTML = "LEGENDA"; 
+					tag3.map = map;
+					map.bt_legenda = tag3;
+					tag2.appendChild(tag3); 
+					
+					tag4 = document.createElement('ul');
+					tag4.className = 'legenda_tx scroll2'; 
+					tag4.innerHTML = "<div class='legenda_titulo'>Titulo da Legenda em Ate Duas Linhas</div><li><span style='background-color:#f00'></span> LEGENDA GRANDE MESMO MAIOR DO QUE DEVERIA 1</li><li><span style='background-color:#f63'></span>LEGENDA 2</li><li><span style='background-color:#c00'></span>LEGENDA 3</li><li>LEGENDA 4</li><li>LEGENDA 5</li><li>LEGENDA 6</li><li>LEGENDA 1</li><li>LEGENDA 2</li><li>LEGENDA 3</li><li>LEGENDA 4</li><li>LEGENDA 5</li><li>LEGENDA 6</li>";
+					map.legenda = tag4;
+					tag2.appendChild(tag4);  
+					
+					$(tag4).hide(); 
+					tag4.visible = false;
+					
+					tag3.onclick = function(){
+						if(this.map.legenda.visible){
+							fechar_legenda(this.map);
+						}else{
+							abrir_legenda(this.map);
+						}
 					}
 					
 					//resumo
@@ -541,11 +554,11 @@ window.onload = function (){
 					tag3.className = 'resumo mapa_bt'; 
 					tag3.innerHTML = d.resumo; 
 					tag3.map = map;
-					map.bt_texto = tag3;
+					map.bt_resumo = tag3;
 					tag2.appendChild(tag3); 
 					
 					tag4 = document.createElement('div');
-					tag4.className = 'resumo_tx'; 
+					tag4.className = 'resumo_tx scroll2'; 
 					tag4.innerHTML = d.resumo;
 					map.texto = tag4;
 					tag2.appendChild(tag4); 
@@ -577,6 +590,7 @@ window.onload = function (){
 		$(alvo.lista).fadeIn(dur);
 		$(alvo.bt_lista).css({backgroundImage:'url(_layout/icon_up2.png)'});
 		if(alvo.texto) fechar_texto(alvo);
+		if(alvo.legenda) fechar_legenda(alvo);
 	}
 
 	function fechar_lista(alvo){
@@ -588,15 +602,31 @@ window.onload = function (){
 	function abrir_texto(alvo){
 		alvo.texto.visible = true;
 		$(alvo.texto).fadeIn(dur);
-		$(alvo.bt_texto).css({backgroundImage:'url(_layout/icon_dw2.png)', color:'rgba(255,255,255,.3)'}); 
+		$(alvo.bt_resumo).css({backgroundImage:'url(_layout/icon_dw2.png)', color:'rgba(255,255,255,.3)'}); 
 		alvo.texto.scrollTop = 0;
 		if(alvo.lista) fechar_lista(alvo);
+		if(alvo.legenda) fechar_legenda(alvo);
 	}
 
 	function fechar_texto(alvo){
 		alvo.texto.visible = false;
 		$(alvo.texto).fadeOut(dur);
-		$(alvo.bt_texto).css({backgroundImage:'url(_layout/icon_up2.png)', color:'#fff'}); 
+		$(alvo.bt_resumo).css({backgroundImage:'url(_layout/icon_up2.png)', color:'#fff'}); 
+	} 
+	
+	function abrir_legenda(alvo){
+		alvo.legenda.visible = true;
+		$(alvo.legenda).fadeIn(dur);
+		$(alvo.bt_legenda).css({backgroundImage:'url(_layout/icon_dw2.png)', color:'rgba(255,255,255,.3)'}); 
+		alvo.legenda.scrollTop = 0;
+		if(alvo.lista) fechar_lista(alvo);
+		if(alvo.texto) fechar_texto(alvo);
+	}
+
+	function fechar_legenda(alvo){
+		alvo.legenda.visible = false;
+		$(alvo.legenda).fadeOut(dur);
+		$(alvo.bt_legenda).css({backgroundImage:'url(_layout/icon_up2.png)', color:'#fff'}); 
 	} 
 	
 	// DOCUMENTOS // 
