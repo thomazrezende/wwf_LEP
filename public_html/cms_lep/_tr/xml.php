@@ -177,7 +177,7 @@ function xml_projeto($id){
  				"id_projeto", // label id ex:id_projeto
 			    array("id","arquivo","nome", "ext", "tipo", "bites")) // colunas join
 	); 
-	xml($arquivo, "projeto", "", "projetos", $colunas, "WHERE id='".$id."'", false, $join);
+	xml($arquivo, "dados", "", "projetos", $colunas, "WHERE id='".$id."'", false, $join);
 	xml_projetos();
 }		
 
