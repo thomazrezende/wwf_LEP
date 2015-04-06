@@ -12,7 +12,8 @@
 	$id_projeto = $_SESSION["id"];
 
 	unlink("../../projetos/projeto".$id_projeto."/tb".$id.".jpg");
-	up_img_fixo("imagem", -1, 700, 250, "../../projetos/projeto".$id_projeto."/tb".$id, "jpeg");  
+	up_img_fixo("imagem", -1, 450, 150, "../../projetos/projeto".$id_projeto."/tb".$id, "jpeg");  
+	
 	
 
 ?>

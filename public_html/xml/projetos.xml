@@ -34,15 +34,21 @@
 		<arquivos>
 			<arquivo>
 				<id>7</id>
-				<grupo>0</grupo>
+				<grupo>1</grupo>
 				<titulo><![CDATA[Arquivo de Teste]]></titulo>
 				<label><![CDATA[arquivo_de_teste]]></label>
 			</arquivo>
 			<arquivo>
 				<id>8</id>
 				<grupo>1</grupo>
-				<titulo><![CDATA[asdasd]]></titulo>
-				<label><![CDATA[novo]]></label>
+				<titulo><![CDATA[NONOnonon ononono non]]></titulo>
+				<label><![CDATA[resultado_de_teste]]></label>
+			</arquivo>
+			<arquivo>
+				<id>9</id>
+				<grupo>3</grupo>
+				<titulo><![CDATA[aeronautica 1]]></titulo>
+				<label><![CDATA[aeronautica1]]></label>
 			</arquivo>
 		</arquivos>
 	</projeto>
