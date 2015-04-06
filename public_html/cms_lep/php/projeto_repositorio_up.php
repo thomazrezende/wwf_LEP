@@ -5,6 +5,7 @@
 	require_once("../_tr/html.php"); 
 	require_once("../_tr/arquivo.php");
 	require_once("../_tr/mysql.php");
+	require_once("../_tr/xml.php");
 	
 	conectar();
 	verif_log(); 
@@ -43,11 +44,12 @@
 							); 
 		
 		sql_insert("repositorios", $valores);
-	}      
+		
+	}     
+
+	xml_projeto($id); 
 
 	$ok = move_uploaded_file( $_FILES['arquivo']['tmp_name'], "../../projetos/projeto".$id."/".$_FILES['arquivo']['name']);  
-	
-	
-
+		
 	
 ?>

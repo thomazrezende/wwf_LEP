@@ -393,7 +393,6 @@ window.onload = function (){
 					google.maps.event.addListener(map, 'dragstart', function() { 
 						fechar_lista(this);
 						fechar_texto(this);
-						fechar_legenda(this);
 					}); 
 					
 					tag3 = document.createElement('div');
@@ -634,7 +633,7 @@ window.onload = function (){
 	function abrir_legenda(alvo){
 		alvo.legenda.visible = true;
 		$(alvo.legenda).fadeIn(dur);
-		$(alvo.bt_legenda).css({backgroundImage:'url(_layout/icon_dw2.png)', color:'rgba(255,255,255,.3)'}); 
+		$(alvo.bt_legenda).css({backgroundImage:'url(_layout/icon_dw2.png)'}); 
 		alvo.legenda.scrollTop = 0;
 		if(alvo.lista) fechar_lista(alvo);
 		if(alvo.texto) fechar_texto(alvo);
@@ -875,11 +874,9 @@ window.onload = function (){
 		var obj;
 		var join;
 		var xml;
-		var sub;
+		var _xml;
 		
-		xml = _xml.getElementsByTagName(obj_lb);   
-		
-		console.log(obj_lb);
+		xml = _xml.getElementsByTagName(obj_lb); 
 		
 		for(var i=0; i<xml.length; i++){
 			obj = {}; 
@@ -887,17 +884,19 @@ window.onload = function (){
 			for( var a=0; a<atts.length; a++ ){  
 				
 				if(isArray(atts[a])){
+					//_xml = sub lista de itens. ex: projetos > projeto > arquivos > arquivo
+					// estrutura abaixo evita que tag 'arquivo' fora da lista 'arquivos' entre no array
+					_xml = xml[i].getElementsByTagName(atts[a][0])[0].getElementsByTagName(atts[a][1]); 
+					obj[atts[a][0]]	= [];
 					
-					sub = xml[i].getElementsByTagName(atts[a][1]); 
-					obj[atts[a][0]]	= []; 
-					
-					for(_i=0; _i<sub.length; _i++){ 
+					for(_i=0; _i<_xml.length; _i++){ 
+						
 						join = {};	 
 						for( var b=0; b<atts[a][2].length; b++ ){  // atts
-							join[atts[a][2][b]] = ponteiro_lista(sub,_i,atts[a][2][b]);						
+							join[atts[a][2][b]] = ponteiro_lista(_xml,_i,atts[a][2][b]);						
 						}
 						
-						if( atts[a][1] != 'dados' ) _id = ponteiro_lista(sub,_i,"id");
+						if( atts[a][1] != 'dados' ) _id = ponteiro_lista(_xml,_i,"id");
 						
 						obj[atts[a][0]].push(join);
 						obj[atts[a][0]][ atts[a][1] + _id ] = join;

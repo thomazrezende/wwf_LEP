@@ -5,6 +5,7 @@ window.onload = function (){
 	var i,
 		r,
 		a,
+		b,
 		d,
 		dur=100,
 		tag,
@@ -13,8 +14,15 @@ window.onload = function (){
 		tag4,
 		tag5,
 		tag6,
+		lista,
+		legenda,
+		conteudo,
+		bt_lista,
+		bt_legenda,
+		telas = [],
 		preloader,
 		map,
+		resultados,
 		layer,
 		leg,
 		mapOptions,
@@ -45,14 +53,7 @@ window.onload = function (){
 		document.location.href = "projetos.html";
 	}
 	
-	 
-				
-	var conteudos = [
-		'SOBRE O PROJETO',
-		'DOCUMENTOS',
-		'DADOS',
-		'RESULTADOS'					
-	]
+	var conteudos = ['SOBRE','DOCUMENTOS','DADOS','RESULTADOS'];
 	
 	var temas = [
 		'#cc6666','#ff6666','#ff9966','#ffcc66',
@@ -68,14 +69,23 @@ window.onload = function (){
 			$( this ).css({backgroundColor:temas[tema]})
 		},function(){
 			$( this ).css({backgroundColor:''})
-		}); 
-		$('.mapa_bt').hover(function(){
+		});  
+		$('.bt_item').hover(function(){
 			$( this ).css({backgroundColor:temas[tema]})
 		},function(){
 			$( this ).css({backgroundColor:''})
 		});  
+		$('.mapa_bt').hover(function(){
+			if(this.className.indexOf('select') < 0){
+				$( this ).css({backgroundColor:temas[tema]})
+			}
+		},function(){
+			$( this ).css({backgroundColor:''})
+		});  
 		$('.conteudo_bt').hover(function(){
-			$( this ).css({backgroundColor:temas[tema]})
+			if(this.className.indexOf('select') < 0){
+				$( this ).css({backgroundColor:temas[tema]}) 
+			}
 		},function(){
 			$( this ).css({backgroundColor:''})
 		});  
@@ -124,11 +134,10 @@ window.onload = function (){
 				sessionStorage.setItem("tema", tema ); 
 				sessionStorage.setItem("session", session);
 			}   
+			 
 			
-			var resultados; 
-			var map;
-
 			d = projeto_arr["dados"]; 
+			d.path = root + "projetos/projeto" + d.id + "/";
 			  
 			tag = document.createElement('div');
 			tag.id = 'projeto' + d.id;
@@ -159,26 +168,23 @@ window.onload = function (){
 			tag.appendChild(tag2); 
 
 			google.maps.event.addListener(map, 'dragstart', function() { 
-				fechar_lista(this);
-				fechar_legenda(this);
-				fechar_telas(this);
+				fechar_lista();
+				fechar_telas();
 			}); 
 
 			tag3 = document.createElement('div');
 			tag3.id = 'zoom_in';
-			tag3.className = 'mapa_bt zoom_in';
-			tag3.map = map;
+			tag3.className = 'mapa_bt zoom_in'; 
 			tag3.onclick = function(){
-				this.map.setZoom(this.map.getZoom() + 1);
+				map.setZoom(map.getZoom() + 1);
 			}
 			tag2.appendChild(tag3);
 
 			tag3 = document.createElement('div');
 			tag3.id = 'zoom_out';
-			tag3.className = 'mapa_bt zoom_out';
-			tag3.map = map;
+			tag3.className = 'mapa_bt zoom_out'; 
 			tag3.onclick = function(){
-				if(this.map.getZoom() > 3) this.map.setZoom(this.map.getZoom() - 1);
+				if(map.getZoom() > 3) map.setZoom(map.getZoom() - 1);
 			}
 			tag2.appendChild(tag3);
 
@@ -200,33 +206,30 @@ window.onload = function (){
 			//resultados
 
 			if(d.resultados.length > 0){ 
-				tag3 = document.createElement('div');
-				tag3.id = 'resultado' + d.id;
-				tag3.className = 'resultados mapa_bt';
-				tag3.innerHTML = d.resultados[0].titulo.toUpperCase();
-				tag3.map = map;
-				map.bt_lista = tag3;
-				tag2.appendChild(tag3); 
+				bt_lista = document.createElement('div');
+				bt_lista.id = 'resultado' + d.id;
+				bt_lista.className = 'resultados mapa_bt';
+				bt_lista.innerHTML = d.resultados[0].titulo.toUpperCase(); 
+				tag2.appendChild(bt_lista); 
 
-				tag3.onclick = function(){  
-					if(this.map.lista.visible){ 
-						fechar_lista(this.map);
+				bt_lista.onclick = function(){  
+					if(lista.visible){ 
+						fechar_lista();
 					}else{ 
-						abrir_lista(this.map);
+						abrir_lista();
 					}
 				}
 
 				br = document.createElement('br');
 				tag2.appendChild(br);
 
-				tag4 = document.createElement('ul');
-				tag4.id = 'resultados' + d.id;
-				tag4.className = 'resultados_lista'; 
-				map.lista = tag4;
-				tag2.appendChild(tag4);
+				lista = document.createElement('ul');
+				lista.id = 'resultados' + d.id;
+				lista.className = 'resultados_lista';  
+				tag2.appendChild(lista);
 
-				$(tag4).hide();
-				tag4.visible = false; 
+				$(lista).hide(); 
+				lista.visible = false;
 
 				preloader = document.createElement('div');
 				preloader.className = 'preloader';
@@ -238,8 +241,7 @@ window.onload = function (){
 				for(r=0; r<d.resultados.length; r++){ 
 					tag5 = document.createElement('li');
 					tag5.id = 'resultado' + d.resultados[r].id;
-					tag5.ID = d.resultados[r].id;
-					tag5.map = map; 
+					tag5.ID = d.resultados[r].id; 
 					tag5.titulo_legenda = d.resultados[r].titulo_legenda;
 					tag5.legenda = d.resultados[r].legenda.split('|');  
 
@@ -247,7 +249,7 @@ window.onload = function (){
 					tag5.innerHTML = tag5.lb;
 					tag5.className = 'mapa_bt'; 
 
-					tag4.appendChild(tag5);
+					lista.appendChild(tag5);
 					map.resultados.push(tag5);
 					tag5.onclick = function(){
 						chamar_kmz(this);
@@ -259,68 +261,204 @@ window.onload = function (){
 						url:root + "projetos/projeto" + d.id + "/" + d.resultados[r].label + ".kmz?session=" + session
 					});
 
-					layer.preloader = preloader;  
 					google.maps.event.addListener(layer, 'status_changed', function () { 
-						$(this.preloader).stop(true).fadeOut(dur); 
+						$(preloader).stop(true).fadeOut(dur); 
 					}); 
 
 					tag5.layer = layer;
 
 					br = document.createElement('br');
-					tag4.appendChild(br);
+					lista.appendChild(br);
 				}  
 
 				// legenda 
 
-				tag3 = document.createElement('div');
-				tag3.className = 'legenda mapa_bt';
-				tag3.innerHTML = "LEGENDA"; 
-				tag3.map = map;
-				map.bt_legenda = tag3;
-				tag2.appendChild(tag3); 
-
-				tag4 = document.createElement('ul');
-				tag4.className = 'legenda_tx scroll2';  
-				map.legenda = tag4;
-				tag2.appendChild(tag4);  
-
-				$(tag4).hide(); 
-				tag4.visible = false;
-
-				tag3.onclick = function(){
-					if(this.map.legenda.visible){
-						fechar_legenda(this.map);
+				bt_legenda = document.createElement('div');
+				bt_legenda.className = 'legenda mapa_bt';
+				bt_legenda.innerHTML = "LEGENDA";  
+				tag2.appendChild(bt_legenda); 
+				
+				bt_legenda.onclick = function(){
+					if(legenda.visible){
+						fechar_legenda();
 					}else{
-						abrir_legenda(this.map);
+						abrir_legenda();
 					}
 				}  
 				
-				// conteudo
+				legenda = document.createElement('ul');
+				legenda.className = 'legenda_tx scroll2';   
+				tag2.appendChild(legenda);  
+
+				$(legenda).hide(); 
+				legenda.visible = false;  
 				
-				tag3 = document.createElement('div');
-				tag3.id = 'conteudo';
-				tag2.appendChild(tag3);  
+				// conteudo 
 				
-				tag5 = document.createElement('div');
-				tag5.id = 'conteudo_telas';
-				tag5.visible = true;
-				map.telas = tag5;
-				tag2.appendChild(tag5);
+				conteudo = document.createElement('div');
+				conteudo.id = 'conteudo';
+				tag2.appendChild(conteudo);  
+				
+				conteudo_telas = document.createElement('div');
+				conteudo_telas.id = 'conteudo_telas';
+				conteudo_telas.tela_atual = 0;				
+				conteudo_telas.visible = true; 
+				tag2.appendChild(conteudo_telas); 
 				
 				for(a=0; a<4; a++){
+					
+					var tela = [],
+					conteudo_tela,
+					conteudo_telas,					
+					conteudo_tela;
+					
 					tag4 = document.createElement('div');
 					tag4.className = 'conteudo_bt';
 					tag4.innerHTML = conteudos[a];
-					tag3.appendChild(tag4);   
+					tag4.ID = a;
+					conteudo.appendChild(tag4);
 					
-					if(a==0) tag4.className += ' select';
+					tela[0] = tag4; 
 					
-					tag4 = document.createElement('div');
-					tag4.className = 'conteudo_tela';
-					tag4.innerHTML = '<p>Lorem ipsum dolor sit amet risus vitae mattis sed felis potenti augue. Dui integer nulla. Libero et phasellus. Amet libero pede. Lectus donec ad ac duis sapien. Etiam erat ut et inceptos suscipit eros scelerisque suscipit. Aliquam habitasse at. Tristique euismod purus mollis vitae ipsum. Penatibus non ligula tortor nonummy et ut pede in. Aliquam ipsum lacus at arcu cubilia. Litora eget id. Voluptatem enim eu. Integer sodales vitae. Phasellus aenean odio et ullamcorper ligula sed sit potenti orci tellus fermentum recusandae nunc et eget curabitur cursus blandit nec quis suspendisse morbi leo wisi urna nonummy. Nunc convallis malesuada. Ante neque orci. Aliquam faucibus suscipit. Lobortis aptent platea. Pretium sem cursus ultricies et ut. Eros at mattis ante posuere sed. Id tellus cursus viverra vestibulum elementum lacus fermentum dolor ultrices a id. Duis scelerisque molestie. Vestibulum at pellentesque. Aliquam et purus auctor eget eros. Nisl integer turpis habitant habitant amet eget facilisis eros. Nunc sunt tortor. Aenean ipsum erat tristique in vitae. Arcu ac suspendisse. Mauris mauris turpis faucibus et magna hymenaeos eget eget. Eu vehicula semper quam nunc amet.</p><p>Nullam ligula pellentesque. Semper enim maecenas orci vel molestie porta felis consectetuer id lobortis class. Eget integer faucibus rerum aliquam quisque. Nulla nisl mattis ipsum et vestibulum. Donec et nunc dolore nibh tellus. Arcu sodales luctus. Tincidunt tristique id aliquam dapibus pede. Dolor lacinia accumsan placerat urna et. Lorem suspendisse in tortor est egestas. Reprehenderit pellentesque mauris commodo eget ut. Cras ullamcorper quis. Libero felis tempor velit et rhoncus. Con aliquam suspendisse in adipisicing duis vestibulum aenean morbi turpis ante justo. Nec praesentium dolor condimentum aliquam justo. Porttitor ullamcorper odio.</p><p>Pretium consectetuer a. Tincidunt ultrices diam. Etiam maecenas neque in vehicula non. Dictumst blandit pharetra metus sed donec neque dictum felis imperdiet ligula aliquam pellentesque libero nisl. Nullam convallis sit.</p><p>Lorem ipsum dolor sit amet risus vitae mattis sed felis potenti augue. Dui integer nulla. Libero et phasellus. Amet libero pede. Lectus donec ad ac duis sapien. Etiam erat ut et inceptos suscipit eros scelerisque suscipit. Aliquam habitasse at. Tristique euismod purus mollis vitae ipsum. Penatibus non ligula tortor nonummy et ut pede in. Aliquam ipsum lacus at arcu cubilia. Litora eget id. Voluptatem enim eu. Integer sodales vitae. Phasellus aenean odio et ullamcorper ligula sed sit potenti orci tellus fermentum recusandae nunc et eget curabitur cursus blandit nec quis suspendisse morbi leo wisi urna nonummy. Nunc convallis malesuada. Ante neque orci. Aliquam faucibus suscipit. Lobortis aptent platea. Pretium sem cursus ultricies et ut. Eros at mattis ante posuere sed. Id tellus cursus viverra vestibulum elementum lacus fermentum dolor ultrices a id. Duis scelerisque molestie. Vestibulum at pellentesque. Aliquam et purus auctor eget eros. Nisl integer turpis habitant habitant amet eget facilisis eros. Nunc sunt tortor. Aenean ipsum erat tristique in vitae. Arcu ac suspendisse. Mauris mauris turpis faucibus et magna hymenaeos eget eget. Eu vehicula semper quam nunc amet.</p><p>Nullam ligula pellentesque. Semper enim maecenas orci vel molestie porta felis consectetuer id lobortis class. Eget integer faucibus rerum aliquam quisque. Nulla nisl mattis ipsum et vestibulum. Donec et nunc dolore nibh tellus. Arcu sodales luctus. Tincidunt tristique id aliquam dapibus pede. Dolor lacinia accumsan placerat urna et. Lorem suspendisse in tortor est egestas. Reprehenderit pellentesque mauris commodo eget ut. Cras ullamcorper quis. Libero felis tempor velit et rhoncus. Con aliquam suspendisse in adipisicing duis vestibulum aenean morbi turpis ante justo. Nec praesentium dolor condimentum aliquam justo. Porttitor ullamcorper odio.</p><p>Pretium consectetuer a. Tincidunt ultrices diam. Etiam maecenas neque in vehicula non. Dictumst blandit pharetra metus sed donec neque dictum felis imperdiet ligula aliquam pellentesque libero nisl. Nullam convallis sit.</p>';
-					tag5.appendChild(tag4); 
+					tag4.onclick = function(){ 
+						if(conteudo_telas.tela_atual == this.ID) fechar_telas();
+						else abrir_tela(this.ID);
+					}
 					
-					if(a>0) tag4.style.display = 'none'; 
+					tag5 = new Image();
+					tag5.src = '_layout/fechar.png';
+					tag4.appendChild(tag5);
+					
+					if(a==0){
+						tag4.className += ' select';
+					}
+					
+					conteudo_tela = document.createElement('div');
+					conteudo_tela.className = 'conteudo_tela';
+					conteudo_telas.appendChild(conteudo_tela); 
+										
+					tela[1] = conteudo_tela;
+					telas.push(tela);
+						
+					if(a>0) $(conteudo_tela).hide(); 
+					
+					//sobre
+					if(a==0){
+						tag2 = document.createElement('div');
+						tag2.className = "conteudo_titulo wwf";
+						tag2.innerHTML = "SOBRE";
+						conteudo_tela.appendChild(tag2);	 
+						conteudo_tela.innerHTML += d.sobre; 
+					}
+					
+					//documentos
+					if(a==1){
+						
+					}
+					
+					//dados
+					if(a==2){  
+						
+						var arq,
+							arquivo,
+							arquivo_lb,
+							arquivo_lista,
+							grupo_titulo,
+							bt_dw,
+							grupos = [[],["ALVOS DE CONSERVA&Ccedil;&Atilde;O"],
+									  	 ["CUSTOS DE CONSERVA&Ccedil;&Atilde;O"],
+									  	 ["ARQUIVOS DE ENTRADA MARXAN"]];			
+ 
+						for(i=0; i<d.arquivos.length; i++){  
+							arq = d.arquivos[i];
+							arquivo = document.createElement('div');
+							arquivo.className = 'item_lista';
+							grupos[Number(arq.grupo)].push(arquivo);
+						}
+						
+						for(i=1; i<grupos.length; i++){
+							if(grupos[i].length>1){
+									
+								grupo_titulo = document.createElement('div'); 
+								grupo_titulo.className = "conteudo_titulo wwf";
+								grupo_titulo.innerHTML = grupos[i][0];
+
+								conteudo_tela.appendChild(grupo_titulo);
+								
+								for(b=1; b<grupos[i].length; b++){
+									conteudo_tela.appendChild(grupos[i][b]);
+									
+									// loop em repositorios
+									// monta lista de arquivos com mesmo nome
+									
+								}
+							}
+						}
+					}
+					
+					//resultados
+					if(a==3){ 
+						var resultado_cel,
+							resultado_tb,
+							resultado_titulo,
+							rep,
+							arquivo,
+							arquivo_lb,
+							bt_dw;
+					
+						tag2 = document.createElement('div');
+						tag2.className = "conteudo_titulo wwf";
+						tag2.innerHTML = "RESULTADOS";
+						conteudo_tela.appendChild(tag2);
+						for(i=0; i<d.resultados.length; i++){ 
+							resultado_cel = document.createElement('div');
+							resultado_cel.className = "resultado_cel";
+							conteudo_tela.appendChild(resultado_cel);
+							
+							resultado_tb = document.createElement('div');
+							resultado_tb.className = "resultado_tb";
+							$(resultado_tb).css({backgroundImage:'url('+ d.path + 'tb' + d.resultados[i].id + '.jpg?session=' + session + ')'}) 
+							resultado_cel.appendChild(resultado_tb);
+							
+							resultado_titulo = document.createElement('div');
+							resultado_titulo.className = "resultado_titulo mapa_bt"; 
+							resultado_titulo.innerHTML = d.resultados[i].titulo;
+							resultado_titulo.bt_lista = map.resultados[i];
+							map.resultados[i].bt_tela_resultados = resultado_titulo;
+							resultado_titulo.onclick = function(){
+								chamar_kmz(this.bt_lista);
+							}
+							
+							resultado_cel.appendChild(resultado_titulo);
+							
+							for(r=0; r<d.repositorios.length; r++){
+								rep = d.repositorios[r];
+								if(rep.nome ==  d.resultados[i].label){
+									arquivo = document.createElement('div');
+									arquivo.className = 'item_lista'; 
+									resultado_cel.appendChild(arquivo);
+									
+									arquivo_lb = document.createElement('span');
+									arquivo_lb.className = 'item_lb';
+									arquivo.appendChild(arquivo_lb);
+									
+									arquivo_lb.innerHTML = rep.ext.toUpperCase();
+									if(rep.ext == "zip") arquivo_lb.innerHTML = 'SHAPEFILE';
+									if(rep.ext == "txt") arquivo_lb.innerHTML = 'METADADOS';
+									
+									bt_dw = document.createElement('div');
+									bt_dw.className = 'bt_item item_downlaod';
+									bt_dw.path = d.path;
+									bt_dw.arquivo = rep.arquivo;
+									arquivo.appendChild(bt_dw);
+									
+									bt_dw.onclick = function(){
+										window.open(this.path + this.arquivo, "_blank" );
+									}									
+								}
+							}							
+						} 
+					} 
 				}  
 				
 				// iniciar
@@ -333,21 +471,23 @@ window.onload = function (){
 		}
 	}
 	
+	
 	function chamar_kmz(alvo){ 
-		for(r=0; r<alvo.map.resultados.length; r++){ 
-			d = alvo.map.resultados[r];
+		for(r=0; r<map.resultados.length; r++){ 
+			d = map.resultados[r];
 			if(d == alvo){   
-				d.map.bt_lista.innerHTML = d.lb;
+				bt_lista.innerHTML = d.lb;
 				d.className = "select";
-				$(d.layer.preloader).fadeTo(dur,.75);	
-				d.layer.setMap(d.map);
+				$(preloader).fadeTo(dur,.75);	
+				d.layer.setMap(map);
+				d.bt_tela_resultados.className = 'resultado_titulo mapa_bt select';
 				
-				d.map.legenda.innerHTML = "";
+				legenda.innerHTML = "";
 
 				tag = document.createElement('div');
 				tag.className  = 'legenda_titulo';
 				tag.innerHTML = d.titulo_legenda;
-				d.map.legenda.appendChild(tag);
+				legenda.appendChild(tag);
 
 				for(a=0; a<d.legenda.length; a++){
 					leg = d.legenda[a].split(',');
@@ -356,57 +496,76 @@ window.onload = function (){
 					tag2 = document.createElement('span');
 					tag2.style.backgroundColor = leg[1];
 					tag.appendChild(tag2); 
-					d.map.legenda.appendChild(tag);
+					legenda.appendChild(tag);
 				}
 
 			}else{
 				d.layer.setMap(null);
 				d.className = "mapa_bt";
+				d.bt_tela_resultados.className = 'resultado_titulo mapa_bt';
 			}
 		} 
 
-		fechar_lista(alvo.map);
+		fechar_lista();
 	} 
 	 
-	function abrir_lista(alvo){
-		alvo.lista.visible = true; 
-		$(alvo.lista).fadeIn(dur);
-		$(alvo.bt_lista).css({backgroundImage:'url(_layout/icon_up2.png)'});
-		if(alvo.legenda) fechar_legenda(alvo);
-		if(alvo.telas) fechar_telas(alvo);
+	function abrir_lista(){
+		lista.visible = true; 
+		$(lista).fadeIn(dur);
+		$(bt_lista).css({backgroundImage:'url(_layout/icon_up2.png)'});
+		fechar_legenda();
+		fechar_telas();
 	}
 
-	function fechar_lista(alvo){
-		alvo.lista.visible = false; 
-		$(alvo.lista).fadeOut(dur);
-		$(alvo.bt_lista).css({backgroundImage:'url(_layout/icon_dw2.png)'});
-	}
- 	
-	function abrir_telas(alvo){
-		alvo.telas.visible = true; 
-		$(alvo.telas).fadeIn(dur);
-		if(alvo.legenda) fechar_legenda(alvo);
-		if(alvo.lista) fechar_lista(alvo);
-	}
+	function fechar_lista(){
+		lista.visible = false; 
+		$(lista).fadeOut(dur);
+		$(bt_lista).css({backgroundImage:'url(_layout/icon_dw2.png)'});
+	} 
+	
+	function abrir_tela(ID){ 
+		for(i=0; i<4; i++){
+			d = telas[i][0]; 
+			if(i == ID){
+				d.className = "conteudo_bt select"; 
+				$(d.fechar).show();
+				$( d ).css({backgroundColor:''});
+				$(telas[i][1]).show(); 
+				$(conteudo_telas).stop(true).fadeIn(dur); 
+				conteudo_telas.tela_atual = ID;
+			}else{
+				d.className = "conteudo_bt"; 
+				$(telas[i][1]).hide();
+				$(d.fechar).hide();
+			}
+		}
+		fechar_legenda();
+		fechar_lista();
+	} 
 
-	function fechar_telas(alvo){
-		alvo.telas.visible = false;
-		$(alvo.telas).fadeOut(dur);
+	function fechar_telas(){
+		conteudo_telas.tela_atual = -1;
+		$(conteudo_telas).fadeOut(dur);
+		for(i=0; i<4; i++){
+			d = telas[i][0]; 
+			d.className = "conteudo_bt"; 
+			$(d.fechar).hide();
+		}
 	}
 	
-	function abrir_legenda(alvo){
-		alvo.legenda.visible = true;
-		$(alvo.legenda).fadeIn(dur);
-		$(alvo.bt_legenda).css({backgroundImage:'url(_layout/icon_dw2.png)', color:'rgba(255,255,255,.3)'}); 
-		alvo.legenda.scrollTop = 0;
-		if(alvo.lista) fechar_lista(alvo);
-		if(alvo.telas) fechar_telas(alvo);
+	function abrir_legenda(){
+		legenda.visible = true;
+		$(legenda).fadeIn(dur);
+		$(bt_legenda).css({backgroundImage:'url(_layout/icon_dw2.png)'}); 
+		legenda.scrollTop = 0;
+		fechar_lista();
+		fechar_telas();
 	}
 
-	function fechar_legenda(alvo){
-		alvo.legenda.visible = false;
-		$(alvo.legenda).fadeOut(dur);
-		$(alvo.bt_legenda).css({backgroundImage:'url(_layout/icon_up2.png)', color:'#fff'}); 
+	function fechar_legenda(){
+		legenda.visible = false;
+		$(legenda).fadeOut(dur);
+		$(bt_legenda).css({backgroundImage:'url(_layout/icon_up2.png)', color:'#fff'}); 
 	} 
 	
 	
@@ -419,8 +578,7 @@ window.onload = function (){
 		win_h = $( window ).height();  
 	}  
 	  
-	resize();
-	
+	resize(); 
 	
 	// XML //
 	
@@ -431,26 +589,29 @@ window.onload = function (){
 		var obj;
 		var join;
 		var xml;
-		var sub;
+		var _xml;
 		
 		xml = _xml.getElementsByTagName(obj_lb); 
-		 
-		for(var i=0; i<xml.length; i++){ 
+		
+		for(var i=0; i<xml.length; i++){
 			obj = {}; 
 			if( obj_lb != 'dados' ) id = ponteiro_lista(xml,i,"id"); 
 			for( var a=0; a<atts.length; a++ ){  
 				
-				if(isArray(atts[a])){ 
-					sub = xml[i].getElementsByTagName(atts[a][1]); 
+				if(isArray(atts[a])){
+					//_xml = sub lista de itens. ex: projetos > projeto > arquivos > arquivo
+					// estrutura abaixo evita que tag 'arquivo' fora da lista 'arquivos' entre no array
+					_xml = xml[i].getElementsByTagName(atts[a][0])[0].getElementsByTagName(atts[a][1]); 
 					obj[atts[a][0]]	= [];
 					
-					for(_i=0; _i<sub.length; _i++){ 
+					for(_i=0; _i<_xml.length; _i++){ 
+						
 						join = {};	 
 						for( var b=0; b<atts[a][2].length; b++ ){  // atts
-							join[atts[a][2][b]] = ponteiro_lista(sub,_i,atts[a][2][b]);						
+							join[atts[a][2][b]] = ponteiro_lista(_xml,_i,atts[a][2][b]);						
 						}
 						
-						if( atts[a][1] != 'dados' ) _id = ponteiro_lista(sub,_i,"id");
+						if( atts[a][1] != 'dados' ) _id = ponteiro_lista(_xml,_i,"id");
 						
 						obj[atts[a][0]].push(join);
 						obj[atts[a][0]][ atts[a][1] + _id ] = join;
