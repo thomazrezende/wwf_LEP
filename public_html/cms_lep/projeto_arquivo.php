@@ -41,7 +41,7 @@ head("PROJETO ".$_SESSION["id"]);
 				input("titulo", "input", "titulo", $dados["titulo"] , "text"); 
 
 				titulo("","GRUPO", false); 
-				select("grupo", "grupo", "", false, $grupos, array($dados["grupo"]));
+				select("grupo", "grupo", "", false, $grupos, array($dados["grupo"]), false);
 
 				submit("GRAVAR"); 
 				

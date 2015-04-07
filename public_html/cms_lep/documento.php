@@ -35,11 +35,21 @@ require_once("_tr/up_file_form.php");
 				
 				titulo("", "", false);
 				checkbox("publicado", "publicado", 1, caps("publicado"), "", $public, false); 
+
+				titulo("","PROJETO", false);
+				$projetos = sql_select("projetos","*","","", true);
+
+				$projetos_lista = array();
+				for($i=0; $i<count($projetos); $i++){ 
+					$projeto_opt = array( $projetos[$i]["id"], $projetos[$i]["id"]." - ".$projetos[$i]["titulo"] );
+					array_push($projetos_lista, $projeto_opt);
+				} 
+				select("id_projeto", "id_projeto", "", false, $projetos_lista, array($dados["id_projeto"]),false); 
 			
-				titulo("","T&Iacute;TULO", false); 
+				titulo("","T&Iacute;TULO", false);
 				input("titulo", "input", "titulo", $dados["titulo"] , "text"); 
 
-				titulo("","AUTOR",false); 
+				titulo("","AUTOR",false);
 				input("autor", "input", "autor", $dados["autor"] , "text"); 
 
 				titulo("","ANO (aaaa)",false); 

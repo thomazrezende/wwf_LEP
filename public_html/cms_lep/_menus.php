@@ -14,9 +14,9 @@
 									array("SENHA","lep_senha.php")); 
 
 		
-		$submenu_projeto = array( 	array("DADOS","projeto_dados.php"),
+		$submenu_projeto = array( 	array("PROJETO","projeto_dados.php"),
 									array("REPOSIT&Oacute;RIO","projeto_repositorio.php"),
-									array("ARQUIVOS","projeto_arquivos.php"),
+									array("DADOS","projeto_arquivos.php"),
 									array("RESULTADOS","projeto_resultados.php"),
 									array("MAPA","projeto_mapa.php"));
 

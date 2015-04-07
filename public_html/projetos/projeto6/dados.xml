@@ -30,18 +30,50 @@
 				<legenda><![CDATA[base3a,#c00|base3b,#ff6600|base3c,#966222|base3daaaaaa,#006699|]]></legenda>
 			</resultado>
 		</resultados>
+		<documentos>
+			<documento>
+				<id>15</id>
+				<publicado>1</publicado>
+				<titulo><![CDATA[Etiam magna ac nulla error eu]]></titulo>
+				<autor><![CDATA[Luis de Camões]]></autor>
+				<ano><![CDATA[2010]]></ano>
+				<veiculo><![CDATA[Praesent eget ultricies]]></veiculo>
+				<link><![CDATA[http://www.thomazrezende.com]]></link>
+				<arquivo><![CDATA[]]></arquivo>
+			</documento>
+			<documento>
+				<id>17</id>
+				<publicado>1</publicado>
+				<titulo><![CDATA[A nec nibh auctor et vel lobortis pellentesque morbi et nulla sed]]></titulo>
+				<autor><![CDATA[Joana D'arc]]></autor>
+				<ano><![CDATA[2011]]></ano>
+				<veiculo><![CDATA[Lectus posuere nec]]></veiculo>
+				<link><![CDATA[http://www.wwf.org.br]]></link>
+				<arquivo><![CDATA[Mais-Cultura-Microprojetos-Pantanal_2013-Foto-Marcos-Vergueiro-SECOM-MT.jpg]]></arquivo>
+			</documento>
+			<documento>
+				<id>18</id>
+				<publicado>1</publicado>
+				<titulo><![CDATA[Ut lacinia dolore turpis sit augue]]></titulo>
+				<autor><![CDATA[Platão]]></autor>
+				<ano><![CDATA[2012]]></ano>
+				<veiculo><![CDATA[Erat fermentum ]]></veiculo>
+				<link><![CDATA[]]></link>
+				<arquivo><![CDATA[Mais-Cultura-Microprojetos-Pantanal_2013-Foto-Marcos-Vergueiro-SECOM-MT.jpg]]></arquivo>
+			</documento>
+		</documentos>
 		<arquivos>
 			<arquivo>
 				<id>7</id>
-				<grupo>1</grupo>
+				<grupo>2</grupo>
 				<titulo><![CDATA[Arquivo de Teste]]></titulo>
 				<label><![CDATA[arquivo_de_teste]]></label>
 			</arquivo>
 			<arquivo>
 				<id>8</id>
-				<grupo>1</grupo>
-				<titulo><![CDATA[NONOnonon ononono non]]></titulo>
-				<label><![CDATA[resultado_de_teste]]></label>
+				<grupo>2</grupo>
+				<titulo><![CDATA[Resultado Teste]]></titulo>
+				<label><![CDATA[resultado_teste]]></label>
 			</arquivo>
 			<arquivo>
 				<id>9</id>

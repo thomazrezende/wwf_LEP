@@ -156,7 +156,7 @@ function xml_projetos(){
 						
 function xml_documentos(){
 	$arquivo="../../xml/documentos.xml";
-	$colunas=array("id","publicado","titulo","autor","ano","veiculo","link", "palavras_chave","arquivo");
+	$colunas=array("id","id_projeto","publicado","titulo","autor","ano","veiculo","link", "palavras_chave","arquivo");
 	xml($arquivo, "documentos", "documento", "documentos", $colunas, "ORDER BY titulo",false,false);
 }
 
@@ -168,6 +168,10 @@ function xml_projeto($id){
 			  	"resultado",  // filho
  				"id_projeto", // label id ex:id_projeto
 			    array("id", "titulo", "label", "titulo_legenda", "legenda")),// colunas join
+		array(	"documentos", // table to join / pai
+			  	"documento",  // filho
+ 				"id_projeto", // label id ex:id_projeto
+			    array("id", "publicado", "titulo", "autor", "ano", "veiculo", "link", "arquivo")),// colunas join
 		array(	"arquivos", // table to join / pai
 			  	"arquivo",  // filho
  				"id_projeto", // label id ex:id_projeto

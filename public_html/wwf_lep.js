@@ -713,7 +713,7 @@ window.onload = function (){
 						tag4.className = 'item_lb'; 
 						temp = d.titulo;
 						temp += " &ndash; " + d.autor;
-						temp += "<span class='cinza'> &bull; " + d.veiculo;
+						temp += "<span class='sub_lb'> &bull; " + d.veiculo;
 						temp += ", " + d.ano  + "</span>"; 
 						tag4.innerHTML = temp;
 						tag.appendChild(tag4);

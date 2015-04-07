@@ -470,7 +470,7 @@ function radio($id, $name, $value, $lb, $img, $chk, $lg_ico){
 	
 } 
 
-function select($id, $name, $onchange, $multiple, $opt, $sel){ 
+function select($id, $name, $onchange, $multiple, $opt, $sel, $opt0){ 
 	//$opt = [[value,lb],...]
 	//$sel = [value escolhido1,...]
 	$mltp = "";
@@ -479,7 +479,12 @@ function select($id, $name, $onchange, $multiple, $opt, $sel){
 	if(!empty($onchange)) $onchg = " onchange=\"".$onchg."\" ";
 	
 	print "<select name=\"".$name."\" id=\"".$id."\" class=\"select\" ".$onchg." ".$mltp." >\r\n";	
-	print "<option class=\"select_opt\" value=\"0\"> + </option>\r\n";
+	
+	if($opt0 != false){
+		print "<option class=\"select_opt\" value=\"".$opt0[0]."\">".$opt0[1]."</option>\r\n";
+	}else{	
+		print "<option class=\"select_opt\" value=\"0\"> + </option>\r\n";
+	}
 	
 	for($i=0; $i<count($opt); $i++){ 
 		if(in_array($opt[$i][0],$sel)){

@@ -127,7 +127,7 @@ head("PROJETO ".$_SESSION["id"]);
 			submenu( $submenu_projeto, 5 );
 			
 			titulo( "", "CARREGAR RESULTADO", false );
-			select( "resultados", "resultados", "", false, $resultados_arr, 0 );
+			select( "resultados", "resultados", "", false, $resultados_arr, 0, false);
 			
 			// dados legendas para js
 			input("legendas", "", "legendas", $legendas , "hidden");   

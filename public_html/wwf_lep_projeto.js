@@ -35,6 +35,7 @@ window.onload = function (){
 		get; 
 	
 	var projeto = document.getElementById('projeto');
+	var conteudo_telas;
 	
 	var root = location.origin;
 	var path = location.pathname.split('/');
@@ -117,10 +118,11 @@ window.onload = function (){
 					 "zoom",
 					 "sobre",
 					["resultados", "resultado", ["label","titulo","id","titulo_legenda","legenda"]],
+					["documentos", "documento", ["id","publicado","titulo","autor","ano","veiculo","link","arquivo"]],
 					["arquivos", "arquivo", ["id","titulo","grupo","label"]],
 					["repositorios", "repositorio", ["id","arquivo","nome","ext","tipo","bites"]]
-					]);
-			 
+					]); 
+			
 			// dados
 			
 			session = sessionStorage.getItem("session"); 
@@ -302,14 +304,13 @@ window.onload = function (){
 				conteudo_telas = document.createElement('div');
 				conteudo_telas.id = 'conteudo_telas';
 				conteudo_telas.tela_atual = 0;				
-				conteudo_telas.visible = true; 
+				conteudo_telas.visible = true;  
+				$(conteudo_telas).css({maxHeight:win_h-200});
 				tag2.appendChild(conteudo_telas); 
 				
 				for(a=0; a<4; a++){
 					
-					var tela = [],
-					conteudo_tela,
-					conteudo_telas,					
+					var tela = [],					
 					conteudo_tela;
 					
 					tag4 = document.createElement('div');
@@ -352,15 +353,74 @@ window.onload = function (){
 					}
 					
 					//documentos
-					if(a==1){
+					if(a==1){ 
+
+						tag2 = document.createElement('div');
+						tag2.className = "conteudo_titulo wwf";
+						tag2.innerHTML = "DOCUMENTOS";
+						conteudo_tela.appendChild(tag2);	 
 						
+						var doc,
+							item,
+							bt_dw,
+							bt_lk,
+							item_lb,
+							temp;
+						
+						for(i=0; i<d.documentos.length; i++){
+
+							doc = d.documentos[i];  
+
+							if(doc.publicado == 1){ 
+
+								item = document.createElement('div');
+								item.className = 'item_lista';
+								item.id = 'item' + i;
+
+								if(doc.arquivo != ''){
+									bt_dw = document.createElement('div');
+									bt_dw.className = 'bt_item item_downlaod';
+									bt_dw.ID = doc.id;
+									bt_dw.arquivo = doc.arquivo;
+									bt_dw.onclick = function(){
+										window.open(root + "documentos/documento" + this.ID + "/" + this.arquivo);
+									}
+									item.appendChild(bt_dw);
+								}
+								
+								if(doc.link != ''){
+									bt_lk = document.createElement('div');
+									bt_lk.className = 'bt_item item_link';
+									bt_lk.link = doc.link;
+									bt_lk.onclick = function(){
+										window.open( this.link );
+									}
+									item.appendChild(bt_lk);
+								}
+
+								item_lb = document.createElement('span');
+								item_lb.className = 'item_lb'; 
+								temp = doc.titulo;
+								temp += " &ndash; " + doc.autor;
+								temp += "<span class='sub_lb'> &bull; " + doc.veiculo;
+								temp += ", " + doc.ano  + "</span>"; 
+								item_lb.innerHTML = temp;
+								item.appendChild(item_lb);
+
+								conteudo_tela.appendChild(item); 
+							} 
+						}
 					}
 					
 					//dados
 					if(a==2){  
 						
 						var arq,
+							sbt,
+							bt,
+							bt_lb,
 							arquivo,
+							arq_lista,
 							arquivo_lb,
 							arquivo_lista,
 							grupo_titulo,
@@ -373,6 +433,61 @@ window.onload = function (){
 							arq = d.arquivos[i];
 							arquivo = document.createElement('div');
 							arquivo.className = 'item_lista';
+							arquivo.nbts = 0;
+							
+							arquivo_lb = document.createElement('span');
+							arquivo_lb.className = 'item_lb';
+							arquivo_lb.innerHTML = d.arquivos[i].titulo;
+							arquivo.appendChild(arquivo_lb); 
+							
+							arq_lista = document.createElement('div');
+							arq_lista.className = 'arq_lista';
+							arq_lista.open = false;
+							arquivo.lista = arq_lista;
+							
+							for(r=0; r<d.repositorios.length; r++){
+								rep = d.repositorios[r];
+								if(rep.nome ==  arq.label){
+									arquivo.nbts++;
+									
+									sbt = document.createElement('div');
+									sbt.className = 'item_lista sbt'; 
+									arq_lista.appendChild(sbt);
+
+									bt_lb = document.createElement('span');
+									bt_lb.className = 'item_lb';
+									bt_lb.innerHTML = label_arquivo(rep.ext, rep.arquivo, rep.bites);
+									sbt.appendChild(bt_lb); 
+									
+									bt_dw = document.createElement('div');
+									bt_dw.className = 'bt_item item_downlaod sbt';
+									bt_dw.path = d.path;
+									bt_dw.arquivo = rep.arquivo;
+									sbt.appendChild(bt_dw);
+									
+									bt_dw.onclick = function(){
+										window.open(this.path + this.arquivo, "_blank" );
+									}									
+								}
+							}
+							
+							bt = document.createElement('div');
+							bt.className = 'bt_item item_open';
+							bt.arquivo = arquivo;
+							bt.onclick = function(){
+								if(this.arquivo.lista.open){
+									this.arquivo.lista.open = false; 
+									$(this.arquivo.lista).stop(true).animate({height:0},dur*2);
+									this.className = "bt_item item_open";
+								}else{
+									this.arquivo.lista.open = true;
+									$(this.arquivo.lista).stop(true).animate({height:bt.arquivo.nbts*43 + 5},dur*2);
+									this.className = "bt_item item_close"; 
+								}
+							}
+							
+							arquivo.appendChild(bt);
+							
 							grupos[Number(arq.grupo)].push(arquivo);
 						}
 						
@@ -386,10 +501,10 @@ window.onload = function (){
 								conteudo_tela.appendChild(grupo_titulo);
 								
 								for(b=1; b<grupos[i].length; b++){
-									conteudo_tela.appendChild(grupos[i][b]);
+									arquivo = grupos[i][b]; 
 									
-									// loop em repositorios
-									// monta lista de arquivos com mesmo nome
+									conteudo_tela.appendChild(arquivo);
+									conteudo_tela.appendChild(arquivo.lista);  
 									
 								}
 							}
@@ -442,9 +557,7 @@ window.onload = function (){
 									arquivo_lb.className = 'item_lb';
 									arquivo.appendChild(arquivo_lb);
 									
-									arquivo_lb.innerHTML = rep.ext.toUpperCase();
-									if(rep.ext == "zip") arquivo_lb.innerHTML = 'SHAPEFILE';
-									if(rep.ext == "txt") arquivo_lb.innerHTML = 'METADADOS';
+									arquivo_lb.innerHTML = label_arquivo(rep.ext, rep.arquivo, rep.bites);
 									
 									bt_dw = document.createElement('div');
 									bt_dw.className = 'bt_item item_downlaod';
@@ -459,7 +572,7 @@ window.onload = function (){
 							}							
 						} 
 					} 
-				}  
+				}   
 				
 				// iniciar
 				
@@ -471,6 +584,21 @@ window.onload = function (){
 		}
 	}
 	
+	function label_arquivo(lb, arq, bites){
+		
+		var tipo
+		var peso
+		
+		if(bites <= 1000) peso = '1Kb';
+		else if(bites > 1000 && bites < 1000000) peso = Math.round(bites/1000) + ' Kb';
+		else if(bites >= 1000000 ) peso = Math.round(bites/1000000) + ' Gb';
+		
+		if(lb == "zip") tipo = 'SHAPEFILE';
+		else if(lb == "txt") tipo = 'METADADOS';
+		else tipo = lb.toUpperCase();
+		
+		return tipo + " : " + arq + " <span class='sub_lb'> ( " + peso + " )</span>";
+	} 
 	
 	function chamar_kmz(alvo){ 
 		for(r=0; r<map.resultados.length; r++){ 
@@ -575,7 +703,9 @@ window.onload = function (){
 	
 	function resize(){ 
 		win_w = $( window ).width();
-		win_h = $( window ).height();  
+		win_h = $( window ).height(); 
+		
+		$(conteudo_telas).css({maxHeight:win_h-200});
 	}  
 	  
 	resize(); 
