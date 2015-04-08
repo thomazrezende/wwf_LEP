@@ -242,6 +242,7 @@ window.onload = function (){
 			banner.style.backgroundImage = 'url(banners/banner' + d.id + '.jpg)';
 			
 			console.log("tema:" + tema);
+			console.log("session: " + session); 
 			
 			// 2.dados
 
@@ -467,40 +468,43 @@ window.onload = function (){
 						
 						map.resultados = []; 
 						
-						for(r=0; r<d.resultados.length; r++){ 
-							tag5 = document.createElement('li');
-							tag5.id = 'resultado' + d.resultados[r].id;
-							tag5.ID = d.resultados[r].id;
-							tag5.map = map; 
-							tag5.titulo_legenda = d.resultados[r].titulo_legenda;
-							tag5.legenda = d.resultados[r].legenda.split('|');  
-							
-							tag5.lb = d.resultados[r].titulo.toUpperCase();
-							tag5.innerHTML = tag5.lb;
-							tag5.className = 'mapa_bt'; 
-							
-							tag4.appendChild(tag5);
-							map.resultados.push(tag5);
-							tag5.onclick = function(){
-								chamar_kmz(this);
+						if(d.resultados.length > 0){
+							for(r=0; r<d.resultados.length; r++){ 
+								
+								tag5 = document.createElement('li');
+								tag5.id = 'resultado' + d.resultados[r].id;
+								tag5.ID = d.resultados[r].id;
+								tag5.map = map; 
+								tag5.titulo_legenda = d.resultados[r].titulo_legenda;
+								if(d.resultados[r].legenda) tag5.legenda = d.resultados[r].legenda.split('|');  
+
+								tag5.lb = d.resultados[r].titulo.toUpperCase();
+								tag5.innerHTML = tag5.lb;
+								tag5.className = 'mapa_bt'; 
+
+								tag4.appendChild(tag5);
+								map.resultados.push(tag5);
+								tag5.onclick = function(){
+									chamar_kmz(this);
+								}
+
+								layer = new google.maps.KmlLayer({ 
+									suppressInfoWindows: true,
+									preserveViewport: true,
+									url:root + "projetos/projeto" + d.id + "/" + d.resultados[r].label + ".kmz?session=" + session
+								});
+
+								layer.preloader = preloader;  
+								google.maps.event.addListener(layer, 'status_changed', function () { 
+									$(this.preloader).stop(true).fadeOut(dur); 
+								}); 
+
+								tag5.layer = layer;
+
+								br = document.createElement('br');
+								tag4.appendChild(br);
 							}
-							
-							layer = new google.maps.KmlLayer({ 
-								suppressInfoWindows: true,
-								preserveViewport: true,
-								url:root + "projetos/projeto" + d.id + "/" + d.resultados[r].label + ".kmz?session=" + session
-							});
-							
-							layer.preloader = preloader;  
-							google.maps.event.addListener(layer, 'status_changed', function () { 
-								$(this.preloader).stop(true).fadeOut(dur); 
-							}); 
-							
-							tag5.layer = layer;
-							
-							br = document.createElement('br');
-							tag4.appendChild(br);
-						}  
+						}
 						 
 						// legenda 
 					
@@ -555,7 +559,7 @@ window.onload = function (){
 					}
 					
 					projetos.appendChild(tag); 
-					chamar_kmz(map.resultados[0]);
+					if(map.resultados) chamar_kmz(map.resultados[0]);
 				} 
 			}
 			
@@ -581,15 +585,17 @@ window.onload = function (){
 				tag.className  = 'legenda_titulo';
 				tag.innerHTML = d.titulo_legenda;
 				d.map.legenda.appendChild(tag);
-			
-				for(a=0; a<d.legenda.length; a++){  
-					leg = d.legenda[a].split(',');
-					tag = document.createElement('li'); 
-					tag.innerHTML = leg[0];
-					tag2 = document.createElement('span');
-					tag2.style.backgroundColor = leg[1];
-					tag.appendChild(tag2);			 
-					d.map.legenda.appendChild(tag); 
+				
+				if(d.legenda){
+					for(a=0; a<d.legenda.length; a++){  
+						leg = d.legenda[a].split(',');
+						tag = document.createElement('li'); 
+						tag.innerHTML = leg[0];
+						tag2 = document.createElement('span');
+						tag2.style.backgroundColor = leg[1];
+						tag.appendChild(tag2);			 
+						d.map.legenda.appendChild(tag); 
+					}
 				}
 
 			}else{

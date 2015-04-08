@@ -123,21 +123,7 @@ window.onload = function (){
 					["repositorios", "repositorio", ["id","arquivo","nome","ext","tipo","bites"]]
 					]); 
 			
-			// dados
-			
-			session = sessionStorage.getItem("session"); 
-			tema = sessionStorage.getItem("tema");
-			
-			if( !tema || !session ){ 
-				
-				session = Math.random() * 1000;
-				tema = 0;
-				
-				sessionStorage.setItem("tema", tema ); 
-				sessionStorage.setItem("session", session);
-			}   
-			 
-			
+			// dados 
 			d = projeto_arr["dados"]; 
 			d.path = root + "projetos/projeto" + d.id + "/";
 			  
@@ -206,382 +192,380 @@ window.onload = function (){
 			tag2.appendChild(br);
 
 			//resultados
+			
+			bt_lista = document.createElement('div');
+			bt_lista.id = 'resultado' + d.id;
+			bt_lista.className = 'resultados mapa_bt';
+			tag2.appendChild(bt_lista); 
 
-			if(d.resultados.length > 0){ 
-				bt_lista = document.createElement('div');
-				bt_lista.id = 'resultado' + d.id;
-				bt_lista.className = 'resultados mapa_bt';
-				bt_lista.innerHTML = d.resultados[0].titulo.toUpperCase(); 
-				tag2.appendChild(bt_lista); 
+			bt_lista.onclick = function(){  
+				if(lista.visible){ 
+					fechar_lista();
+				}else{ 
+					abrir_lista();
+				}
+			}
 
-				bt_lista.onclick = function(){  
-					if(lista.visible){ 
-						fechar_lista();
-					}else{ 
-						abrir_lista();
+			br = document.createElement('br');
+			tag2.appendChild(br);
+
+			lista = document.createElement('ul');
+			lista.id = 'resultados' + d.id;
+			lista.className = 'resultados_lista';  
+			tag2.appendChild(lista);
+
+			$(lista).hide(); 
+			lista.visible = false;
+
+			preloader = document.createElement('div');
+			preloader.className = 'preloader';
+			tag.appendChild(preloader);
+			$(preloader).hide(); 
+
+			map.resultados = []; 
+
+			for(r=0; r<d.resultados.length; r++){ 
+				tag5 = document.createElement('li');
+				tag5.id = 'resultado' + d.resultados[r].id;
+				tag5.ID = d.resultados[r].id; 
+				tag5.titulo_legenda = d.resultados[r].titulo_legenda;
+				tag5.legenda = d.resultados[r].legenda.split('|');  
+
+				tag5.lb = d.resultados[r].titulo.toUpperCase();
+				tag5.innerHTML = tag5.lb;
+				tag5.className = 'mapa_bt'; 
+
+				lista.appendChild(tag5);
+				map.resultados.push(tag5);
+				tag5.onclick = function(){
+					chamar_kmz(this);
+				}
+
+				layer = new google.maps.KmlLayer({ 
+					suppressInfoWindows: true,
+					preserveViewport: true,
+					url:root + "projetos/projeto" + d.id + "/" + d.resultados[r].label + ".kmz?session=" + session
+				});
+
+				google.maps.event.addListener(layer, 'status_changed', function () { 
+					$(preloader).stop(true).fadeOut(dur); 
+				}); 
+
+				tag5.layer = layer;
+
+				br = document.createElement('br');
+				lista.appendChild(br);
+			}  
+
+			// legenda 
+
+			bt_legenda = document.createElement('div');
+			bt_legenda.className = 'legenda mapa_bt';
+			bt_legenda.innerHTML = "LEGENDA";  
+			tag2.appendChild(bt_legenda); 
+
+			bt_legenda.onclick = function(){
+				if(legenda.visible){
+					fechar_legenda();
+				}else{
+					abrir_legenda();
+				}
+			}  
+
+			legenda = document.createElement('ul');
+			legenda.className = 'legenda_tx scroll2';   
+			tag2.appendChild(legenda);  
+
+			$(legenda).hide(); 
+			legenda.visible = false;  
+
+			// conteudo 
+
+			conteudo = document.createElement('div');
+			conteudo.id = 'conteudo';
+			tag2.appendChild(conteudo);  
+
+			conteudo_telas = document.createElement('div');
+			conteudo_telas.id = 'conteudo_telas';
+			conteudo_telas.tela_atual = 0;				
+			conteudo_telas.visible = true;  
+			$(conteudo_telas).css({maxHeight:win_h-200});
+			tag2.appendChild(conteudo_telas); 
+
+			for(a=0; a<4; a++){
+
+				var tela = [],					
+				conteudo_tela;
+
+				tag4 = document.createElement('div');
+				tag4.className = 'conteudo_bt';
+				tag4.innerHTML = conteudos[a];
+				tag4.ID = a;
+				conteudo.appendChild(tag4);
+
+				tela[0] = tag4; 
+
+				tag4.onclick = function(){ 
+					if(conteudo_telas.tela_atual == this.ID) fechar_telas();
+					else abrir_tela(this.ID);
+				}
+
+				tag5 = new Image();
+				tag5.src = '_layout/fechar.png';
+				tag4.appendChild(tag5);
+
+				if(a==0){
+					tag4.className += ' select';
+				}
+
+				conteudo_tela = document.createElement('div');
+				conteudo_tela.className = 'conteudo_tela';
+				conteudo_telas.appendChild(conteudo_tela); 
+
+				tela[1] = conteudo_tela;
+				telas.push(tela);
+
+				if(a>0) $(conteudo_tela).hide(); 
+
+				//sobre
+				if(a==0){
+					tag2 = document.createElement('div');
+					tag2.className = "conteudo_titulo wwf";
+					tag2.innerHTML = "SOBRE";
+					conteudo_tela.appendChild(tag2);	 
+					conteudo_tela.innerHTML += d.sobre; 
+				}
+
+				//documentos
+				if(a==1){ 
+
+					tag2 = document.createElement('div');
+					tag2.className = "conteudo_titulo wwf";
+					tag2.innerHTML = "DOCUMENTOS";
+					conteudo_tela.appendChild(tag2);	 
+
+					var doc,
+						item,
+						bt_dw,
+						bt_lk,
+						item_lb,
+						temp;
+
+					for(i=0; i<d.documentos.length; i++){
+
+						doc = d.documentos[i];  
+
+						if(doc.publicado == 1){ 
+
+							item = document.createElement('div');
+							item.className = 'item_lista';
+							item.id = 'item' + i;
+
+							if(doc.arquivo != ''){
+								bt_dw = document.createElement('div');
+								bt_dw.className = 'bt_item item_downlaod';
+								bt_dw.ID = doc.id;
+								bt_dw.arquivo = doc.arquivo;
+								bt_dw.onclick = function(){
+									window.open(root + "documentos/documento" + this.ID + "/" + this.arquivo);
+								}
+								item.appendChild(bt_dw);
+							}
+
+							if(doc.link != ''){
+								bt_lk = document.createElement('div');
+								bt_lk.className = 'bt_item item_link';
+								bt_lk.link = doc.link;
+								bt_lk.onclick = function(){
+									window.open( this.link );
+								}
+								item.appendChild(bt_lk);
+							}
+
+							item_lb = document.createElement('span');
+							item_lb.className = 'item_lb'; 
+							temp = doc.titulo;
+							temp += " &ndash; " + doc.autor;
+							temp += "<span class='sub_lb'> &bull; " + doc.veiculo;
+							temp += ", " + doc.ano  + "</span>"; 
+							item_lb.innerHTML = temp;
+							item.appendChild(item_lb);
+
+							conteudo_tela.appendChild(item); 
+						} 
 					}
 				}
 
-				br = document.createElement('br');
-				tag2.appendChild(br);
+				//dados
+				if(a==2){  
 
-				lista = document.createElement('ul');
-				lista.id = 'resultados' + d.id;
-				lista.className = 'resultados_lista';  
-				tag2.appendChild(lista);
+					var arq,
+						sbt,
+						bt,
+						bt_lb,
+						arquivo,
+						arq_lista,
+						arquivo_lb,
+						arquivo_lista,
+						grupo_titulo,
+						bt_dw,
+						grupos = [[],["ALVOS DE CONSERVA&Ccedil;&Atilde;O"],
+									 ["CUSTOS DE CONSERVA&Ccedil;&Atilde;O"],
+									 ["ARQUIVOS DE ENTRADA MARXAN"]];			
 
-				$(lista).hide(); 
-				lista.visible = false;
+					for(i=0; i<d.arquivos.length; i++){  
+						arq = d.arquivos[i];
+						arquivo = document.createElement('div');
+						arquivo.className = 'item_lista';
+						arquivo.nbts = 0;
 
-				preloader = document.createElement('div');
-				preloader.className = 'preloader';
-				tag.appendChild(preloader);
-				$(preloader).hide(); 
+						arquivo_lb = document.createElement('span');
+						arquivo_lb.className = 'item_lb';
+						arquivo_lb.innerHTML = d.arquivos[i].titulo;
+						arquivo.appendChild(arquivo_lb); 
 
-				map.resultados = []; 
+						arq_lista = document.createElement('div');
+						arq_lista.className = 'arq_lista';
+						arq_lista.open = false;
+						arquivo.lista = arq_lista;
 
-				for(r=0; r<d.resultados.length; r++){ 
-					tag5 = document.createElement('li');
-					tag5.id = 'resultado' + d.resultados[r].id;
-					tag5.ID = d.resultados[r].id; 
-					tag5.titulo_legenda = d.resultados[r].titulo_legenda;
-					tag5.legenda = d.resultados[r].legenda.split('|');  
+						for(r=0; r<d.repositorios.length; r++){
+							rep = d.repositorios[r];
+							if(rep.nome ==  arq.label){
+								arquivo.nbts++;
 
-					tag5.lb = d.resultados[r].titulo.toUpperCase();
-					tag5.innerHTML = tag5.lb;
-					tag5.className = 'mapa_bt'; 
+								sbt = document.createElement('div');
+								sbt.className = 'item_lista sbt'; 
+								arq_lista.appendChild(sbt);
 
-					lista.appendChild(tag5);
-					map.resultados.push(tag5);
-					tag5.onclick = function(){
-						chamar_kmz(this);
-					}
+								bt_lb = document.createElement('span');
+								bt_lb.className = 'item_lb';
+								bt_lb.innerHTML = label_arquivo(rep.ext, rep.arquivo, rep.bites);
+								sbt.appendChild(bt_lb); 
 
-					layer = new google.maps.KmlLayer({ 
-						suppressInfoWindows: true,
-						preserveViewport: true,
-						url:root + "projetos/projeto" + d.id + "/" + d.resultados[r].label + ".kmz?session=" + session
-					});
+								bt_dw = document.createElement('div');
+								bt_dw.className = 'bt_item item_downlaod sbt';
+								bt_dw.path = d.path;
+								bt_dw.arquivo = rep.arquivo;
+								sbt.appendChild(bt_dw);
 
-					google.maps.event.addListener(layer, 'status_changed', function () { 
-						$(preloader).stop(true).fadeOut(dur); 
-					}); 
-
-					tag5.layer = layer;
-
-					br = document.createElement('br');
-					lista.appendChild(br);
-				}  
-
-				// legenda 
-
-				bt_legenda = document.createElement('div');
-				bt_legenda.className = 'legenda mapa_bt';
-				bt_legenda.innerHTML = "LEGENDA";  
-				tag2.appendChild(bt_legenda); 
-				
-				bt_legenda.onclick = function(){
-					if(legenda.visible){
-						fechar_legenda();
-					}else{
-						abrir_legenda();
-					}
-				}  
-				
-				legenda = document.createElement('ul');
-				legenda.className = 'legenda_tx scroll2';   
-				tag2.appendChild(legenda);  
-
-				$(legenda).hide(); 
-				legenda.visible = false;  
-				
-				// conteudo 
-				
-				conteudo = document.createElement('div');
-				conteudo.id = 'conteudo';
-				tag2.appendChild(conteudo);  
-				
-				conteudo_telas = document.createElement('div');
-				conteudo_telas.id = 'conteudo_telas';
-				conteudo_telas.tela_atual = 0;				
-				conteudo_telas.visible = true;  
-				$(conteudo_telas).css({maxHeight:win_h-200});
-				tag2.appendChild(conteudo_telas); 
-				
-				for(a=0; a<4; a++){
-					
-					var tela = [],					
-					conteudo_tela;
-					
-					tag4 = document.createElement('div');
-					tag4.className = 'conteudo_bt';
-					tag4.innerHTML = conteudos[a];
-					tag4.ID = a;
-					conteudo.appendChild(tag4);
-					
-					tela[0] = tag4; 
-					
-					tag4.onclick = function(){ 
-						if(conteudo_telas.tela_atual == this.ID) fechar_telas();
-						else abrir_tela(this.ID);
-					}
-					
-					tag5 = new Image();
-					tag5.src = '_layout/fechar.png';
-					tag4.appendChild(tag5);
-					
-					if(a==0){
-						tag4.className += ' select';
-					}
-					
-					conteudo_tela = document.createElement('div');
-					conteudo_tela.className = 'conteudo_tela';
-					conteudo_telas.appendChild(conteudo_tela); 
-										
-					tela[1] = conteudo_tela;
-					telas.push(tela);
-						
-					if(a>0) $(conteudo_tela).hide(); 
-					
-					//sobre
-					if(a==0){
-						tag2 = document.createElement('div');
-						tag2.className = "conteudo_titulo wwf";
-						tag2.innerHTML = "SOBRE";
-						conteudo_tela.appendChild(tag2);	 
-						conteudo_tela.innerHTML += d.sobre; 
-					}
-					
-					//documentos
-					if(a==1){ 
-
-						tag2 = document.createElement('div');
-						tag2.className = "conteudo_titulo wwf";
-						tag2.innerHTML = "DOCUMENTOS";
-						conteudo_tela.appendChild(tag2);	 
-						
-						var doc,
-							item,
-							bt_dw,
-							bt_lk,
-							item_lb,
-							temp;
-						
-						for(i=0; i<d.documentos.length; i++){
-
-							doc = d.documentos[i];  
-
-							if(doc.publicado == 1){ 
-
-								item = document.createElement('div');
-								item.className = 'item_lista';
-								item.id = 'item' + i;
-
-								if(doc.arquivo != ''){
-									bt_dw = document.createElement('div');
-									bt_dw.className = 'bt_item item_downlaod';
-									bt_dw.ID = doc.id;
-									bt_dw.arquivo = doc.arquivo;
-									bt_dw.onclick = function(){
-										window.open(root + "documentos/documento" + this.ID + "/" + this.arquivo);
-									}
-									item.appendChild(bt_dw);
-								}
-								
-								if(doc.link != ''){
-									bt_lk = document.createElement('div');
-									bt_lk.className = 'bt_item item_link';
-									bt_lk.link = doc.link;
-									bt_lk.onclick = function(){
-										window.open( this.link );
-									}
-									item.appendChild(bt_lk);
-								}
-
-								item_lb = document.createElement('span');
-								item_lb.className = 'item_lb'; 
-								temp = doc.titulo;
-								temp += " &ndash; " + doc.autor;
-								temp += "<span class='sub_lb'> &bull; " + doc.veiculo;
-								temp += ", " + doc.ano  + "</span>"; 
-								item_lb.innerHTML = temp;
-								item.appendChild(item_lb);
-
-								conteudo_tela.appendChild(item); 
-							} 
-						}
-					}
-					
-					//dados
-					if(a==2){  
-						
-						var arq,
-							sbt,
-							bt,
-							bt_lb,
-							arquivo,
-							arq_lista,
-							arquivo_lb,
-							arquivo_lista,
-							grupo_titulo,
-							bt_dw,
-							grupos = [[],["ALVOS DE CONSERVA&Ccedil;&Atilde;O"],
-									  	 ["CUSTOS DE CONSERVA&Ccedil;&Atilde;O"],
-									  	 ["ARQUIVOS DE ENTRADA MARXAN"]];			
- 
-						for(i=0; i<d.arquivos.length; i++){  
-							arq = d.arquivos[i];
-							arquivo = document.createElement('div');
-							arquivo.className = 'item_lista';
-							arquivo.nbts = 0;
-							
-							arquivo_lb = document.createElement('span');
-							arquivo_lb.className = 'item_lb';
-							arquivo_lb.innerHTML = d.arquivos[i].titulo;
-							arquivo.appendChild(arquivo_lb); 
-							
-							arq_lista = document.createElement('div');
-							arq_lista.className = 'arq_lista';
-							arq_lista.open = false;
-							arquivo.lista = arq_lista;
-							
-							for(r=0; r<d.repositorios.length; r++){
-								rep = d.repositorios[r];
-								if(rep.nome ==  arq.label){
-									arquivo.nbts++;
-									
-									sbt = document.createElement('div');
-									sbt.className = 'item_lista sbt'; 
-									arq_lista.appendChild(sbt);
-
-									bt_lb = document.createElement('span');
-									bt_lb.className = 'item_lb';
-									bt_lb.innerHTML = label_arquivo(rep.ext, rep.arquivo, rep.bites);
-									sbt.appendChild(bt_lb); 
-									
-									bt_dw = document.createElement('div');
-									bt_dw.className = 'bt_item item_downlaod sbt';
-									bt_dw.path = d.path;
-									bt_dw.arquivo = rep.arquivo;
-									sbt.appendChild(bt_dw);
-									
-									bt_dw.onclick = function(){
-										window.open(this.path + this.arquivo, "_blank" );
-									}									
-								}
+								bt_dw.onclick = function(){
+									window.open(this.path + this.arquivo, "_blank" );
+								}									
 							}
-							
-							bt = document.createElement('div');
-							bt.className = 'bt_item item_open';
-							bt.arquivo = arquivo;
-							bt.onclick = function(){
-								if(this.arquivo.lista.open){
-									this.arquivo.lista.open = false; 
-									$(this.arquivo.lista).stop(true).animate({height:0},dur*2);
-									this.className = "bt_item item_open";
-								}else{
-									this.arquivo.lista.open = true;
-									$(this.arquivo.lista).stop(true).animate({height:bt.arquivo.nbts*43 + 5},dur*2);
-									this.className = "bt_item item_close"; 
-								}
-							}
-							
-							arquivo.appendChild(bt);
-							
-							grupos[Number(arq.grupo)].push(arquivo);
 						}
-						
-						for(i=1; i<grupos.length; i++){
-							if(grupos[i].length>1){
-									
-								grupo_titulo = document.createElement('div'); 
-								grupo_titulo.className = "conteudo_titulo wwf";
-								grupo_titulo.innerHTML = grupos[i][0];
 
-								conteudo_tela.appendChild(grupo_titulo);
-								
-								for(b=1; b<grupos[i].length; b++){
-									arquivo = grupos[i][b]; 
-									
-									conteudo_tela.appendChild(arquivo);
-									conteudo_tela.appendChild(arquivo.lista);  
-									
-								}
+						bt = document.createElement('div');
+						bt.className = 'bt_item item_open';
+						bt.arquivo = arquivo;
+						bt.onclick = function(){
+							if(this.arquivo.lista.open){
+								this.arquivo.lista.open = false; 
+								$(this.arquivo.lista).stop(true).animate({height:0},dur*2);
+								this.className = "bt_item item_open";
+							}else{
+								this.arquivo.lista.open = true;
+								$(this.arquivo.lista).stop(true).animate({height:bt.arquivo.nbts*43 + 5},dur*2);
+								this.className = "bt_item item_close"; 
+							}
+						}
+
+						arquivo.appendChild(bt);
+
+						grupos[Number(arq.grupo)].push(arquivo);
+					}
+
+					for(i=1; i<grupos.length; i++){
+						if(grupos[i].length>1){
+
+							grupo_titulo = document.createElement('div'); 
+							grupo_titulo.className = "conteudo_titulo wwf";
+							grupo_titulo.innerHTML = grupos[i][0];
+
+							conteudo_tela.appendChild(grupo_titulo);
+
+							for(b=1; b<grupos[i].length; b++){
+								arquivo = grupos[i][b]; 
+
+								conteudo_tela.appendChild(arquivo);
+								conteudo_tela.appendChild(arquivo.lista);  
+
 							}
 						}
 					}
-					
-					//resultados
-					if(a==3){ 
-						var resultado_cel,
-							resultado_tb,
-							resultado_titulo,
-							rep,
-							arquivo,
-							arquivo_lb,
-							bt_dw;
-					
-						tag2 = document.createElement('div');
-						tag2.className = "conteudo_titulo wwf";
-						tag2.innerHTML = "RESULTADOS";
-						conteudo_tela.appendChild(tag2);
-						for(i=0; i<d.resultados.length; i++){ 
-							resultado_cel = document.createElement('div');
-							resultado_cel.className = "resultado_cel";
-							conteudo_tela.appendChild(resultado_cel);
-							
-							resultado_tb = document.createElement('div');
-							resultado_tb.className = "resultado_tb";
-							$(resultado_tb).css({backgroundImage:'url('+ d.path + 'tb' + d.resultados[i].id + '.jpg?session=' + session + ')'}) 
-							resultado_cel.appendChild(resultado_tb);
-							
-							resultado_titulo = document.createElement('div');
-							resultado_titulo.className = "resultado_titulo mapa_bt"; 
-							resultado_titulo.innerHTML = d.resultados[i].titulo;
-							resultado_titulo.bt_lista = map.resultados[i];
-							map.resultados[i].bt_tela_resultados = resultado_titulo;
-							resultado_titulo.onclick = function(){
-								chamar_kmz(this.bt_lista);
+				}
+
+				//resultados
+				if(a==3){ 
+					var resultado_cel,
+						resultado_tb,
+						resultado_titulo,
+						rep,
+						arquivo,
+						arquivo_lb,
+						bt_dw;
+
+					tag2 = document.createElement('div');
+					tag2.className = "conteudo_titulo wwf";
+					tag2.innerHTML = "RESULTADOS";
+					conteudo_tela.appendChild(tag2);
+					for(i=0; i<d.resultados.length; i++){ 
+						resultado_cel = document.createElement('div');
+						resultado_cel.className = "resultado_cel";
+						conteudo_tela.appendChild(resultado_cel);
+
+						resultado_tb = document.createElement('div');
+						resultado_tb.className = "resultado_tb";
+						$(resultado_tb).css({backgroundImage:'url('+ d.path + 'tb' + d.resultados[i].id + '.jpg?session=' + session + ')'}) 
+						resultado_cel.appendChild(resultado_tb);
+
+						resultado_titulo = document.createElement('div');
+						resultado_titulo.className = "resultado_titulo mapa_bt"; 
+						resultado_titulo.innerHTML = d.resultados[i].titulo;
+						resultado_titulo.bt_lista = map.resultados[i];
+						map.resultados[i].bt_tela_resultados = resultado_titulo;
+						resultado_titulo.onclick = function(){
+							chamar_kmz(this.bt_lista);
+						}
+
+						resultado_cel.appendChild(resultado_titulo);
+
+						for(r=0; r<d.repositorios.length; r++){
+							rep = d.repositorios[r];
+							if(rep.nome ==  d.resultados[i].label){
+								arquivo = document.createElement('div');
+								arquivo.className = 'item_lista'; 
+								resultado_cel.appendChild(arquivo);
+
+								arquivo_lb = document.createElement('span');
+								arquivo_lb.className = 'item_lb';
+								arquivo.appendChild(arquivo_lb);
+
+								arquivo_lb.innerHTML = label_arquivo(rep.ext, rep.arquivo, rep.bites);
+
+								bt_dw = document.createElement('div');
+								bt_dw.className = 'bt_item item_downlaod';
+								bt_dw.path = d.path;
+								bt_dw.arquivo = rep.arquivo;
+								arquivo.appendChild(bt_dw);
+
+								bt_dw.onclick = function(){
+									window.open(this.path + this.arquivo, "_blank" );
+								}									
 							}
-							
-							resultado_cel.appendChild(resultado_titulo);
-							
-							for(r=0; r<d.repositorios.length; r++){
-								rep = d.repositorios[r];
-								if(rep.nome ==  d.resultados[i].label){
-									arquivo = document.createElement('div');
-									arquivo.className = 'item_lista'; 
-									resultado_cel.appendChild(arquivo);
-									
-									arquivo_lb = document.createElement('span');
-									arquivo_lb.className = 'item_lb';
-									arquivo.appendChild(arquivo_lb);
-									
-									arquivo_lb.innerHTML = label_arquivo(rep.ext, rep.arquivo, rep.bites);
-									
-									bt_dw = document.createElement('div');
-									bt_dw.className = 'bt_item item_downlaod';
-									bt_dw.path = d.path;
-									bt_dw.arquivo = rep.arquivo;
-									arquivo.appendChild(bt_dw);
-									
-									bt_dw.onclick = function(){
-										window.open(this.path + this.arquivo, "_blank" );
-									}									
-								}
-							}							
-						} 
+						}							
 					} 
-				}   
-				
-				// iniciar
-				
-				projeto.appendChild(tag); 
-				aplicar_tema();
-				
-				chamar_kmz(map.resultados[0]);
+				} 
 			}   
-		}
+
+			// iniciar
+
+			projeto.appendChild(tag); 
+			aplicar_tema();
+
+			if(map.resultados[0]) chamar_kmz(map.resultados[0]);
+		}   
+		
 	}
 	
 	function label_arquivo(lb, arq, bites){
@@ -780,6 +764,22 @@ window.onload = function (){
 	
 	
 	// load data
+	session = sessionStorage.getItem("session"); 
+	tema = sessionStorage.getItem("tema");
+
+	if( !tema || !session ){ 
+
+		session = Math.random() * 1000;
+		tema = 0;	
+
+		sessionStorage.setItem("tema", tema ); 
+		sessionStorage.setItem("session", session);
+
+		console.log("tema: " + tema); 
+		console.log("session: " + session); 
+	}   
+			 
+	
 	myRequest.open("GET", "projetos/projeto"+ projeto_id +"/dados.xml?session="+session, true);
 	myRequest.send(null);
 	
