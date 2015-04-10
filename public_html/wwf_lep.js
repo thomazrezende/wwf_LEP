@@ -757,37 +757,41 @@ window.onload = function (){
 					}
 					filtrar();
 				}
-
+					
 				busca_x.onclick = function(){
 					busca_tx.value = '';
 					busca_tx.placeholder = 'PESQUISAR';
 					$(this).hide();
 					filtrar();
 				}
-
+				
 				function filtrar(){
 
 					var t = busca_tx.value.toUpperCase();
 
 					for(i in documentos_arr){
-
-						d = documentos_arr[i].item; 
-						if (t==''){
-							$(d).show();
-						}else{
-							$(d).hide();
-							if(( filtro == 0 || filtro == 1) && d.titulo.indexOf(t) >= 0 ){ 
-								$(d).show();
+							
+						d = documentos_arr[i]; 
+						
+						if(d.publicado == 1){ 
+						
+							if (t==''){
+								$(d.item).show();
+							}else{
+								$(d.item).hide();
+								if(( filtro == 0 || filtro == 1) && d.item.titulo.indexOf(t) >= 0 ){ 
+									$(d.item).show();
+								}
+								if(( filtro == 0 || filtro == 2) && d.item.autor.indexOf(t) >= 0 ){ 
+									$(d.item).show();
+								} 
+								if(( filtro == 0 || filtro == 3) && d.item.veiculo.indexOf(t) >= 0 ){ 
+									$(d.item).show();
+								} 
+								if(( filtro == 0 || filtro == 4) && d.item.palavras_chave.indexOf(t) >= 0 ){ 
+									$(d.item).show();
+								} 
 							}
-							if(( filtro == 0 || filtro == 2) && d.autor.indexOf(t) >= 0 ){ 
-								$(d).show();
-							} 
-							if(( filtro == 0 || filtro == 3) && d.veiculo.indexOf(t) >= 0 ){ 
-								$(d).show();
-							} 
-							if(( filtro == 0 || filtro == 4) && d.palavras_chave.indexOf(t) >= 0 ){ 
-								$(d).show();
-							} 
 						}
 					}
 				}

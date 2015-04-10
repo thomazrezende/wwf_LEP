@@ -667,7 +667,7 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 	color: #fff;
 	background: #888;
 	display: table-cell;
-	background-image: url(_layout/icon_dw2.png);
+	background-image: url(_layout/icon_plus2.png);
 	background-repeat: no-repeat;
 	background-position: right;
 	cursor: pointer;
@@ -711,7 +711,7 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 } 
 
 .busca_opt.select{ 
-	background-image: url(_layout/icon_minus.png); 
+	background-image: url(_layout/icon_minus3.png); 
 	background-repeat: no-repeat;
 	background-position: right;
 } 

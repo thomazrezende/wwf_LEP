@@ -6,6 +6,7 @@
 	require_once("../_tr/html.php"); 
 	require_once("../_tr/mysql.php"); 
 	require_once("../_tr/arquivo.php");
+	require_once("../_tr/xml.php");
 	
 	conectar();
 	verif_log();
@@ -14,7 +15,9 @@
 
 	remove_pasta('../../documentos/documento'.$id, 'documentos', $id, false, false);
 	//remove_pasta($path, $tabela, $id, $tabelas_vinc, $lbs_vinc){ 
-	
+
+	xml_documentos();
+
 	location("../documentos.php","msg_ok=DOCUMENTO REMOVIDO COM SUCESSO");
 	
 ?>

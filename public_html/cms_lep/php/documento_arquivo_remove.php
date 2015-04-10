@@ -6,6 +6,7 @@
 	require_once("../_tr/html.php"); 
 	require_once("../_tr/mysql.php"); 
 	require_once("../_tr/arquivo.php");
+	require_once("../_tr/xml.php");
 	
 	conectar();
 	verif_log();
@@ -19,6 +20,9 @@
 	
 	unlink("../../documentos/documento".$id."/".$dados["arquivo"]);
 	
+	xml_documentos();
+
 	location("../documento.php","id=".$id."&msg_ok=ARQUIVO REMOVIDO COM SUCESSO");
+
 	
 ?>
