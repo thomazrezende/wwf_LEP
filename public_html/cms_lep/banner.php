@@ -22,30 +22,14 @@ require_once("_tr/up_file_form.php");
 			
 			<?php
 
-			$id = $_GET["id"];
-			
+			$id = $_GET["id"]; 
+
+			// temas
 			$temas = array(
-				'#cc6666',
-				'#ff6666',
-				'#ff9966',
-				'#ffcc66',
-				'#cc9966',
-				'#cccc66',
-				'#66cc66',
-				'#99cc66',
-				'#66cc99',
-				'#66cccc',
-				'#6699cc',
-				'#66ccff',
-				'#99ccff',
-				'#6666cc',
-				'#9999ff',
-				'#9966cc',
-				'#cc66cc',
-				'#cc99ff',
-				'#cc6699',
-				'#ff6699');
-				
+			'#cc6666','#e26565','#ee9569','#e7b34c','#be995e',
+			'#c0c05a','#90bd63','#7cba7c','#68be93','#66cccc',
+			'#6699cc','#79a7d4','#75b8d9','#8585d6','#7e7ebb',
+			'#7c5f99','#9473b5','#ad6bad','#b6628c','#c4567b'); 
 				 
 			//SQL
 			$dados = sql_select("banners","*","","id=".$id,false);

@@ -44,11 +44,12 @@ require_once("_tr/sortable_auto.php");
 					$id = $projetos[$i]["id"];
 					$tb = '_layout/ico_projeto.png';
 					$lb = $projetos[$i]["titulo"];
+					$lb_ext = "";
 					$link = array("php/escolhe_projeto.php?id=".$id."&titulo=".$lb, false);
 					
 					$bts = array (	array( "del", "php/projeto_remove.php?id=".$id )); 
 				
-					item('item'.$id, $tb, caps($id." _ ".$lb), $link, $bts, true);
+					item('item'.$id, $tb, caps($id." _ ".$lb), $lb_ext, $link, $bts, true);
 				}
 			}  
 			

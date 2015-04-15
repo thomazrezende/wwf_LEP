@@ -53,11 +53,12 @@ head("LEP - documentos");
 					$id = $documentos[$i]["id"];
 					$tb =  '_layout/ico_documento.png';
 					$lb = $id." _ ".$documentos[$i]["titulo"].$autor.$doc.$lnk;
+					$lb_ext = "";
 					$link = array("documento.php?id=".$id, false);
 					
 					$bts = array( array( "del", "php/documento_remove.php?id=".$id )); 
 				
-					item('item'.$id, $tb, $lb, $link, $bts, false);
+					item('item'.$id, $tb, $lb, $lb_ext, $link, $bts, false);
 				}
 			}
 			
@@ -84,11 +85,12 @@ head("LEP - documentos");
 					$id = $documentos[$i]["id"];
 					$tb = '_layout/ico_documento.png';
 					$lb = $id." _ ".$documentos[$i]["titulo"].$autor.$doc.$lnk;
+					$lb_ext = "";
 					$link = array("documento.php?id=".$id, false);
 					
 					$bts = array (	array( "del", "php/documento_remove.php?id=".$id )); 
 				
-					item($id, $tb, $lb, $link, $bts, false);
+					item('item'.$id, $tb, $lb, $lb_ext, $link, $bts, false);
 				}
 			}  
 			

@@ -32,6 +32,7 @@ window.onload = function (){
 		tema,
 		session,
 		projeto_id,
+		cookie,
 		get; 
 	
 	var projeto = document.getElementById('projeto');
@@ -57,11 +58,11 @@ window.onload = function (){
 	var conteudos = ['SOBRE','DOCUMENTOS','DADOS','RESULTADOS'];
 	
 	var temas = [
-		'#cc6666','#ff6666','#ff9966','#ffcc66',
-		'#cc9966','#cccc66','#66cc66','#99cc66',
-		'#66cc99','#66cccc','#6699cc','#66ccff',
-		'#99ccff','#6666cc','#9999ff','#9966cc',
-		'#cc66cc','#cc99ff','#cc6699','#ff6699']; 
+			'#cc6666','#e26565','#ee9569','#e7b34c','#be995e',
+			'#c0c05a','#90bd63','#7cba7c','#68be93','#66cccc',
+			'#6699cc','#79a7d4','#75b8d9','#8585d6','#7e7ebb',
+			'#7c5f99','#9473b5','#ad6bad','#b6628c','#c4567b'];
+	
 
 	// CORES // 
 	
@@ -291,7 +292,73 @@ window.onload = function (){
 			conteudo_telas.visible = true;  
 			$(conteudo_telas).css({maxHeight:win_h-200});
 			tag2.appendChild(conteudo_telas); 
+			
+			// registro user funcs 
+		
+			function verifica_registro( url ){  
 
+				cookie = get_cookie("regsitro_lep");
+
+				if( cookie != "ok" && cookie != "no" ){
+					var registro_user = document.getElementById("registro_user");
+					var registro_form = document.getElementById("registro_form");
+					var registro_x = document.getElementById("registro_x");
+					var registro_tx = document.getElementById("registro_tx");
+					var news = document.getElementById("news");
+
+					registro_user.style.display = "block"; 
+					$(registro_user).hide().fadeIn(dur);
+
+					var registro_nome = document.getElementById("registro_nome");
+					var registro_email = document.getElementById("registro_email");
+					var registro_profissao = document.getElementById("registro_profissao");
+					
+					registro_x.onclick = function(){
+						$(registro_user).stop(true).fadeOut(dur);
+					} 
+					registro_nome.onfocus = function(){
+						if(this.value == '') this.placeholder = ''; 
+					} 
+					registro_nome.onblur = function(){
+						if(this.value == '') this.placeholder = 'NOME'; 		
+					} 
+					registro_email.onfocus = function(){
+						if(this.value == '') this.placeholder = ''; 
+					}  
+					registro_email.onblur = function(){
+						if(this.value == '') this.placeholder = 'E-MAIL'; 		
+					} 
+					registro_profissao.onfocus = function(){
+						if(this.value == '') this.placeholder = ''; 
+					} 
+					registro_profissao.onblur = function(){
+						if(this.value == '') this.placeholder = 'PROFISSÃO/GRAU DE ESCOLARIDADE'; 		
+					}
+
+					registro_cancel.onclick = function(){
+						set_cookie("regsitro_lep", "no", 90);
+						$(registro_user).fadeOut(dur);
+					}
+
+					$(registro_form).ajaxForm({	
+						type:'post',
+						success:function() { 
+							set_cookie("regsitro_lep", "ok", 90); 
+							$(registro_form).hide();
+							$(registro_cancel).hide();
+							$(registro_tx).html('Registro enviado. Obrigado!').hide().delay(dur*3).fadeIn(dur*3);
+							$(registro_user).animate({height:140}, dur*3).delay(2000).fadeOut(dur*3);
+						}
+					}); 
+
+				}else{
+
+					window.open( url );
+
+				}
+			}
+
+			
 			for(a=0; a<4; a++){
 
 				var tela = [],					
@@ -367,8 +434,8 @@ window.onload = function (){
 								bt_dw.ID = doc.id;
 								bt_dw.arquivo = doc.arquivo;
 								bt_dw.onclick = function(){
-									window.open(root + "documentos/documento" + this.ID + "/" + this.arquivo);
-								}
+									verifica_registro(root + "documentos/documento" + this.ID + "/" + this.arquivo);
+								} 
 								item.appendChild(bt_dw);
 							}
 
@@ -377,7 +444,7 @@ window.onload = function (){
 								bt_lk.className = 'bt_item item_link';
 								bt_lk.link = doc.link;
 								bt_lk.onclick = function(){
-									window.open( this.link );
+									verifica_registro( this.link );
 								}
 								item.appendChild(bt_lk);
 							}
@@ -450,7 +517,7 @@ window.onload = function (){
 								sbt.appendChild(bt_dw);
 
 								bt_dw.onclick = function(){
-									window.open(this.path + this.arquivo, "_blank" );
+									verifica_registro(this.path + this.arquivo, "_blank" );
 								}									
 							}
 						}
@@ -682,6 +749,24 @@ window.onload = function (){
 	
 	
 	// window 
+	
+	function set_cookie(cname, cvalue, exdays) {
+		var d = new Date();
+		d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		var expires = "expires="+d.toUTCString();
+		document.cookie = cname + "=" + cvalue + "; " + expires;
+	}
+	
+	function get_cookie(cname) {
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0; i<ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') c = c.substring(1);
+			if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+		}
+		return "";
+	}
 	
 	window.onresize = resize;
 	

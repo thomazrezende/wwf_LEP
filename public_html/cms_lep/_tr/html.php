@@ -176,7 +176,7 @@ function ul2(){
 	print "</ul>";
 } 
 
-function item( $id, $tb, $lb, $link, $bts, $hand ){
+function item( $id, $tb, $lb, $lb_ext, $link, $bts, $hand ){
 	// link = array(url, target);
 	
 	$cls = "item";
@@ -184,15 +184,15 @@ function item( $id, $tb, $lb, $link, $bts, $hand ){
 
 					$li = 	"<li id=\"".$id."\" class=\"".$cls."\" >";
 	 				$li .=	item_tb( $tb, true );  
-					$li .=	"<div class=\"item_lb\">".$lb."</div>";
+					$li .=	"<div class=\"item_lb\">".$lb.$lb_ext."</div>";
 	if($link[0])	$li .=	"<a href=\"".$link[0]."\" class=\"item_link\" ";
 	if($link[1])	$li .=	"target='".$link[1]."'";
 	if($link[0])	$li .=  "></a>";
 	if($hand)		$li .= 	"<div class=\"handle\"><img src=\"_layout/handle.png\"/></div>";	
 	
 	if($bts)	for( $i=0; $i<count($bts); $i++ ){
-					if( $bts[$i][0] == "del" ) $li .= bt_del( $lb, $bts[$i][1], true ); 
-					//if( $bts[$i][0] == "mais" ) $li .= bt_mais( $lb, $del, true );  // criar novos modulos
+					if( $bts[$i][0] == "del" ) $li .= bt_del( $lb, $bts[$i][1], true );  
+					 // criar novos modulos
 				} 
 				
 				$li .=	"</li>";
@@ -552,8 +552,7 @@ function input_legenda($name, $label, $hex){
 	$legenda .= "</div>\r\n";
 	
 	print $legenda; 
-} 
-
+}
  
 function text( $id, $cls, $name, $cont, $edit ){ 
 	$editor = "";
@@ -569,7 +568,7 @@ function submit($lb){
 	print "</div>\r\n";
 } 
 
-
+ 
 function up_file($name, $multiple){
 	$mult = "";
 	if($multiple) $mult = "multiple";
@@ -589,7 +588,7 @@ function up_file_form($form_id, $input_id, $action, $input_name, $multiple, $dro
 	print "<div id=\"progress".$form_id."\" class=\"progress\">\r\n";
     print	"<div id=\"bar".$form_id."\" class=\"bar\"></div >\r\n";
     print   "<div id=\"percent".$form_id."\" class=\"percent\">0%</div >\r\n";
-    print   "</div>\r\n";        
+    print   "</div>\r\n";    
 	
 	print "</form>\r\n";
 	

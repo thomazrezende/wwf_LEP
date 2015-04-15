@@ -7,7 +7,7 @@ function excluir(ref,destino){ // cria o alert com o texto e redireciona para o 
 		var confirma = confirm("Confirma a exclusão de "+ ref +" ?");
 		if (confirma){
 			window.location = destino;
-		}
+		}  
 	}
 	
 function criar(ref,destino){ // cria o alert com o texto e redireciona para o php que fara a exclusao.

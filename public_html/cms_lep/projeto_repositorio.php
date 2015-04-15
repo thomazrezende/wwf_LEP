@@ -50,11 +50,12 @@ require_once("_tr/up_repositorio_form.php");
 				$id_repositorio = $repositorios[$i]["id"];
 				$tb = '_layout/ico_'.$repositorios[$i]["ext"].".png";
 				$lb = $repositorios[$i]["arquivo"] . " :: " . round($repositorios[$i]["bites"]/1000, 2) . " Kb";
+				$lb_ext = "";
 				$link = array("../projetos/projeto".$id."/".$repositorios[$i]["arquivo"],"_blank");
 
 				$bts = array (	array( "del", "php/projeto_repositorio_remove.php?id=".$id_repositorio )); 
 
-				item('item'.$id_repositorio, $tb, $id_repositorio." _ ".$lb, $link, $bts, false);
+				item('item'.$id_repositorio, $tb, $id_repositorio." _ ".$lb, $lb_ext, $link, $bts, false);
 				
 				$lista .= $repositorios[$i]["arquivo"];
 				if( $i<count($repositorios)-1 ) $lista .= ",";

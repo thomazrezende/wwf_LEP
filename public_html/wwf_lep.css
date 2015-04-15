@@ -109,6 +109,7 @@ header{
 	cursor: pointer;
 }
 
+
 /* BANNER */
 
 #banner{
@@ -126,7 +127,7 @@ header{
 	top: 0;
 	width: 100%;
 	height: 100%;
-	opacity: .25;
+	opacity: 0;
 	z-index: 1;
 }
 
@@ -634,7 +635,86 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 }
  
 
+/* REGISTRO USER */
+
+#registro_user{
+	width: 470px;
+	height: 470px;
+	padding: 44px;
+	padding-top: 60px;
+	background: #e8e8e1;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	z-index: 10;
+	display: none;
+}
+
+#registro_tx{
+	font-size: 18px;
+	line-height: 25px;
+	padding-bottom: 30px;
+}
+
+#registro_x{
+	position: absolute;
+	top: 1px;
+	right: 1px;
+	border: none;
+	background: #666;
+	background-image: url(_layout/icon_close.png);
+}
+
+.input_tx{
+	border:none;
+	padding: 15px;
+	border-radius: 3px;
+	width: 100%;
+	margin-bottom: 2px;
+	outline: 0;
+	color: #666
+}
+
+#news{
+	width: 100%;
+	margin-top: 10px;
+}
+
+#news input, #news label{
+	cursor: pointer;
+}
+
+
+#enviar{
+	width: 200px;
+	display: block;
+	padding: 12px;
+	font-size: 12px;
+	background: #666;
+	margin: 0 auto;
+	border: none;
+	color: #fff;
+	margin-top: 30px;
+	cursor: pointer;
+	outline: 0;
+}
+
+
+#registro_cancel{
+	width: 1005;
+	text-align: center;
+	font-size: 10px;
+	margin-top: 20px;
+	text-decoration: underline;
+	color: #666;
+	cursor: pointer;
+} 
+
 /* DOCUMENTOS */
+ 
 
 #busca{
 	width: 100%;

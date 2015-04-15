@@ -54,11 +54,12 @@ head("PROJETO ".$_SESSION["id"]);
 						$id = $itens[$i]["id"];
 						$tb = '';
 						$lb = $itens[$i]["label"];
+						$lb_ext = "";
 						$link = array("projeto_arquivo.php?id=".$id, false);
 
 						$bts = array (	array( "del", "php/projeto_arquivo_remove.php?id=".$id )); 
 
-						item('item'.$id, $tb, $id." _ ".$lb, $link, $bts, false);
+						item('item'.$id, $tb, $id." _ ".$lb, $lb_ext, $link, $bts, false);
 					}
 				} 
 				

@@ -245,6 +245,29 @@ hr{
 	background-size:1px 45px;
 }
 
+#visitantes_bts{
+	position: fixed;
+	bottom: 0;
+	left: 0;	
+	width: 100%;
+	max-width: 1280px;
+	min-width: 950px;
+	padding-left:280px;  
+}
+
+.btm{
+	float: left;
+	margin-right: 1px
+} 
+
+#gravar_visitantes{ 
+	width: 65%;
+}
+
+#exportar_csv{ 
+	width: 25%;
+}
+
 .bt_add{
 	margin-top:2px;
 	padding: 5px;
@@ -318,7 +341,7 @@ hr{
 .bg2{ background-color:#99b1bf }
 .bg3{ background-color:#b1a8bf }  
 
-.hover:hover{background-color:#f9f9f9}
+.hover:hover{background-color:#f9f9f9; cursor: pointer;}
 
 
 /* ITEM */
@@ -329,6 +352,12 @@ hr{
 	float: left;
 	position: relative;
 	z-index: 1;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none; 
+
 }
 
 .item_lb{ 
@@ -362,6 +391,14 @@ hr{
 	background:#f0f0f0;
 	overflow: hidden;
 }   
+
+.user_ativo{
+	float: left; 
+	margin-right: 20px;
+	height: 14px;
+	position: relative;
+	top: -3px;
+}
 
 /* SORTABLE */
 

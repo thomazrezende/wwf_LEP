@@ -5,7 +5,8 @@
 								array("PROJETOS","projetos.php"),
 								array("DOCUMENTOS","documentos.php"),
 								array("LINKS","links.php"),
-						 		array("BANNERS","banners.php")); 
+						  		array("BANNERS","banners.php"),
+						 		array("VISITANTES","visitantes.php")); 
 		
 		$lg_arr = array( );
 		
