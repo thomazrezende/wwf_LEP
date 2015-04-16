@@ -34,8 +34,7 @@ function head($title){
 	
 	print "</head>\r\n";
 	 
-} 
-
+}  
 
 function div1( $id, $cls, $html, $close ){
 	print "<div id=\"".$id."\" class=\"".$cls."\">\r\n";
@@ -53,9 +52,10 @@ function a_link( $id, $cls, $url, $lb, $trgt, $rtn ){
 	else print $a;
 }
 
-function img( $id, $cls, $src, $rtn ){
+function img( $id, $cls, $src, $rtn, $rnd ){
 	if(file_exists($src)){
-		$rand = mt_rand();
+		$rand = '';
+		if($rnd) $rand = mt_rand();
 		$img = "<img id=\"".$id."\" class=\"".$cls."\" src=\"".$src."?".$rand."\" />\r\n";
 		if($rtn) return $img;
 		else print $img;
@@ -75,7 +75,7 @@ function preview( $src, $tipo ){
 		if(file_exists($src)){
 			titulo("","PREVIEW",false);
 				div1('','img_preview','',false);
-				img("","",$src, false); 	
+				img("","",$src, false, true); 	
 			div2();
 		}
 	}
@@ -191,7 +191,11 @@ function item( $id, $tb, $lb, $lb_ext, $link, $bts, $hand ){
 	if($hand)		$li .= 	"<div class=\"handle\"><img src=\"_layout/handle.png\"/></div>";	
 	
 	if($bts)	for( $i=0; $i<count($bts); $i++ ){
-					if( $bts[$i][0] == "del" ) $li .= bt_del( $lb, $bts[$i][1], true );  
+					
+					if(!empty($lb)) $lbt = $lb;
+					else $lbt = $id;
+					 
+					if( $bts[$i][0] == "del" ) $li .= bt_del( $lbt, $bts[$i][1], true );  
 					 // criar novos modulos
 				} 
 				
@@ -442,12 +446,12 @@ function checkbox($id, $name, $value, $lb, $img, $chk, $lg_ico){
 	if(!empty($img)) $imagem = $img;
 	
 	print "<div class=\"checkbox\">\r\n";
-		print "<input name=\"".$name."\" value=\"0\" type=\"hidden\" />\r\n"; 
-		if($chk){
-			print $imagem."<input id=\"".$id."\" name=\"".$name."\" value=\"".$value."\" type=\"checkbox\" checked /> <label for=\"".$id."\"> ".$lb." ".band($lg_ico)."</label>\r\n";
-		}else{
-			print $imagem."<input id=\"".$id."\" name=\"".$name."\" value=\"".$value."\" type=\"checkbox\" /> <label for=\"".$id."\"> ".$lb." ".band($lg_ico)."</label>\r\n"; 
-		}	 
+	print "<input name=\"".$name."\" value=\"0\" type=\"hidden\" />\r\n"; 
+	if($chk){
+		print $imagem."<input id=\"".$id."\" name=\"".$name."\" value=\"".$value."\" type=\"checkbox\" checked /> <label for=\"".$id."\"> ".$lb." ".band($lg_ico)."</label>\r\n";
+	}else{
+		print $imagem."<input id=\"".$id."\" name=\"".$name."\" value=\"".$value."\" type=\"checkbox\" /> <label for=\"".$id."\"> ".$lb." ".band($lg_ico)."</label>\r\n"; 
+	}	 
 	print "</div>\r\n";
 } 
 

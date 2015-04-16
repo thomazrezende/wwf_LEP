@@ -25,7 +25,9 @@ head("LEP - visitantes");
 			
 			$visitantes = sql_select( "visitantes","*","nome","",true );  
 			
-			form1("VISITANTES", "", "php/visitantes_altera.php", "post");  
+			titulo("","",false);
+
+			form1("visitantes", "", "", "post");  
 				
 				ul1("itens",false);
 
@@ -37,15 +39,16 @@ head("LEP - visitantes");
 					$ativo = $visitantes[$i]["ativo"]; 
 
 					$checked = '';
-					if($ativo==1) $checked = "checked";
+					if($ativo==1) $checked = "checked='checked'";
 
 					$id = $visitantes[$i]["id"];
-					$tb =  '_layout/ico_visitante.png';
-					$lb =  $nome." &lt;".$email."&gt; ";
-					$lb_ext = $profissao;
-					$cb = "<input class='user_ativo' type='checkbox' id='cb'".$id." value='1' checked='".$checked."'/> ";
-					$link = false;
-
+					$tb = '_layout/ico_visitante.png';
+					$lb = '';
+					$lb_ext = "<label class='pointer' for='ativo".$id."'>".$id.". ".$nome." &lt;".$email."&gt; _ ".$profissao."</label>";
+					$cb = "<input name='ativo".$id."' value='0' type='hidden' />";
+					$cb .= "<input class='user_ativo' type='checkbox' name='ativo".$id."' id='ativo".$id."' value='1' ".$checked."/> ";
+					$link = false; 
+					
 					$bts = array( array( "del", "php/visitante_remove.php?id=".$id ) ); 
 
 					item('item'.$id, $tb, $lb, $lb_ext.$cb, $link, $bts, false);
@@ -59,14 +62,29 @@ head("LEP - visitantes");
 			btg("gravar_visitantes","btm","GRAVAR","");
 			btg("exportar_csv","btm","GERAR CSV","");
 
-			div2();
-		
-			
-
+			div2(); 
 
 			form2(); 
 			
 			?>  
+			
+			<script type="text/javascript">
+			
+				var visitantes = document.getElementById('visitantes');
+				var gravar_visitantes = document.getElementById('gravar_visitantes');
+				var exportar_csv = document.getElementById('exportar_csv');
+				
+				gravar_visitantes.onclick = function(){
+					visitantes.action = "php/visitantes_altera.php";
+					visitantes.submit();
+				} 
+				
+				exportar_csv.onclick = function(){ 
+					visitantes.action = "php/visitantes_csv.php";
+					visitantes.submit();
+				}
+			
+			</script>
 			
 			
         </div> <!--dados--> 

@@ -6,7 +6,6 @@
 	require_once("cms_lep/_tr/mysql.php");
 	
 	conectar();
-	verif_log();  
 	 
 	function test_input($data) {
 	  $data = trim($data);

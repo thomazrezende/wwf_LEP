@@ -225,7 +225,8 @@ window.onload = function (){
 				xml_banners, "banner", 
 					["id",
 					 "tema",
-					 "credito"]); 
+					 "credito",
+					 "link"]); 
 			
 			tema = sessionStorage.getItem("tema");
 			banner_id = sessionStorage.getItem("banner_id");
@@ -245,10 +246,19 @@ window.onload = function (){
 			
 			d = banners_arr[banner_id]; 
 			
-			console.log(banners_arr[banner_id]);
-			
 			if(d.credito != ''){
 				$(banner_credito).html('foto: ' + d.credito);
+				if(d.link != ""){
+					$('#banner_credito').hover(function(){
+						$( this ).css({color:temas[tema], cursor:'pointer'})
+					},function(){
+						$( this ).css({color:''})
+					}); 
+					banner_credito.link = d.link;
+					banner_credito.onclick = function(){
+						window.open(this.link, "_blank");
+					}
+				}
 			}else{
 				$(banner_credito).hide();
 			}
@@ -831,8 +841,7 @@ window.onload = function (){
 							['PALAVRAS-CHAVE','palavras_chave']
 						   ];
 
-				for(i=0; i<opts.length; i++){
-
+				for(i=0; i<opts.length; i++){ 
 					tag = document.createElement('li');
 					tag.ID = i;
 					tag.id = 'opt'+i;
@@ -841,8 +850,7 @@ window.onload = function (){
 					if(i==0) {
 						tag.className += ' select';
 					}
-					tag.innerHTML = opts[i][0];
-
+					tag.innerHTML = opts[i][0]; 
 					tag.onclick = function(){
 						filtro = this.ID;
 
@@ -858,18 +866,14 @@ window.onload = function (){
 						buscar_em.innerHTML = opts[this.ID][0];
 						filtrar();
 						$(busca_opts).fadeOut(dur);
-					}
-
-					busca_opts.appendChild(tag);
-
+					} 
+					busca_opts.appendChild(tag); 
 				} 
 				
 				// registro user funcs 
 		
-				function verifica_registro( url ){  
-					
-					cookie = get_cookie("regsitro_lep");
-					
+				function verifica_registro( url ){   
+					cookie = get_cookie("regsitro_lep"); 
 					if( cookie != "ok" && cookie != "no" ){
 						var registro_user = document.getElementById("registro_user");
 						var registro_form = document.getElementById("registro_form");
@@ -920,12 +924,9 @@ window.onload = function (){
 								$(registro_tx).html('Registro enviado. Obrigado!').hide().delay(dur*3).fadeIn(dur*3);
 								$(registro_user).animate({height:140}, dur*3).delay(2000).fadeOut(dur*3);
 							}
-						}); 
-
-					}else{
-						
-						window.open( url );
-						
+						});  
+					}else{ 
+						window.open(url); 
 					}
 				}
 	

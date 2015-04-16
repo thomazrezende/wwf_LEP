@@ -13,7 +13,7 @@
 	
 	$dados = array(	
 		array("credito", $_POST["credito"]),
-		array("link", $_POST["link"]),
+		array("link", vrf_http($_POST["link"])),
 		array("tema", $_POST["tema"])
 	);
 

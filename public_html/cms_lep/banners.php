@@ -35,10 +35,9 @@ require_once("_tr/up_file_form.php");
 
 				$id = $dados[$i]['id']; 
 
-				div1( "b".$id, "banner","",false);
-
-					a_link('', '', 'banner.php?id='.$id, img("","","../banners/banner".$dados[$i]['id'].".jpg",true), '', false );
-					bt_del("banner".$id,"php/banner_remove.php?id=".$id, false); 
+				div1( "b".$id, "banner","",false); 
+					a_link('', '', 'banner.php?id='.$id, img("","","../banners/banner".$dados[$i]['id'].".jpg",true,false), '', false );
+					bt_del("banner".$id,"php/banner_remove.php?id=".$id, false);
 
 				div2();
 
