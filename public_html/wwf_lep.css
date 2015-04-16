@@ -637,6 +637,33 @@ footer a{padding: 2px 4px; text-decoration: none; color: #444; font-weight: 500}
 
 /* REGISTRO USER */
 
+.erro_msg{
+	position: absolute;
+	left: 44px;
+	height: 43px;
+	padding: 15px;
+	border-radius: 3px;
+	width: 382px;
+	margin-bottom: 2px;
+	outline: 0;
+	color: #fff;
+	background-image: url(_layout/icon_close2.png);
+	background-color: #333;
+	background-repeat: no-repeat;
+	background-position: right;
+	cursor: pointer;
+}
+
+#erro_nome{
+	top: 165px;
+}
+#erro_profissao{
+	top: 210px; 
+}
+#erro_email{
+	top: 255px; 
+} 			
+
 #registro_user{
 	width: 470px;
 	height: 470px;

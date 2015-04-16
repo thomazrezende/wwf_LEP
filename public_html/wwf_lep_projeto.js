@@ -90,7 +90,10 @@ window.onload = function (){
 			}
 		},function(){
 			$( this ).css({backgroundColor:''})
-		});  
+		}); 
+		$('#erro_nome').css({backgroundColor:temas[tema]});
+		$('#erro_profissao').css({backgroundColor:temas[tema]});
+		$('#erro_email').css({backgroundColor:temas[tema]});
 	}
 	   
 	
@@ -295,23 +298,17 @@ window.onload = function (){
 			
 			// registro user funcs 
 		
-			function verifica_registro( url ){  
-
-				cookie = get_cookie("regsitro_lep");
-
+			function verifica_registro( url ){   
+				cookie = get_cookie("regsitro_lep"); 
 				if( cookie != "ok" && cookie != "no" ){
-					var registro_user = document.getElementById("registro_user");
-					var registro_form = document.getElementById("registro_form");
-					var registro_x = document.getElementById("registro_x");
-					var registro_tx = document.getElementById("registro_tx");
-					var news = document.getElementById("news");
+					
+					$(erro_nome).hide();
+					$(erro_email).hide();
+					$(erro_profissao).hide();
 
 					registro_user.style.display = "block"; 
-					$(registro_user).hide().fadeIn(dur);
+					$(registro_user).hide().fadeIn(dur); 
 
-					var registro_nome = document.getElementById("registro_nome");
-					var registro_email = document.getElementById("registro_email");
-					var registro_profissao = document.getElementById("registro_profissao");
 					
 					registro_x.onclick = function(){
 						$(registro_user).stop(true).fadeOut(dur);
@@ -342,12 +339,13 @@ window.onload = function (){
 
 					$(registro_form).ajaxForm({	
 						type:'post',
+						beforeSubmit: checkForm,
 						success:function() { 
 							set_cookie("regsitro_lep", "ok", 90); 
 							$(registro_form).hide();
 							$(registro_cancel).hide();
 							$(registro_tx).html('Registro enviado. Obrigado!').hide().delay(dur*3).fadeIn(dur*3);
-							$(registro_user).animate({height:140}, dur*3).delay(2000).fadeOut(dur*3);
+							$(registro_user).animate({height:145}, dur*3).delay(2000).fadeOut(dur*3);
 						}
 					}); 
 
@@ -356,8 +354,7 @@ window.onload = function (){
 					window.open( url );
 
 				}
-			}
-
+			} 
 			
 			for(a=0; a<4; a++){
 
@@ -617,7 +614,7 @@ window.onload = function (){
 								arquivo.appendChild(bt_dw);
 
 								bt_dw.onclick = function(){
-									window.open(this.path + this.arquivo, "_blank" );
+									verifica_registro(this.path + this.arquivo, "_blank" );
 								}									
 							}
 						}							
@@ -748,7 +745,72 @@ window.onload = function (){
 	} 
 	
 	
-	// window 
+	// form
+	
+	var registro_user = document.getElementById("registro_user");
+	var registro_form = document.getElementById("registro_form");
+	var registro_x = document.getElementById("registro_x");
+	var registro_tx = document.getElementById("registro_tx");
+	var news = document.getElementById("news");
+	var news_cb = document.getElementById("news_cb");
+	
+	var registro_nome = document.getElementById("registro_nome");
+	var registro_email = document.getElementById("registro_email");
+	var registro_profissao = document.getElementById("registro_profissao");
+	var erro_nome = document.getElementById("erro_nome");
+	var erro_profissao = document.getElementById("erro_profissao");
+	var erro_email = document.getElementById("erro_email");
+	
+	erro_nome.onclick = function(){
+		$(this).stop(true).fadeOut(dur);
+	}
+	erro_profissao.onclick = function(){
+		$(this).stop(true).fadeOut(dur);
+	}
+	erro_email.onclick = function(){
+		$(this).stop(true).fadeOut(dur);
+	}
+	
+	
+	function checkForm () { 
+		var r1 = true;
+		var r2 = true; 
+		var r3 = true; 
+		
+		if( registro_nome.value == '' ){
+			r1 = false;
+			$(erro_nome).stop(true).fadeIn(dur);
+		} 
+	
+		if( registro_profissao.value == '' ){
+			r2 = false;
+			$(erro_profissao).stop(true).fadeIn(dur); 
+		} 
+	
+		if( news_cb.checked && !verifica_email(registro_email.value)){
+			r3 = false;
+			$(erro_email).stop(true).fadeIn(dur);
+		}
+		
+		console.log(news);
+	
+		if(r1 && r2 && r3){
+			return true;	
+		} else {
+			return false;
+		}  
+	}
+	
+	function verifica_email(email){
+		if(	email.indexOf("@") < 0 ||
+		  	email.indexOf(".") < 0 ||
+		   	email.indexOf(".") == email.length-1 ||
+		   	email.indexOf(".") == 0){
+				return false
+		}else{
+				return true;
+		}
+	}
 	
 	function set_cookie(cname, cvalue, exdays) {
 		var d = new Date();
@@ -767,6 +829,10 @@ window.onload = function (){
 		}
 		return "";
 	}
+	
+	
+	// window 
+	
 	
 	window.onresize = resize;
 	

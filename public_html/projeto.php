@@ -48,6 +48,11 @@
 			<div class="bt_item" id="registro_x"></div>
 			<div id="registro_tx">Ol&aacute;&period; Gostar&iacute;amos de saber mais sobre voc&ecirc;&period; Por favor&comma; preencha os campos abaixo para que possamos aprimorar nosso trabalho&period;</div>
 			<form id="registro_form" method="post" action="registro_user.php">
+				
+				<div class="erro_msg" id="erro_nome">CAMPO OBRIGAT&Oacute;RIO</div>
+				<div class="erro_msg" id="erro_profissao">CAMPO OBRIGAT&Oacute;RIO</div>
+				<div class="erro_msg" id="erro_email">E-MAIL INV&Aacute;LIDO</div>
+				
 				<input type="text" class="input_tx" name="nome" id="registro_nome" placeholder="NOME"/>
 				<input type="text" class="input_tx" name="profissao" id="registro_profissao" placeholder="PROFISSÃO/GRAU DE ESCOLARIDADE"/>
 				<input type="text" class="input_tx" name="email" id="registro_email" placeholder="E-MAIL"/>
