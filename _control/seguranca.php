@@ -45,31 +45,8 @@ function sessao_lg($lg){
 function get_lg(){ 
 	sessao();
 	return $_SESSION["lg"]; 
-}
-
-// log
-function verif_log(){
-	sessao();
-	if(!isset($_SESSION["logado"]) || $_SESSION["logado"]!= md5("acesso_ok_90432498")){
-		header("Location:login.php");
-		exit;
-	}
-}
-
-function verif_token(){
-	sessao();
-	if(!isset($_SESSION["token_ok"]) || $_SESSION["token_ok"]!= md5("token_ok_02894621")){
-		header("Location:login.php?msg_erro=TEMPO DE REDEFINIÇÃO DE SENHA ESGOTADO");  
-		exit;
-	}
-}
-
-function logout(){
-	sessao();
-	$_SESSION["logado"] = md5("acesso_negado");
-	session_unset();
-	session_destroy();
 } 
+
 
 function cria_senha($n){
 	$senha="";	
