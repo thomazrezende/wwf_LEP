@@ -47,7 +47,6 @@ function get_lg(){
 	return $_SESSION["lg"]; 
 } 
 
-
 function cria_senha($n){
 	$senha="";	
 	
