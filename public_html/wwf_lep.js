@@ -20,6 +20,7 @@ window.onload = function (){
 		mapOptions,
 		br,
 		temp,
+		layout,
 		page,
 		page_y,
 		win_w,
@@ -113,30 +114,30 @@ window.onload = function (){
 		$('#banner_cor').css({background:temas[tema]}).fadeTo(dur*2, .2); 
 		
 		$('.contato_bt').hover(function(){
-			$( this ).css({backgroundColor:temas[tema]})
+			if(layout != 1) $( this ).css({backgroundColor:temas[tema]})
 		},function(){
-			$( this ).css({backgroundColor:''})
-		});   
+			if(layout != 1) $( this ).css({backgroundColor:''})
+		});
 		
 		//menu
 		$('.menu_bt').hover(function(){
-			$( this ).css({color:temas[tema]})
+			if(layout != 1) $( this ).css({color:temas[tema]})
 		},function(){
-			$( this ).css({color:''})
+			if(layout != 1) $( this ).css({color:''})
 		}); 
 		$('.menu_bt.select').css({color:temas[tema]}); 
   
 		// projetos  
 		if(page == 0){ 
-			$('.resultados_lista li').hover(function(){
-				$( this ).css({backgroundColor:temas[tema]})
+			$('.resultados_lista li').hover( function(){
+				if(layout != 1) $( this ).css({backgroundColor:temas[tema]})
 			},function(){
-				$( this ).css({backgroundColor:''})
-			}); 
+				if(layout != 1) $( this ).css({backgroundColor:''})
+			});  
 			$('.mapa_bt').hover(function(){
-				$( this ).css({backgroundColor:temas[tema]})
+				if(layout != 1) $( this ).css({backgroundColor:temas[tema]})
 			},function(){
-				$( this ).css({backgroundColor:''})
+				if(layout != 1) $( this ).css({backgroundColor:''})
 			}); 
 		} 
 
@@ -144,33 +145,33 @@ window.onload = function (){
 		if(page == 1){ 
 			$('#sobre a').css({color:temas[tema], textDecoration:"none"});
 			$('#sobre a').hover(function(){
-				$( this ).css({color:temas[tema], textDecoration:"underline"})
+				if(layout != 1) $( this ).css({color:temas[tema], textDecoration:"underline"})
 			},function(){
-				$( this ).css({color:temas[tema], textDecoration:"none"})
+				if(layout != 1) $( this ).css({color:temas[tema], textDecoration:"none"})
 			}); 
 		} 
 		
 		// documentos
 		if(page == 2){  
 			$('#buscar_em').hover(function(){
-				$( this ).css({backgroundColor:temas[tema]})
+				if(layout != 1) $( this ).css({backgroundColor:temas[tema]})
 			},function(){
-				$( this ).css({backgroundColor:''})
+				if(layout != 1) $( this ).css({backgroundColor:''})
 			});
 			$('.bt_item').hover(function(){
-				$( this ).css({backgroundColor:temas[tema]})
+				if(layout != 1) $( this ).css({backgroundColor:temas[tema]})
 			},function(){
-				$( this ).css({backgroundColor:''})
+				if(layout != 1) $( this ).css({backgroundColor:''})
 			});
 			$('#busca_x').hover(function(){
-				$( this ).css({backgroundColor:temas[tema]})
+				if(layout != 1) $( this ).css({backgroundColor:temas[tema]})
 			},function(){
-				$( this ).css({backgroundColor:''})
+				if(layout != 1) $( this ).css({backgroundColor:''})
 			});
 			$('.busca_opt').hover(function(){
-				$( this ).css({backgroundColor:temas[tema], color:'#fff'})
+				if(layout != 1) $( this ).css({backgroundColor:temas[tema], color:'#fff'})
 			},function(){
-				$( this ).css({backgroundColor:'', color:''})
+				if(layout != 1) $( this ).css({backgroundColor:'', color:''})
 			});
 			$('#erro_nome').css({backgroundColor:temas[tema]});
 			$('#erro_profissao').css({backgroundColor:temas[tema]});
@@ -180,30 +181,30 @@ window.onload = function (){
 		// links 
 		if(page == 3){  
 			$('#links a').hover(function(){
-				$( this ).css({color:temas[tema]})
+				if(layout != 1) $( this ).css({color:temas[tema]})
 			},function(){
-				$( this ).css({color:''})
+				if(layout != 1) $( this ).css({color:''})
 			});
 		}
 		
 		// footer  
 		$('footer a').hover(function(){
-			$( this ).css({color:temas[tema]})
+			if(layout != 1) $( this ).css({color:temas[tema]})
 		},function(){
-			$( this ).css({color:''})
+			if(layout != 1) $( this ).css({color:''})
 		});
 		
 		// registro user
 		if(page == 2 || page == 3 ){ 
 			$('#enviar').hover(function(){
-				$( this ).css({backgroundColor:temas[tema]})
+				if(layout != 1) $( this ).css({backgroundColor:temas[tema]})
 			},function(){
-				$( this ).css({backgroundColor:''})
+				if(layout != 1) $( this ).css({backgroundColor:''})
 			});
 			$('#registro_cancel').hover(function(){
-				$( this ).css({color:temas[tema]})
+				if(layout != 1) $( this ).css({color:temas[tema]})
 			},function(){
-				$( this ).css({color:''})
+				if(layout != 1) $( this ).css({color:''})
 			});
 		} 
 		
@@ -253,9 +254,9 @@ window.onload = function (){
 				$(banner_credito).html('foto: ' + d.credito);
 				if(d.link != ""){
 					$('#banner_credito').hover(function(){
-						$( this ).css({color:temas[tema], cursor:'pointer'})
+						if(layout != 1) $( this ).css({color:temas[tema], cursor:'pointer'})
 					},function(){
-						$( this ).css({color:''})
+						if(layout != 1) $( this ).css({color:''})
 					}); 
 					banner_credito.link = d.link;
 					banner_credito.onclick = function(){
@@ -390,7 +391,7 @@ window.onload = function (){
 					projeto_id = layout_home[i].split("item")[1];
 					d = projetos_arr["projeto" + projeto_id];
 										
-					tag = document.createElement('li');
+					tag = document.createElement('div');
 					tag.id = 'projeto' + projeto_id;
 					tag.className = 'cel_projeto';  
 					
@@ -518,7 +519,7 @@ window.onload = function (){
 								layer = new google.maps.KmlLayer({ 
 									suppressInfoWindows: true,
 									preserveViewport: true,
-									url:root + "projetos/projeto" + d.id + "/" + d.resultados[r].label + ".kmz?session=" + session
+									url:root + "repositorio/projeto" + d.id + "/" + d.resultados[r].label + ".kmz?session=" + session
 								});
 
 								layer.preloader = preloader;  
@@ -586,6 +587,7 @@ window.onload = function (){
 					}
 					
 					projetos.appendChild(tag); 
+					
 					if(map.resultados) chamar_kmz(map.resultados[0]);
 				} 
 			}
@@ -598,6 +600,7 @@ window.onload = function (){
 	}
 	
 	function chamar_kmz(alvo){ 
+		console.log("chamar kmz: " + alvo.ID );
 		for(r=0; r<alvo.map.resultados.length; r++){ 
 			d = alvo.map.resultados[r];
 			if(d == alvo){   
@@ -828,7 +831,7 @@ window.onload = function (){
 				buscar_em.onclick = function(){
 					$(busca_opts).fadeIn(dur).css({top: -43 * filtro});
 					tag = document.getElementById('opt' + filtro);
-					$(tag).css({backgroundColor:temas[tema]})
+					if(layout != 1) $(tag).css({backgroundColor:temas[tema]})
 				}
 
 				$(busca_opts).mouseleave(function(){
@@ -939,59 +942,61 @@ window.onload = function (){
 	
 	
 	// form
+	if(page == 2){
 	
-	var registro_user = document.getElementById("registro_user");
-	var registro_form = document.getElementById("registro_form");
-	var registro_x = document.getElementById("registro_x");
-	var registro_tx = document.getElementById("registro_tx");
-	var news = document.getElementById("news");
-	var news_cb = document.getElementById("news_cb");
-	
-	var erro_nome = document.getElementById("erro_nome");
-	var erro_profissao = document.getElementById("erro_profissao");
-	var erro_email = document.getElementById("erro_email");
-	
-	erro_nome.onclick = function(){
-		$(this).stop(true).fadeOut(dur);
-	}
-	erro_profissao.onclick = function(){
-		$(this).stop(true).fadeOut(dur);
-	}
-	erro_email.onclick = function(){
-		$(this).stop(true).fadeOut(dur);
-	}
-	
-	var registro_nome = document.getElementById("registro_nome");
-	var registro_email = document.getElementById("registro_email");
-	var registro_profissao = document.getElementById("registro_profissao");
-	
-	function checkForm () { 
-		var r1 = true;
-		var r2 = true; 
-		var r3 = true; 
-		
-		if( registro_nome.value == '' ){
-			r1 = false;
-			$(erro_nome).stop(true).fadeIn(dur);
-		} 
-	
-		if( registro_profissao.value == '' ){
-			r2 = false;
-			$(erro_profissao).stop(true).fadeIn(dur); 
-		} 
-	
-		if( news_cb.checked && !verifica_email(registro_email.value)){
-			r3 = false;
-			$(erro_email).stop(true).fadeIn(dur);
+		var registro_user = document.getElementById("registro_user");
+		var registro_form = document.getElementById("registro_form");
+		var registro_x = document.getElementById("registro_x");
+		var registro_tx = document.getElementById("registro_tx");
+		var news = document.getElementById("news");
+		var news_cb = document.getElementById("news_cb");
+
+		var erro_nome = document.getElementById("erro_nome");
+		var erro_profissao = document.getElementById("erro_profissao");
+		var erro_email = document.getElementById("erro_email");
+
+		erro_nome.onclick = function(){
+			$(this).stop(true).fadeOut(dur);
 		}
-		
-		console.log(news);
-	
-		if(r1 && r2 && r3){
-			return true;	
-		} else {
-			return false;
-		}  
+		erro_profissao.onclick = function(){
+			$(this).stop(true).fadeOut(dur);
+		}
+		erro_email.onclick = function(){
+			$(this).stop(true).fadeOut(dur);
+		}
+
+		var registro_nome = document.getElementById("registro_nome");
+		var registro_email = document.getElementById("registro_email");
+		var registro_profissao = document.getElementById("registro_profissao");
+
+		function checkForm () { 
+			var r1 = true;
+			var r2 = true; 
+			var r3 = true; 
+
+			if( registro_nome.value == '' ){
+				r1 = false;
+				$(erro_nome).stop(true).fadeIn(dur);
+			} 
+
+			if( registro_profissao.value == '' ){
+				r2 = false;
+				$(erro_profissao).stop(true).fadeIn(dur); 
+			} 
+
+			if( news_cb.checked && !verifica_email(registro_email.value)){
+				r3 = false;
+				$(erro_email).stop(true).fadeIn(dur);
+			}
+
+			console.log(news);
+
+			if(r1 && r2 && r3){
+				return true;	
+			} else {
+				return false;
+			}  
+		}
 	}
 	
 	function verifica_email(email){
@@ -1030,7 +1035,18 @@ window.onload = function (){
 	
 	function resize(){ 
 		win_w = $( window ).width();
-		win_h = $( window ).height();  
+		win_h = $( window ).height(); 
+		
+		if(win_w < 700 && layout !=1){
+			layout = 1;
+			document.body.className = "L1";
+		}
+		
+		if(win_w >= 700 && layout !=2){
+			layout = 2;
+			document.body.className = "L2";
+		}
+		
 	}  
 	
 	function verifica_scroll(){ 
@@ -1038,6 +1054,7 @@ window.onload = function (){
 	}  
 	
 	window.onscroll = verifica_scroll;
+	
 	resize();
 	
 	

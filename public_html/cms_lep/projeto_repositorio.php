@@ -9,8 +9,7 @@ require_once("_menus.php");
 verif_log(); 
 conectar();
 
-head("PROJETO ".$_SESSION["id"]);  
-require_once("_tr/up_repositorio_form.php");  
+head("PROJETO ".$_SESSION["id"]); 
 ?>
 
 <body>
@@ -20,7 +19,7 @@ require_once("_tr/up_repositorio_form.php");
     <div id="cont">
       	<div id="dados">
 			
-			<?php
+		<?php
  	
 			//dados 
 			$id = $_SESSION["id"];
@@ -30,44 +29,40 @@ require_once("_tr/up_repositorio_form.php");
 			mensagem();	 
 			navega(array(array("PROJETOS","projetos.php"), "PROJETO ".$id." _ ".$titulo )); 
 
-			submenu( $submenu_projeto, 2);  
-			 
-			div1("campos","","", false);
-			up_file_form( 1, 1, "php/projeto_repositorio_up.php", "arquivo", false, false, "all");
-			div2();
-
-			btg("bt_add", "bt_add", "+", ""); 
-			btg("enviar", "", "ENVIAR ARQUIVOS", "");   
-
-			titulo('','REPOSIT&Oacute;RIO', false); 
-			ul1("itens",false); 
-			$repositorios = sql_select( "repositorios", "*", "arquivo", "id_projeto=".$id, true );
+			submenu( $submenu_projeto, 2);
 			
-			$lista = "";
+			div1('','nota',"<div class='nota_dados mb10'>AVISO</div>ESTA LISTA PERMITE APENAS TESTES DE DOWNLOAD. PARA INSERIR OU REMOVER ARQUIVOS POR FAVOR ACESSE A PASTA <i>PROJETO".$id."</i> ATRAVÉS DE UM CLIENTE FTP (EX: <a href='https://filezilla-project.org/' target='_blank'>FILEZILLA</a>) COM OS SEGUINTES DADOS:<div class='nota_dados mt10'>HOST: 23.229.196.231 | USER: repositorio@paisagem.wwf.org.br | PASSWORD: DHXi@FE6xsm </div>",true);
+ 
+			$repositorio = scandir("../repositorio/projeto".$id); 
+			
+			$grupo_lb = '';
 
-			for($i=0; $i<count($repositorios); $i++){			
+			foreach($repositorio as $arquivo) {
 				
-				$id_repositorio = $repositorios[$i]["id"];
-				$tb = '_layout/ico_'.$repositorios[$i]["ext"].".png";
-				$lb = $repositorios[$i]["arquivo"] . " :: " . round($repositorios[$i]["bites"]/1000, 2) . " Kb";
-				$lb_ext = "";
-				$link = array("../projetos/projeto".$id."/".$repositorios[$i]["arquivo"],"_blank");
-
-				$bts = array (	array( "del", "php/projeto_repositorio_remove.php?id=".$id_repositorio )); 
-
-				item('item'.$id_repositorio, $tb, $id_repositorio." _ ".$lb, $lb_ext, $link, $bts, false);
+				if($arquivo[0] != "."){ 
+					
+					$arquivo_arr = explode('.',$arquivo);
+					
+					if($grupo_lb != $arquivo_arr[0] ){
+						$grupo_lb = $arquivo_arr[0];
+						titulo('',caps($grupo_lb), false); 
+					}					
 				
-				$lista .= $repositorios[$i]["arquivo"];
-				if( $i<count($repositorios)-1 ) $lista .= ",";
-			}
-			
-			ul2(); 
-	
-			input("lista", "text", "lista", $lista, "hidden"); 
+					$size = filesize("../repositorio/projeto".$id."/".$arquivo);
 
-			?>
-			
-			
+					$tb = '_layout/ico_'.$arquivo_arr[1].".png";
+					$lb = $arquivo . " :: " . round($size/1000, 2) . " Kb";
+					$lb_ext = "";
+					$link = array("../repositorio/projeto".$id."/".$arquivo,"_blank");
+
+					$bts = false; 
+
+					item('item', $tb, $lb, $lb_ext, $link, $bts, false); 
+					
+				}  
+			} 
+
+		?> 
         
         </div> <!--dados-->  
     </div> <!--cont-->  

@@ -16,14 +16,13 @@ head("LEP - login");
         <div id="dados_login"> 
 			<img src="_layout/logo_admin.png"/>
 			
-		<?php
-		
+		<?php 
         
         form1("login_form", "login_form", "php/logar.php", "post");
         
             titulo("","LOGIN",false);
-            input("login", "input", "login", "", "text");
-            
+            input("login", "input", "login", "","text");
+
             titulo("","SENHA",false);
             input("senha", "input", "senha", "", "password");  
             

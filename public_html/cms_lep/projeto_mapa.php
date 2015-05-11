@@ -229,7 +229,7 @@ head("PROJETO ".$_SESSION["id"]);
 			layer = new google.maps.KmlLayer({ 
 				suppressInfoWindows: true,
 				preserveViewport: true, 
-				url: "http://paisagem.wwf.org.br/projetos/projeto" + id_projeto + "/" + kmzs[k],
+				url: "http://paisagem.wwf.org.br/repositorio/projeto" + id_projeto + "/" + kmzs[k],
 				zIndex:1,
 				map: null
 			});   

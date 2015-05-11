@@ -1,5 +1,6 @@
 <?php  
-	require_once("../../../_control/seguranca.php");
+	require_once("../../../_control/seguranca.php"); 
+	require_once("../../../_control/acesso.php");
 	require_once("../_tr/html.php");  
 	
 	verif_log();

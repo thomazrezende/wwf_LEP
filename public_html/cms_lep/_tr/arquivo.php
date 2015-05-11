@@ -391,7 +391,7 @@ function remove_itens($path, $itens, $tabela, $id){
 					unlink($path."/".$itens[$i]); 
 				}
 			}
-			return true;			
+			return true;
 		}
 	}
 }
@@ -402,26 +402,25 @@ function remove_pasta($path, $tabela, $id, $tabelas_vinc, $lbs_vinc){
 	$tabelas_vinc = array com tabelas vinculadas;
 	$lbs_vinc = array respectivos label de vinculo de id (tipo id_proj)
 	// */
-	if(isset($id)){ // isset pq vir via GET
+	if(isset($id) && $id != false){ // isset pq vir via GET
 		$sql="DELETE FROM ".$tabela." WHERE id = ".$id." LIMIT 1;";								
-		$ok=mysql_query($sql) or die(mysql_error());
+		$ok=mysql_query($sql) or die(mysql_error()); 
 		//
-		if($ok){				
-			foreach(glob($path."/*") as $arquivo) {
-				unlink($arquivo);
+		if(isset($tabelas_vinc) && !empty($tabelas_vinc)){
+			for($i=0; $i<count($tabelas_vinc); $i++){
+				// se houver alguma tabela vinculada (ex: imagens na exclusao de proj)
+				$sql_vinc="DELETE FROM ".$tabelas_vinc[$i]." WHERE ".$lbs_vinc[$i]." = ".$id.";";
+				mysql_query($sql_vinc) or die(mysql_error());
 			}
-			//
-			if(isset($tabelas_vinc) && !empty($tabelas_vinc)){
-				for($i=0; $i<count($tabelas_vinc); $i++){
-					// se houver alguma tabela vinculada (ex: imagens na exclusao de proj)
-					$sql_vinc="DELETE FROM ".$tabelas_vinc[$i]." WHERE ".$lbs_vinc[$i]." = ".$id.";";
-					mysql_query($sql_vinc) or die(mysql_error());
-				}
-			}
-			rmdir($path);
-			return true;								
-		}	
+		}  		
 	}
+	
+	foreach(glob($path."/*") as $arquivo) {
+		unlink($arquivo);
+	} 
+	
+	rmdir($path);
+	return true;
 } 
 
 ?>

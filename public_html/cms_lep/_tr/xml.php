@@ -175,11 +175,7 @@ function xml_projeto($id){
 		array(	"arquivos", // table to join / pai
 			  	"arquivo",  // filho
  				"id_projeto", // label id ex:id_projeto
-			    array("id","grupo","titulo", "label")), // colunas join
-		array(	"repositorios", // table to join / pai
-			  	"repositorio",  // filho
- 				"id_projeto", // label id ex:id_projeto
-			    array("id","arquivo","nome", "ext", "tipo", "bites")) // colunas join
+			    array("id","grupo","titulo", "label"))
 	); 
 	xml($arquivo, "dados", "", "projetos", $colunas, "WHERE id='".$id."'", false, $join);
 	xml_projetos();

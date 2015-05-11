@@ -17,6 +17,8 @@
 							array("id_projeto", $id_projeto )); 
 		 
 		sql_insert("resultados", $valores);
+  		
+		xml_projeto($id_projeto);
 		
 		location("../projeto_resultado.php?id=".$prox,""); 
 	}else{ 

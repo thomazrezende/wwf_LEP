@@ -11,8 +11,7 @@
 	
 	$id = $_GET['id'];
 
-	remove_pasta('../../projetos/projeto'.$id, 'projetos', $id, array('arquivos','resultados'), array('id_projeto','id_projeto'));
-	remove_pasta('../../repositorio/projeto'.$id, false, false, false, false);
+	remove_pasta('../../projetos/projeto'.$id, 'projetos', $id, array('arquivos','resultados','repositorios'), array('id_projeto','id_projeto','id_projeto'));
 	//remove_pasta($path, $tabela, $id, $tabelas_vinc, $lbs_vinc){ 
 	
 	$dados = sql_select("dados","layout_home","","",false);  

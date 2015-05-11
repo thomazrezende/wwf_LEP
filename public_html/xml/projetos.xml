@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <projetos>
 	<projeto>
+		<id>7</id>
+		<publicado>0</publicado>
+		<titulo><![CDATA[asdasd]]></titulo>
+		<lat>-16.5</lat>
+		<lng>-58.9</lng>
+		<zoom>3</zoom>
+		<resumo><![CDATA[]]></resumo>
+		<resultados>
+		</resultados>
+		<arquivos>
+		</arquivos>
+	</projeto>
+	<projeto>
 		<id>6</id>
 		<publicado>1</publicado>
 		<titulo><![CDATA[Visão de Conservação para a Bacia do Tapajós2]]></titulo>
