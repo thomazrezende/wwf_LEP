@@ -236,7 +236,7 @@ window.onload = function (){
 			banner_id = sessionStorage.getItem("banner_id");
 			session = sessionStorage.getItem("session"); 
 			
-			if( !tema || !session || !banner_id ){ 
+			if( !tema || !session || !banner_id || tema == null || session == null || banner_id == null ){ 
 				
 				session = Math.random() * 1000;  
 				banner_id = Math.floor( Math.random() * banners_arr.length ); 

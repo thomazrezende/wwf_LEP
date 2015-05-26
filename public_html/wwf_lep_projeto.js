@@ -967,7 +967,7 @@ window.onload = function (){
 	session = sessionStorage.getItem("session"); 
 	tema = sessionStorage.getItem("tema");
 
-	if( !tema || !session ){ 
+	if( !tema || !session || tema == null || session == null  ){ 
 
 		session = Math.random() * 1000;
 		tema = 0;	
