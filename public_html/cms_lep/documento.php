@@ -76,12 +76,13 @@ require_once("_tr/up_file_form.php");
 
 			if( !empty($dados["arquivo"])) { 
 				$tb = '';
-				$lb = $dados["arquivo"]; 
+				$lb = $dados["arquivo"];  
+				$lb_ext = '';  
 				$link = array("../documentos/documento".$id."/".$dados["arquivo"], "_blank"); 
 
 				$bts = array (	array( "del", "php/documento_arquivo_remove.php?id=".$id )); 
 
-				item($id, $tb, $lb, $link, $bts, false);
+				item($id, $tb, $lb, $lb_ext, $link, $bts, false); 
 			} 
 
 			?>
