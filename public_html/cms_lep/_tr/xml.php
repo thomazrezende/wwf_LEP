@@ -160,6 +160,12 @@ function xml_documentos(){
 	xml($arquivo, "documentos", "documento", "documentos", $colunas, "ORDER BY titulo",false,false);
 }
 
+function xml_documentos2(){
+	$arquivo="../xml/documentos.xml";
+	$colunas=array("id","id_projeto","publicado","titulo","autor","ano","veiculo","link", "palavras_chave","arquivo");
+	xml($arquivo, "documentos", "documento", "documentos", $colunas, "ORDER BY titulo",false,false);
+}
+
 function xml_projeto($id){
 	$arquivo="../../projetos/projeto".$id."/dados.xml";
 	$colunas = array("id","publicado","titulo","lat","lng","zoom","sobre");

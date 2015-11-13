@@ -40,6 +40,8 @@ window.onload = function (){
 	
 	var projeto = document.getElementById('projeto');
 	var conteudo_telas;
+	var conteudo_tela;
+	var apoio;
 	
 	var root = location.origin;
 	var path = location.pathname.split('/');
@@ -140,7 +142,7 @@ window.onload = function (){
 			
 			d.repositorio = []; 
 			
-			jQuery.ajax({            
+			jQuery.ajax({
 				url: "scan_dir.php?id=" + d.id, 
 				type: "GET",  
 				cache : false,
@@ -404,9 +406,7 @@ window.onload = function (){
 						tag4.onclick = function(){ 
 							if(conteudo_telas.tela_atual == this.ID) fechar_telas();
 							else abrir_tela(this.ID);
-						}
-						
-						
+						} 
 						
 						tag5 = new Image();
 						tag5.src = '_layout/fechar.png';
@@ -432,6 +432,19 @@ window.onload = function (){
 							tag2.innerHTML = "SOBRE";
 							conteudo_tela.appendChild(tag2);	 
 							conteudo_tela.innerHTML += d.sobre; 
+							
+							apoio = new Image();
+							apoio.className = 'apoio';
+							conteudo_tela.appendChild(apoio);
+							
+							//apoio
+							$.get('projetos/projeto' + projeto_id + '/apoio.jpg')
+							.done(function() { 
+								apoio.src = "projetos/projeto" + projeto_id + "/apoio.jpg";  
+							}).fail(function() { 
+								$(apoio).hide();								
+							})
+							
 						}
 
 						//documentos
@@ -451,12 +464,12 @@ window.onload = function (){
 
 							for(i=0; i<d.documentos.length; i++){
 
-								doc = d.documentos[i];  
+								doc = d.documentos[i];
 
 								if(doc.publicado == 1){ 
 
 									item = document.createElement('div');
-									item.className = 'item_lista';
+									item.className = 'doc_lista';
 									item.id = 'item' + i;
 
 									if(doc.arquivo != ''){
@@ -465,7 +478,7 @@ window.onload = function (){
 										bt_dw.ID = doc.id;
 										bt_dw.arquivo = doc.arquivo;
 										bt_dw.onclick = function(){
-											verifica_registro(root + "documentos/documento" + this.ID + "/" + this.arquivo);
+											verifica_registro(root + "documentos/" + this.arquivo);
 										} 
 										item.appendChild(bt_dw);
 									}
@@ -481,10 +494,10 @@ window.onload = function (){
 									}
 
 									item_lb = document.createElement('span');
-									item_lb.className = 'item_lb'; 
-									temp = doc.titulo;
-									temp += " &ndash; " + doc.autor;
-									temp += "<span class='sub_lb'> &bull; " + doc.veiculo;
+									item_lb.className = 'doc_lb2'; 
+									temp = doc.titulo; 
+									temp += "<span class='sub_lb'></br>" +  doc.autor;
+									if( doc.veiculo != '' ) temp += " &ndash; " + doc.veiculo;
 									temp += ", " + doc.ano  + "</span>"; 
 									item_lb.innerHTML = temp;
 									item.appendChild(item_lb);
@@ -527,12 +540,14 @@ window.onload = function (){
 								arq_lista.open = false;
 								arquivo.lista = arq_lista;	
 
-								console.log("repositorio:");
-								console.log(d.repositorio);
+								//console.log("repositorio:");
+								//console.log(d.repositorio);
 								
 								for(r=0; r<d.repositorio.length; r++){
 									rep = d.repositorio[r];
+									
 									if(rep.nome == arq.label){
+										
 										arquivo.nbts++;
 
 										sbt = document.createElement('div');
@@ -566,13 +581,12 @@ window.onload = function (){
 										this.className = "bt_item item_open";
 									}else{
 										this.arquivo.lista.open = true;
-										$(this.arquivo.lista).stop(true).animate({height:bt.arquivo.nbts*43 + 5},dur*2);
-										this.className = "bt_item item_close"; 
+										$(this.arquivo.lista).stop(true).animate({height:this.arquivo.nbts*43 + 5},dur*2);
+										this.className = "bt_item item_close";  
 									}
 								}
 
-								arquivo.appendChild(bt);
-
+								arquivo.appendChild(bt); 
 								grupos[Number(arq.grupo)].push(arquivo);
 							}
 
@@ -674,12 +688,18 @@ window.onload = function (){
 	
 	function label_arquivo(lb, arq, bites){
 		
-		var tipo
-		var peso
+		var tipo;
+		var peso; 
 		
-		if(bites <= 1000) peso = '1Kb';
-		else if(bites > 1000 && bites < 1000000) peso = Math.round(bites/1000) + ' Kb';
-		else if(bites >= 1000000 ) peso = Math.round(bites/1000000) + ' Gb';
+		console.log(lb + " : " + arq + " : " + bites );
+		
+		if(bites <= 1000) peso = '1KB';
+		else if(bites > 1000 && bites < 1000000) peso = Math.round(bites*10/1000)/10 + ' KB';
+		else if(bites > 1000000 && bites < 1000000000) peso = Math.round(bites*10/1000000)/10 + ' MB';
+		else if(bites >= 1000000000 ) peso = Math.round(bites*10/1000000000)/10 + ' GB';
+		
+		//	round($size/1000, 2) + kb
+		
 		
 		if(lb == "zip") tipo = 'SHAPEFILE';
 		else if(lb == "txt") tipo = 'METADADOS';

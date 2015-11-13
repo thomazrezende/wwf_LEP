@@ -19,6 +19,7 @@
 					array("id_projeto", $_POST["id_projeto"]),
 					array("veiculo",$_POST["veiculo"]),
 					array("link", $_POST["link"]),
+					array("arquivo", $_POST["arquivo"]),
 					array("palavras_chave", $_POST["palavras_chave"])
 					); 
  

@@ -13,8 +13,8 @@
 	
 	$id = $_GET['id'];
 
-	remove_pasta('../../documentos/documento'.$id, 'documentos', $id, false, false);
-	//remove_pasta($path, $tabela, $id, $tabelas_vinc, $lbs_vinc){ 
+	$dados = sql_select( "documentos","arquivo","","id='".$id."'", false );   
+	remove_item('../../documentos/', $dados['arquivo'], 'documentos', $id ); 
 
 	xml_documentos();
 

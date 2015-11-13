@@ -721,7 +721,7 @@ window.onload = function (){
 					if(d.publicado == 1){ 
 
 						tag = document.createElement('div');
-						tag.className = 'item_lista';
+						tag.className = 'doc_lista';
 						tag.id = 'item' + i;
 
 						if(d.arquivo != ''){
@@ -730,7 +730,7 @@ window.onload = function (){
 							tag2.ID = d.id;
 							tag2.arquivo = d.arquivo;
 							tag2.onclick = function(){
-								verifica_registro(root + "documentos/documento" + this.ID + "/" + this.arquivo); 
+								verifica_registro(root + "documentos/" + this.arquivo); 
 							}
 							tag.appendChild(tag2);
 						}
@@ -746,10 +746,10 @@ window.onload = function (){
 						}
 
 						tag4 = document.createElement('span');
-						tag4.className = 'item_lb'; 
+						tag4.className = 'doc_lb'; 
 						temp = d.titulo;
-						temp += " &ndash; " + d.autor;
-						temp += "<span class='sub_lb'> &bull; " + d.veiculo;
+						temp += "<span class='sub_lb'></br> " + d.autor;
+						if( d.veiculo != '' ) temp += " &ndash; " + d.veiculo;
 						temp += ", " + d.ano  + "</span>"; 
 						tag4.innerHTML = temp;
 						tag.appendChild(tag4);

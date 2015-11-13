@@ -2,7 +2,7 @@
 /* CSS Document */
 
 body, html{
-	padding:0; margin:0; 
+	padding:0; margin:0;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:11px;
 	color:#333;
@@ -13,8 +13,8 @@ body, html{
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-} 
- 
+}
+
 iframe{
 	width: 100%;
 	height: 360px;
@@ -24,7 +24,7 @@ iframe{
 
 .login{
 	background:#333;
-}.login img{position:absolute; top:0x; left:0} 
+}.login img{position:absolute; top:0x; left:0}
 
 #dados_login{
 	width: 400px;
@@ -46,9 +46,9 @@ iframe{
 .link_login:link{color:#fff; text-decoration:none}
 .link_login:hover{color:#fff; text-decoration:underline}
 .link_login:active{color:#fff; text-decoration:underline}
-.link_login:visited{color:#fff; text-decoration:none} 
+.link_login:visited{color:#fff; text-decoration:none}
 
-a{color:#333} 
+a{color:#333}
 a:link{ text-decoration:none}
 a:hover{ text-decoration:none}
 a:active{ text-decoration:none}
@@ -56,12 +56,12 @@ a:visited{ text-decoration:none}
 
 li{	list-style:none; margin:0; padding:0}
 ul{
-	list-style:none; 
+	list-style:none;
 	margin:0;
 	padding: 0;
 }
 
-#dados ul{ 
+#dados ul{
 	border: #dfdfdf 1px solid;
 	width: 100%;
 	min-height: 42px;
@@ -82,8 +82,8 @@ hr{
 	width:100%;
 	height:100px;
 	display:block;
-} 
- 
+}
+
 #mensagem{
 	height:100px;
 	font-size:14px;
@@ -97,13 +97,13 @@ hr{
 
 #cont{
 	margin-left:280px
-} 
+}
 
 #links{
 	 height: 500px;
 }
 
-.btg_voltar{	
+.btg_voltar{
 	font-weight:bold;
 	border-radius:3px;
 	background-image:url(_layout/bg_bts_cms.jpg);
@@ -134,24 +134,24 @@ hr{
 	height:100%;
 	background-color:#333;
 	position:fixed;
-	font-size:10px;
+	font-size:11px;
 }
 
-.menu_ul{	
+.menu_ul{
 	border-top:#777 1px solid;
 }
 
 .menu_ul a{
 	display:block;
 	width:100%;
-	padding: 8px 20px;
-	border-bottom:#777 1px solid; 
+	padding: 10px 20px;
+	border-bottom:#777 1px solid;
 	color:#fff;
 }
- 
+
 .menu_select{
 	border-bottom:#fff 1px solid;
-	background-color:#fff; 
+	background-color:#fff;
 	display:block;
 	width:100%;
 	padding: 8px 20px;
@@ -179,10 +179,10 @@ hr{
 	font-weight: bold;
 	font-size: 11px;
 	width: 100%;
-	text-align: center; 
+	text-align: center;
 	background-size: 1px 30px;
 	border:0;
-} 
+}
 
 .submenu_ul li{
 	background-repeat: repeat-x;
@@ -198,8 +198,8 @@ hr{
 	border-radius: 3px;
 	width: 100%;
 	display: inline-block;
-} 
-	
+}
+
 .submenu_select{
 	background-color: #333;
 	color: #fff;
@@ -208,9 +208,9 @@ hr{
 	border:#ddd 1px solid;
 	font-weight: normal;
 	display: inline-block;
-} 
+}
 
-/* CONTEUDO */ 
+/* CONTEUDO */
 
 .titulo_pg{
 	color:#333;
@@ -227,7 +227,7 @@ hr{
 	margin-top:25px;
 	margin-bottom:5px;
 }
-  
+
 .btg{
 	display:block;
 	margin-top:20px;
@@ -248,24 +248,24 @@ hr{
 #visitantes_bts{
 	position: fixed;
 	bottom: 0;
-	left: 0;	
+	left: 0;
 	width: 100%;
 	max-width: 1280px;
 	min-width: 950px;
-	padding-left:280px; 
+	padding-left:280px;
 	z-index: 10;
 }
 
 .btm{
 	float: left;
 	margin-right: 1px
-} 
+}
 
-#gravar_visitantes{ 
+#gravar_visitantes{
 	width: 65%;
 }
 
-#exportar_csv{ 
+#exportar_csv{
 	width: 24.5%;
 }
 
@@ -276,10 +276,10 @@ hr{
 	font-weight: normal;
 }
 
-.gravar{	
+.gravar{
 	padding:15px 0;
 	background-size:1px 45px;
-} 
+}
 
 .btp_tb{
 	position:absolute;
@@ -295,10 +295,10 @@ hr{
 }
 
 .checkbox{margin-bottom:5px; }
-.checkbox svg{position:relative; top:8px} 
+.checkbox svg{position:relative; top:8px}
 
 .banner{
-	width: 100%; 
+	width: 100%;
 	height: 300px;
 	position: relative;
 	margin-top: 30px;
@@ -315,7 +315,7 @@ hr{
 	border:0;
 	font-size:12px;
 	background:#f0f0f0;
-}  
+}
 
 .text{
 	width:100%;
@@ -325,7 +325,7 @@ hr{
 	border:0;
 	background:#f0f0f0;
 	}
-	
+
 .embed_in{
 	width:100%;
 	height:130px;
@@ -336,11 +336,11 @@ hr{
 	background-position:center;
 	background-image:url(_layout/embed_in.png);
 }
-	
+
 
 .bg1{ background-color:#a8b398 }
 .bg2{ background-color:#99b1bf }
-.bg3{ background-color:#b1a8bf }  
+.bg3{ background-color:#b1a8bf }
 
 .hover:hover{background-color:#f9f9f9; cursor: pointer;}
 
@@ -354,7 +354,7 @@ hr{
 	font-size: 10px;
 	line-height: 18px;
 	border-radius: 7px;
-	letter-spacing: .3px; 
+	letter-spacing: .3px;
 }
 
 .nota_dados{
@@ -380,11 +380,11 @@ hr{
 	-khtml-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	user-select: none; 
+	user-select: none;
 
 }
 
-.item_lb{ 
+.item_lb{
 	float: left;
 	margin-left: 10px;
 	padding-top: 12px;
@@ -403,7 +403,7 @@ hr{
 	top: 0;
 	left: 0;
 	z-index: 1;
-} 
+}
 
 .item {
 	width:100%;
@@ -414,10 +414,10 @@ hr{
 	border-radius:2px;
 	background:#f0f0f0;
 	overflow: hidden;
-}   
+}
 
 .user_ativo{
-	float: left; 
+	float: left;
 	margin-right: 20px;
 	height: 14px;
 	position: relative;
@@ -427,10 +427,10 @@ hr{
 /* SORTABLE */
 
 .handle{
-	width:30px; 
-	height:30px; 
+	width:30px;
+	height:30px;
 	cursor:move;
-	float:right; 
+	float:right;
 	margin:3px;
 	position: relative;
 	z-index: 2;
@@ -441,7 +441,7 @@ hr{
 	margin-top:20px;
 	margin-bottom:20px;
 	background-color:#933;
-	color:#fff; 
+	color:#fff;
 	padding:15px 0;
 	width:100%;
 	font-weight:bold;
@@ -450,7 +450,7 @@ hr{
 	text-align:center;
 	cursor:pointer;
 }
-.excluir_tudo:hover{color:#fff} 
+.excluir_tudo:hover{color:#fff}
 
 
 
@@ -477,7 +477,7 @@ hr{
 	width:7px;
 	border:none;
 }
-	
+
 
 
 .img_preview{
@@ -497,13 +497,13 @@ hr{
 .tb_bg{
 	margin-bottom:10px;
 	padding:0;
-	width:300px;	
+	width:300px;
 	height:300px;
-}  
+}
 .banner_bg{
 	margin-bottom:10px;
 	padding:0;
-	width:1200px;	
+	width:1200px;
 	height:300px;
 }
 
@@ -530,7 +530,7 @@ hr{
 	-webkit-border-radius: 3px;
 	-webkit-padding-start: 10px;
 }
- 
+
 .ckeckbox_img{
 	background-color:#333;
 	position:relative;
@@ -540,11 +540,11 @@ hr{
 	padding:3px;
 	border-radius:2px;
 }
- 
+
 #rodape{
 	width:100%;
 	height:100px;
-} 
+}
 
 .legenda{
 	width: 100%;
@@ -558,19 +558,19 @@ hr{
 }
 
 .legenda input{
-	height: 35px; 
+	height: 35px;
 	padding:10px;
 	border:#fff 1px solid;
 	font-size:12px;
 	background:#f0f0f0;
-} 
+}
 
 .legenda_cor{
 	display: table-cell;
 	background: #f0f0f0;
 	width: 1%;
 	border:#fff 1px solid;
-	
+
 }
 
 .legenda_label{
@@ -580,12 +580,12 @@ hr{
 .legenda_rgb{
 	display: table-cell;
 	width: 8%;
-	text-align: center;	
+	text-align: center;
 }
 .legenda_hex{
 	display: table-cell;
 	width: 19%;
-	text-align: center;	
+	text-align: center;
 }
 
 .legenda_col2{
@@ -597,7 +597,7 @@ hr{
 .legenda_col1{
 	float: right;
 	width: 24%;
-	text-align: center;	
+	text-align: center;
 }
 
 /* AJUSTE */

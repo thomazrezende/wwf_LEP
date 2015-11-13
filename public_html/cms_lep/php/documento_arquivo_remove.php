@@ -18,8 +18,8 @@
 	$deletar = array( array("arquivo", NULL));
 	sql_update("documentos", $deletar, "id='".$id."'" ); 
 	
-	unlink("../../documentos/documento".$id."/".$dados["arquivo"]);
-	
+	unlink("../../documentos/".$dados["arquivo"]);
+
 	xml_documentos();
 
 	location("../documento.php","id=".$id."&msg_ok=ARQUIVO REMOVIDO COM SUCESSO");

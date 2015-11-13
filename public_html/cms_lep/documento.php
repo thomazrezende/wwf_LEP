@@ -3,14 +3,16 @@ require_once("../../_control/acesso.php");
 require_once("../../_control/seguranca.php");
 require_once("_tr/mysql.php");
 require_once("_tr/html.php"); 
-require_once("_tr/string.php"); 
+require_once("_tr/string.php");  
 require_once("_menus.php");
+require_once("_tr/xml.php"); 
 
 verif_log(); 
 conectar();
 
 head("LEP - documento");  
-require_once("_tr/up_file_form.php");  
+require_once("_tr/up_file_form.php");    
+
 ?>
 
 <body>  
@@ -59,7 +61,10 @@ require_once("_tr/up_file_form.php");
 				input("veiculo", "input", "veiculo", $dados["veiculo"] , "text"); 
 
 				titulo("","LINK", false); 
-				input("link", "input", "link", $dados["link"] , "text");  
+				input("link", "input", "link", $dados["link"] , "text"); 
+
+				titulo("","ARQUIVO", false); 
+				input("arquivo", "input", "arquivo", $dados["arquivo"] , "text");  
 
 				titulo("","PALAVRAS-CHAVE",false);  
 				text("palavras_chave", 'text', "palavras_chave", $dados["palavras_chave"], false);  
@@ -70,7 +75,9 @@ require_once("_tr/up_file_form.php");
 
 			hr();
 			
-			titulo("","&darr; INSERIR ARQUIVO",false);
+			div1('','nota',"<div class='nota_dados mb10'>AVISO</div>ARQUIVOS COM MAIS QUE 8MB PODEM FICAR CORROMPIDOS SE INSERIDOS USANDO O FORMULÁRIO ABAIXO. NESSES CASOS ACESSE A PASTA <i>DOCUMENTOS</i> ATRAVÉS DE UM CLIENTE FTP (EX: <a href='https://filezilla-project.org/' target='_blank'>FILEZILLA</a>) E INSIRA O ARQUIVO MANUALMENTE. LEMBRE-SE DE INCLUIR O NOME DO ARQUIVO COM EXTENSÃO NO CAMPO <i>ARQUIVO</i> ACIMA, CASO CONTRÁRIO O LINK CONTINUARÁ NÃO EXISTINDO.<br><div class='nota_dados mt10'>HOST: 23.229.196.231 | USER: documentos@paisagem.wwf.org.br | PASSWORD: DHXi@FE6xsm </div>",true);
+ 
+ 			titulo("","&darr; INSERIR ARQUIVO :: peso m&aacute;ximo: 8MB",false);
 			up_file_form("_documento", "arquivo", "php/documento_arquivo_up.php?id=".$id, "arquivo", false, true, "all"); 
 			//up_file_form($action, $name, $multiple, $drop_area, $formatos)
 
@@ -78,13 +85,16 @@ require_once("_tr/up_file_form.php");
 				$tb = '';
 				$lb = $dados["arquivo"];  
 				$lb_ext = '';  
-				$link = array("../documentos/documento".$id."/".$dados["arquivo"], "_blank"); 
+				$link = array("../documentos/".$dados["arquivo"], "_blank"); 
 
 				$bts = array (	array( "del", "php/documento_arquivo_remove.php?id=".$id )); 
 
 				item($id, $tb, $lb, $lb_ext, $link, $bts, false); 
-			} 
-
+			}  
+	
+			
+			xml_documentos2();
+			
 			?>
         
         </div> <!--dados-->  

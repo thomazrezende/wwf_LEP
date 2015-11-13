@@ -1,33 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <documentos>
 	<documento>
-		<id>17</id>
+		<id>20</id>
 		<id_projeto>6</id_projeto>
 		<publicado>1</publicado>
-		<titulo><![CDATA[A nec nibh auctor et vel lobortis pellentesque morbi et nulla sed]]></titulo>
-		<autor><![CDATA[Joana D'arc]]></autor>
-		<ano><![CDATA[2011]]></ano>
-		<veiculo><![CDATA[Lectus posuere nec]]></veiculo>
-		<link><![CDATA[http://www.wwf.org.br]]></link>
-		<palavras_chave><![CDATA[chave2]]></palavras_chave>
-		<arquivo><![CDATA[Mais-Cultura-Microprojetos-Pantanal_2013-Foto-Marcos-Vergueiro-SECOM-MT.jpg]]></arquivo>
-	</documento>
-	<documento>
-		<id>18</id>
-		<id_projeto>6</id_projeto>
-		<publicado>1</publicado>
-		<titulo><![CDATA[Ut lacinia dolore turpis sit augue]]></titulo>
-		<autor><![CDATA[Platão]]></autor>
-		<ano><![CDATA[2012]]></ano>
-		<veiculo><![CDATA[Erat fermentum ]]></veiculo>
-		<link><![CDATA[]]></link>
-		<palavras_chave><![CDATA[chave3]]></palavras_chave>
-		<arquivo><![CDATA[Mais-Cultura-Microprojetos-Pantanal_2013-Foto-Marcos-Vergueiro-SECOM-MT.jpg]]></arquivo>
+		<titulo><![CDATA[TESTE NOVO1]]></titulo>
+		<autor><![CDATA[AAAA]]></autor>
+		<ano><![CDATA[0]]></ano>
+		<veiculo><![CDATA[SSSS]]></veiculo>
+		<link><![CDATA[http://www.thomazrezende.com]]></link>
+		<palavras_chave><![CDATA[FFGFGFG]]></palavras_chave>
+		<arquivo><![CDATA[visa_1509.pdf]]></arquivo>
 	</documento>
 	<documento>
 		<id>19</id>
-		<id_projeto></id_projeto>
-		<publicado>0</publicado>
+		<id_projeto>0</id_projeto>
+		<publicado>1</publicado>
 		<titulo><![CDATA[Vivamus metus massa luctus felis]]></titulo>
 		<autor><![CDATA[Aristóteles]]></autor>
 		<ano><![CDATA[2014]]></ano>

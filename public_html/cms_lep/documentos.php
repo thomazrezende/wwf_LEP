@@ -51,9 +51,9 @@ head("LEP - documentos");
 					if(!empty($documentos[$i]["autor"])) $autor = " - " . $documentos[$i]["autor"];
 					
 					$id = $documentos[$i]["id"];
-					$tb =  '_layout/ico_documento.png';
-					$lb = $id." _ ".$documentos[$i]["titulo"].$autor.$doc.$lnk;
-					$lb_ext = "";
+					$tb = '_layout/ico_documento.png';
+					$lb = 'DOC '.$id;
+					$lb_ext = " _ ".$documentos[$i]["titulo"].$autor.$doc.$lnk;;
 					$link = array("documento.php?id=".$id, false);
 					
 					$bts = array( array( "del", "php/documento_remove.php?id=".$id )); 
@@ -84,8 +84,8 @@ head("LEP - documentos");
 					
 					$id = $documentos[$i]["id"];
 					$tb = '_layout/ico_documento.png';
-					$lb = $id." _ ".$documentos[$i]["titulo"].$autor.$doc.$lnk;
-					$lb_ext = "";
+					$lb = 'DOC '.$id;
+					$lb_ext = " _ ".$documentos[$i]["titulo"].$autor.$doc.$lnk;
 					$link = array("documento.php?id=".$id, false);
 					
 					$bts = array (	array( "del", "php/documento_remove.php?id=".$id )); 
