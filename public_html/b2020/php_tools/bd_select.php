@@ -12,28 +12,27 @@ print '{';
 
 if( $id != 'null' ){ // item selecionado
 
-    $selecao = sql_select( 'b2020_'.$cod.'_coords', '*', '', $cod.'_id=\''.$id.'\'', false );
-    $dados = sql_select( 'b2020_'.$cod.'_dados', '*', '', $cod.'_id=\''.$id.'\'', false );
-    $labels = sql_select( 'b2020_'.$cod.'_dados', '*', '', 'id=\'1\'', false );
-    $colunas = sql_select( 'b2020_'.$cod.'_dados', '*', '', 'id=\'2\'', false );
+    $selecao = sql_select( 'b2020_'.$cod, '*', '', 'id=\''.$id.'\'', false );
+    //$labels = sql_select( 'b2020_'.$cod, '*', '', '', false );
+    //$colunas = sql_select( 'b2020_'.$cod, '*', '', '', false );
 
     print '"selecao":{';
-    print '"dados":"'.$dados['dados'].'",';
-    print '"labels":"'.$labels['dados'].'",';
-    print '"colunas":"'.$colunas['dados'].'",';
+    print '"dados":"'.$selecao['dados'].'",';
+    //print '"labels":"'.$labels['dados'].'",';
+    //print '"colunas":"'.$colunas['dados'].'",';
     print '"coords":"'.$selecao['coords'].'",';
-    print '"id":"'.$selecao[$cod.'_id'].'"';
+    print '"id":"'.$selecao['id'].'"';
     print '}';
 
 }else{ // itens mapa
 
-    $mapa = sql_select( 'b2020_'.$cod.'_coords', '*', '', '', true );
+    $mapa = sql_select( 'b2020_'.$cod, '*', '', '', true );
     print '"mapa":[';
 
     for($i=0; $i<count($mapa); $i++){
         print '{';
         print '"coords":"'.$mapa[$i]['coords'].'",';
-        print '"id":"'.$mapa[$i][$cod.'_id'].'"';
+        print '"id":"'.$mapa[$i]['id'].'"';
         print '}';
         if( $i < count($mapa)-1 ) print ',';
     }

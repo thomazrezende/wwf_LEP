@@ -9,11 +9,14 @@
 	<meta name="robots" content="noindex, nofollow">
 	<link rel="shortcut icon" href="layout/fav_icon.png" type="ico" />
 
+	<script type="text/javascript" src="tools/d3.min.js"></script>
+	<script type="text/javascript" src="tools/c3.min.js"></script>
 	<script type="text/javascript" src="tools/jquery-2.0.2.min.js"></script>
 	<script type="text/javascript" src="tools/jquery-ui.js"></script>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
-  <link rel="stylesheet" type="text/css" href="b2020.css">
+  	<link rel="stylesheet" type="text/css" href="b2020.css">
+	<link href="tools/c3.css" rel="stylesheet" type="css">
 	<script type="text/javascript" src="b2020.js" charset="UTF-8"></script>
 
 </head>
@@ -28,9 +31,7 @@
 	</div>
 
 	<div class="painel" id="lista">
-
 		<div class="bt" id="bt_lista"></div>
-
 		<div class="painel_topo" id="painel_select">CAMADAS</div>
 
 		<ul id="lista_itens">
@@ -83,22 +84,12 @@
 			<div id="dash_titulo"></div>
 		</div>
 
-		<div class="cont" id="dash_cont"><p>Lorem ipsum dolor. Sit amet curabitur sed sagittis id sed donec interdum mollis nam suspendisse ut iaculis eu. Elit natoque erat sapien suscipit cras. Dictum erat et nostra nibh integer at vitae euismod. Amet risus eleifend. Lorem amet nulla. Duis hendrerit eget suscipit vestibulum enim. Velit enim sapien bibendum varius sagittis. Sed mauris eget malesuada donec nunc. Tincidunt lacinia pellentesque. Sed morbi nibh. Excepteur donec consectetuer lorem ultricies ut. Arcu nunc magna. Venenatis eget elit consectetuer in in ante vel proin et amet vitae. Per tellus eget. Turpis velit consequat ipsum ultrices eget non pellentesque molestie pretium nulla pede erat venenatis turpis. Sed eros ut. Ornare eros lacus id cubilia nec. Non arcu curabitur consectetuer orci est. Ullamcorper elit integer.</p><p>Tortor nullam eget. Mi sit suspendisse. Nisl sit vestibulum. Est elementum amet. Id sit natoque amet pulvinar mollis pulvinar neque et rutrum eget et accumsan adipiscing ipsum ligula nec sollicitudin.</p><p>Vestibulum eget justo ut non lacinia at vestibulum sodales. Eros montes leo. Cursus ridiculus scelerisque. Sapien amet nibh lorem dignissim ipsum. Vel dignissim ipsum. Tristique sed erat. Facilisis augue at. Sapien magnis sit. Euismod vehicula lacinia. Platea integer quam ut nec lectus voluptatem eu lorem. Pellentesque lectus amet. Ut varius lorem malesuada luctus at magna ligula mauris maxime laoreet per. Est bibendum ut. Quisque sed do scelerisque tellus ipsum gravida ut curabitur et pellentesque lorem. Ultricies nec vel. Aliquam arcu pellentesque. Pellentesque sed integer lacus nunc velit. Quisque tempus euismod etiam facilisis in. Semper pharetra leo. In magna per ante id suspendisse blandit ut condimentum. Eros tellus lacinia cras scelerisque in vel lectus purus. Nec mus vulputate. Ligula nisl amet. Lorem qui libero. Risus vitae pede diam ac qui et praesent a ut vestibulum integer consequat ac scelerisque odio sollicitudin magna dignissim quam nunc pede magna donec eleifend amet varius.</p></div>
+		<div class="cont" id="dash_cont"></div>
 
 	</div>
 
 	<div class="barra" id="base">
 		<div id="base_lb">N&Iacute;VEL DE SELE&Ccedil;&Atilde;O:</div>
-		<div id="bt_nivel" class="btg">
-			<div id="nivel_track">
-				<div id="nivel_slider"></div>
-			</div>
-			<div id="bt_bacias">BACIAS HIDROGR&Aacute;FICAS</div>
-			<div id="bt_areas" style="opacity:.3">&Aacute;REAS PRIORIT&Aacute;RIAS</div>
-		</div>
-	</div>
-
-	<div class="barra" id="base">
 		<ul id="nivel">
 			<li id="nivel1" class="nivel_item selected" >BACIAS<br>HIDROGR&Aacute;FICAS</li>
 			<li class="nivel_div"></li>

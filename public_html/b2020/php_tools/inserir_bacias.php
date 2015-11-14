@@ -5,7 +5,7 @@ require_once('../../../_control/seguranca.php');
 require_once('../../cms_lep/_tr/mysql.php');
 
 conectar();
-sql_truncate('b2020_bh_coords');
+sql_truncate('b2020_bh');
 
 $arquivos_bacias = [
     'amz.xml',
@@ -37,7 +37,7 @@ foreach ( $arquivos_bacias as $arquivo) {
             $doc = new DOMDocument();
             $doc->loadHTML($description);
 
-            $tags = $doc->getElementsByTagName('td'); 
+            $tags = $doc->getElementsByTagName('td');
 
             $desc_arr = [];
             foreach ($tags as $tag) {
@@ -52,7 +52,7 @@ foreach ( $arquivos_bacias as $arquivo) {
                 if ($desc_arr[$i] == 'Macro') $placemark['macro_id'] = $desc_arr[$i+1];
                 if ($desc_arr[$i] == 'Meso') $placemark['meso_id'] = $desc_arr[$i+1];
                 if ($desc_arr[$i] == 'Micro') $placemark['micro_id'] = $desc_arr[$i+1];
-                if ($desc_arr[$i] == 'Bacia') $placemark['bacia_id'] = $desc_arr[$i+1]; // id
+                if ($desc_arr[$i] == 'Bacia') $placemark['id'] = $desc_arr[$i+1]; // id
                 if ($desc_arr[$i] == 'Princ') $placemark['principal_id'] = $desc_arr[$i+1]; // id
                 if ($desc_arr[$i] == 'Principal') $placemark['principal'] = $desc_arr[$i+1]; // label
             }
@@ -78,20 +78,20 @@ foreach ( $arquivos_bacias as $arquivo) {
             $valores = array(	array("tipo", $placemark['tipo'] ),
                                 array("principal", $placemark['principal'] ),
                                 array("principal_id", $placemark['principal_id'] ),
-                                array("bacia_id", $placemark['bacia_id'] ),
+                                array("id", $placemark['id'] ),
                                 array("macro_id", $placemark['macro_id'] ),
     							array("meso_id", $placemark['meso_id'] ),
                                 array("micro_id", $placemark['micro_id'] ),
                                 array("coords", $placemark['coords'] )
     						);
 
-            sql_insert( 'b2020_bh_coords', $valores);
+            sql_insert( 'b2020_bh', $valores);
 
         }
     }
 }
 
-sql_clean('b2020_bh_coords', 'bacia_id', 'tipo');
+sql_clean('b2020_bh', 'id', 'tipo');
 
 print 'bacias cadastradas com sucesso!';
 

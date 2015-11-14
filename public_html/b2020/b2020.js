@@ -19,6 +19,7 @@ window.onload = function(){
 	var i;
 	var d;
 	var a;
+	var b;
 	var val;
 
 	var branco = "#fff";
@@ -230,7 +231,9 @@ window.onload = function(){
 
 	var camadas_fixas = {
 		 "bh":[bacia_polygons, principais_polygons, macro_polygons, meso_polygons, micro_polygons],
-		 "uc":[uc_polygons, ucs_polygons]
+		 "uc":[uc_polygons, ucs_polygons],
+		 "ti":[ti_polygons, tis_polygons],
+		 "ap":[ap_polygons, aps_polygons]
 	}
 
 	function hide_all(arr){
@@ -335,9 +338,9 @@ window.onload = function(){
 
 	// DASBOARD //
 
-	function bh_select( bacia_id, layer ){
+	function bh_select( id, layer ){
 
-		var file = 'php_tools/bh_select.php?bacia_id=' + bacia_id;
+		var file = 'php_tools/bh_select.php?id=' + id;
 		console.log(file);
 
 		$.post(
@@ -346,7 +349,7 @@ window.onload = function(){
 			function( data ){
 
 				// bacia selecionada
-				if(bacia_id){
+				if(id){
 					if( bacia_polygons[0] ) reset_layer(bacia_polygons);
 					bacia_polygons[0] = new google.maps.Polygon({
 						paths: draw_polygons( data.bacia.coords ),
@@ -358,7 +361,7 @@ window.onload = function(){
 						map: map
 					});
 
-					dash_titulo.innerHTML = data.bacia.principal.toUpperCase() + ' ' + data.bacia.tipo + ':' + bacia_id;
+					dash_titulo.innerHTML = data.bacia.principal.toUpperCase() + ' ' + data.bacia.tipo + ':' + id;
 
 					if ( data.bacia.tipo != "principal" ) {
 						$(dash_voltar).show();
@@ -383,59 +386,120 @@ window.onload = function(){
 
 					// dados
 					var dados_arr = data.bacia.dados.split(',');
-					var dados_labels = data.bacia.labels.split(',');
+					var dados_grupos = data.bacia.grupos.split(',');
 					var dados_colunas = data.bacia.colunas.split(',');
+
+				    var temp;
+					var graf_labels = [];
+					var graf_data = [];
+					var titulo_div = "";
+
+					var titulo;
+					var grupos = [];
+					var grupo = {};
+					var div;
 
 					dash_cont.innerHTML = '';
 
-				    var titulo;
-				    var temp;
-					var grafico = false;
-					var graficos = [];
-					var grafico_dados = {};
-					var titulo_div = "";
 
 					for( i=2; i<dados_arr.length; i++ ){
-						if( dados_labels[i] != '' ) {
 
-							//aplica o grafico anterior
-							if(grafico){
-								graficos.push(grafico_dados);
-								grafico = false;
-								grafico_dados = {};
-								dash_cont.innerHTML += "<div class='grafico' id='grafico" + graficos.length + "'> AQUI VAI O GRAFICO </div>";
+						if( dados_grupos[i] != '' ){
+
+							grupo = {};
+
+							titulo = dados_grupos[i].split(':');
+							grupo.titulo = titulo[0];
+							if(titulo[1]) grupo.tipo = titulo[1].trim();
+							if(titulo[2]) grupo.max = Number(titulo[2]);
+
+							if(dados_arr[i] != ''){
+								grupo.colunas = [dados_colunas[i]];
+								grupo.dados = [dados_arr[i]];
 							}
 
-							if( i > 3 ) titulo_div = 'titulo_div';
+							grupos.push(grupo);
 
-							titulo = dados_labels[i].split('|');
+						}else{
 
-							temp = "<div class='titulo "+titulo_div+"'>" + titulo[0];
-							if( titulo[1] ) temp += '(' + titulo[1] + ')</div>';
-							else  temp += '</div>';
-
-							dash_cont.innerHTML += temp;
-
-							if (titulo[2] && titulo[2].trim(' ').toUpperCase() == 'GRAF'){
-								grafico = true;
-								grafico_dados = {};
+							if(dados_arr[i] != ''){
+								grupo.colunas.push(dados_colunas[i]);
+								grupo.dados.push(dados_arr[i]);
 							}
 						}
+					}
 
-						if(grafico){
-							grafico_dados[ dados_colunas[i]] = dados_arr[i];
-						}else{
-							temp = '<div class=\'dado\'>' + dados_arr[i] + ' ' + dados_colunas[i];
-							if( titulo[1] ) temp += titulo[1] + '</div>';
-							else  temp += '</div>';
+					for(i in grupos){
 
-							dash_cont.innerHTML += temp;
+						grupo = grupos[i];
+
+						if(grupo.tipo) { // grafico
+
+							div = document.createElement('div');
+							div.id = 'chart'+i;
+							div.className = 'grafico';
+							dash_cont.appendChild(div);
+
+							var chart_data = [grupo.titulo];
+							for(b in grupo.dados) chart_data.push(grupo.dados[b])
+							grupo.escala = grupo.titulo.split(/\(|\)/)[1];
+
+							var chart = c3.generate({
+								bindto:'#chart'+i,
+								size: {
+							        height: 200,
+							        width: 320
+								},
+								padding: {
+								   left: 30,
+							   },
+								color: {
+								   pattern: [menu.camadas['bh'].cor]
+							    },
+								data: {
+									columns: [
+										chart_data
+									],
+									type : grupo.tipo
+								},
+								axis: {
+									x: {
+							            type: 'category',
+							            categories: grupo.colunas
+							        },
+							        y: {
+							            max: grupo.max,
+							            min: 0,
+										padding: {top:0, bottom:2},
+							            label: grupo.escala
+							        }
+							    }
+							});
+
+						}else{ // dado
+
+							div = document.createElement('div');
+							div.className = 'titulo';
+							if(i>1) div.className += ' titulo_div';
+							div.innerHTML = grupo.titulo;
+							grupo.escala = grupo.titulo.split(/\(|\)/)[1];
+							dash_cont.appendChild(div);
+
+							for( a in grupo.dados ){
+								div = document.createElement('div');
+								div.className = 'dado';
+								div.innerHTML += grupo.dados[a];
+								if(grupo.escala) div.innerHTML += ' (' + grupo.escala + ')' ;
+								div.innerHTML += ' ' + grupo.colunas[a];
+								dash_cont.appendChild(div);
+							}
 						}
 					}
 
 					abrir_dash();
 
 				}
+
 
 				// subdivisoes
 				if(data.bacias.length > 0){
@@ -462,14 +526,14 @@ window.onload = function(){
 						layer[i] = new google.maps.Polygon({
 							paths: draw_polygons( data.bacias[i].coords ),
 							strokeColor: '#d89d28',
-							strokeWeight: 1,
+							strokeWeight: 1.3,
 							fillOpacity: 0,
 							zIndex:zi,
 							map: map,
 							clickable: true,
 						});
 
-						layer[i].bacia_id = data.bacias[i].bacia_id;
+						layer[i].id = data.bacias[i].id;
 						layer[i].principal = data.bacias[i].principal;
 						layer[i].principal_id = data.bacias[i].principal_id;
 						layer[i].tipo = data.bacias[i].tipo;
@@ -478,10 +542,10 @@ window.onload = function(){
 						layer[i].micro_id = data.bacias[i].micro_id;
 
 						google.maps.event.addListener( layer[i], 'click', function(event) {
-							if(this.tipo == 'principal' && nivel_selecao == 'bh' ) bh_select( this.bacia_id, macro_polygons );
-							if(this.tipo == 'macro' && nivel_selecao == 'bh' ) bh_select( this.bacia_id, meso_polygons );
-							if(this.tipo == 'meso' && nivel_selecao == 'bh' ) bh_select( this.bacia_id, micro_polygons );
-							if(this.tipo == 'micro' && nivel_selecao == 'bh' ) bh_select( this.bacia_id, false );
+							if(this.tipo == 'principal' && nivel_selecao == 'bh' ) bh_select( this.id, macro_polygons );
+							if(this.tipo == 'macro' && nivel_selecao == 'bh' ) bh_select( this.id, meso_polygons );
+							if(this.tipo == 'meso' && nivel_selecao == 'bh' ) bh_select( this.id, micro_polygons );
+							if(this.tipo == 'micro' && nivel_selecao == 'bh' ) bh_select( this.id, false );
 						});
 					}
 				}
@@ -493,6 +557,22 @@ window.onload = function(){
 			});
 	}
 
+	function grafico(dt, tp, id){
+		var chart_div = document.createElement('div');
+		chart_div.id = 'chart'+id;
+		chart_div.className = 'grafico';
+		dash_cont.appendChild(chart_div);
+
+		setTimeout( function(){
+			var chart = c3.generate({
+				bindto:'#chart'+id,
+				data: {
+					columns: dt,
+					type : tp
+				}
+			});
+		}, 100 );
+	}
 
 	function bd_select( id, cod ){
 
@@ -582,11 +662,11 @@ window.onload = function(){
 						layer[i] = new google.maps.Polygon({
 							paths: draw_polygons( data.mapa[i].coords ),
 							strokeColor: menu.camadas[cod].cor,
-							strokeWeight: 1,
+							strokeWeight: 1.3,
 							fillOpacity: 0,
 							zIndex:7,
 							map: map,
-							clickable: true,
+							clickable: false,
 						});
 
 						layer[i].id = data.mapa[i].id;
@@ -650,7 +730,9 @@ window.onload = function(){
 		reset_layer(micro_polygons);
 
 		// OUTROS
-		reset_layer(uc_polygons)
+		reset_layer(uc_polygons);
+		reset_layer(ti_polygons);
+		reset_layer(ap_polygons);
 	}
 
 	dash_topo.onclick = fechar_dash;
@@ -951,12 +1033,12 @@ window.onload = function(){
 				itm.className = 'cont_item';
 				itm.innerHTML = d.nome;
 				itm.nome = d.nome;
-				itm.bacia_id = d.bacia_id;
+				itm.id = d.id;
 				itm.id = d.id;
 
 				itm.onclick = function(){
 					if( menu.camadas.bh.ativo ){
-						bh_select( this.bacia_id, macro_polygons )
+						bh_select( this.id, macro_polygons )
 					}
 				}
 
@@ -1049,6 +1131,8 @@ window.onload = function(){
 			selecionar_nivel('bh');
 			bh_select( null, principais_polygons );
 			bd_select( null, 'uc' );
+			bd_select( null, 'ti' );
+			bd_select( null, 'ap' );
 
 		}, "json" )
 		.fail( function(xhr, textStatus, errorThrown) {

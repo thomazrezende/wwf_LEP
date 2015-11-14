@@ -15,20 +15,19 @@ conectar();
 
     // bacias
 
-    $bacias = sql_select( 'b2020_bh_coords', '*', '', 'tipo=\'principal\'', true );
+    $bacias = sql_select( 'b2020_bh', '*', '', 'tipo=\'principal\'', true );
     print '"bacias":[';
 
     for( $i=0; $i<count($bacias); $i++ ){
 
-        $bacia_id = $bacias[$i]['bacia_id'];
-        $dados = sql_select( 'b2020_bh_dados', '*', '', 'bacia_id=\''.$bacia_id.'\'', false );
-        $dados_arr = explode( ',', $dados['dados']);
+        $id = $bacias[$i]['id'];
+        $dados_arr = explode( ',', $bacias[$i]['dados']);
 
         $dados_arr[1] = 'Nome da Bacia';
 
         print '{';
-        print '"bacia_id":"'.$bacia_id.'",';
-        print '"nome":"'.$bacia_id.'-'.$dados_arr[1].'"';
+        print '"id":"'.$id.'",';
+        print '"nome":"'.$id.'-'.$dados_arr[1].'"';
         print '}';
 
         if( $i < count($bacias)-1 ) print ',';
@@ -53,7 +52,6 @@ conectar();
         if( $i < count($camadas)-1 ) print ',';
     }
     print ']';
-
     print '}';
 
 
