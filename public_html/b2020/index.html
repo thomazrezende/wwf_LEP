@@ -32,31 +32,45 @@
 
 	<div class="painel" id="lista">
 		<div class="bt" id="bt_lista"></div>
-		<div class="painel_topo" id="painel_select">CAMADAS</div>
+		<div class="bt" id="bt_camadas"></div>
+		<div class="painel_topo" id="painel_select" style="color:#D89D28">BACIAS HIDROGR&Aacute;FICAS</div>
 
 		<ul id="lista_itens">
-			<li id="lista_item0" class="lista_item selected" >CAMADAS</li>
-			<li id="lista_item1" class="lista_item" >BACIAS HIDROGR&Aacute;FICAS</li>
-			<li id="lista_item2" class="lista_item" >&Aacute;REAS PRIORITÁRIAS</li>
-			<li id="lista_item3" class="lista_item" >PROJETOS</li>
+			<li id="lista_item1" cod="bh" class="lista_item selected" >BACIAS HIDROGR&Aacute;FICAS</li>
+			<li id="lista_item2" cod="ap" class="lista_item" >&Aacute;REAS PRIORITÁRIAS</li>
+			<li id="lista_item3" cod="uc" class="lista_item" >UNIDADES DE CONSERVA&Ccedil;&Atilde;O</li>
+			<li id="lista_item4" cod="ti" class="lista_item" >TERRAS IND&Iacute;GENAS</li>
 		</ul>
 
-		<div class="cont" id="lista_cont">
-			<div class="painel_cont selected" id="painel_cont0">
+		<div id="camadas_cont">
+			<div class="painel_topo lock">CAMADAS</div>
+			<div class="cont">
 				<ul id="lista_camadas"></ul>
 			</div>
+		</div>
 
-			<div class="painel_cont" id="painel_cont1">
-				<ul id="lista_bacias"></ul>
+		<div class="cont" id="lista_cont">
+
+			<div class="painel_cont selected" id="painel_cont1">
+				<ul id="lista_bh"></ul>
 			</div>
 
 			<div class="painel_cont" id="painel_cont2">
-				<ul id="lista_areas"></ul>
+				<ul id="lista_ap"></ul>
 			</div>
 
 			<div class="painel_cont" id="painel_cont3">
-				<ul id="lista_projetos"></ul>
+				<ul id="lista_pj"></ul>
 			</div>
+
+			<div class="painel_cont" id="painel_cont4">
+				<ul id="lista_uc"></ul>
+			</div>
+
+			<div class="painel_cont" id="painel_cont5">
+				<ul id="lista_ti"></ul>
+			</div>
+
 		</div>
 	</div>
 
@@ -71,10 +85,6 @@
 
 		<div id="zoom">
 			<div class="bt" id="zoom_in"></div>
-			<div id="zoom_pos">
-				<div id="zoom_pos_lb">N&Iacute;VEL</div>
-				<div id="zoom_nivel"></div>
-			</div>
 			<div class="bt" id="zoom_out"></div>
 		</div>
 

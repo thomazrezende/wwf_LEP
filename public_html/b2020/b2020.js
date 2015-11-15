@@ -5,13 +5,12 @@ window.onload = function(){
 
 	/*
 	mapa z-index
-
 	1: polygons selecionado (todos)
 	2: principais_polygons
 	3: macro_polygons
 	4: meso_polygons
 	5: micro_polygons
-	6: aps_poligons *
+	6: aps_polygons *
 	7: ucs_polygons
 	8: tis_polygons
 	*/
@@ -108,15 +107,19 @@ window.onload = function(){
 	reg('lista_cont');
 	lista.aberto = false;
 	reg('bt_lista');
+	reg('bt_camadas');
 	reg('painel_select');
 
 	reg('lista_itens');
 	lista_itens.aberto = false;
 
 	reg('lista_camadas');
-	reg('lista_bacias');
-	reg('lista_areas');
-	reg('lista_projetos');
+	reg('camadas_cont');
+	reg('lista_bh');
+	reg('lista_ap');
+	reg('lista_ti');
+	reg('lista_uc');
+	reg('lista_pj');
 
 	reg('dash');
 	dash.aberto = false;
@@ -127,7 +130,6 @@ window.onload = function(){
 
 	reg('tipo');
 	reg('zoom_in');
-	reg('zoom_nivel');
 	reg('zoom_out');
 
 	reg('preloader');
@@ -164,6 +166,20 @@ window.onload = function(){
 			}
 		}
 
+		//lista itens
+		for( a=1; a<=4; a++ ){
+			itm = get('lista_item' + a);
+			if(itm.cod != cod){
+				$(itm).removeClass('selected');
+				$(itm.cont).hide();
+			}else{
+				$(itm).addClass('selected');
+				$(painel_select).html(itm.innerHTML).css({ color:menu.camadas[itm.cod].cor});
+				$(itm.cont).show();
+			}
+		}
+		fechar_lista_itens();
+
 		// clickable
 		for( i in layers_mapa ){
 			 if ( i == cod ){
@@ -172,25 +188,6 @@ window.onload = function(){
  				for( a in layers_mapa[i] ) lock_all( layers_mapa[i][a] );
 			}
 		}
-
-		//clickable
-		// if(cod == 'bh'){
-		// 	for(i = 2; i <= mapa_zi.length; i++){
-		// 		if(i <= 5 ){
-		// 			unlock_all(mapa_zi[i]);
-		// 		}else{
-		// 			lock_all(mapa_zi[i]);
-		// 		}
-		// 	}
-		// }else{
-		// 	for(i = 2; i <= mapa_zi.length; i++){
-		// 		if(i == 5 ){
-		// 			unlock_all(mapa_zi[i]);
-		// 		}else{
-		// 			lock_all(mapa_zi[i]);
-		// 		}
-		// 	}
-		// }
 	}
 
 
@@ -263,22 +260,49 @@ window.onload = function(){
 	// LISTA //
 
 	$(bt_lista).on('click', function(){
-		if(lista.aberto){
+		if(lista.aberto && lista.tela == 'lista'){
 			fechar_lista();
 		}else{
 			abrir_lista();
 		}
-	})
+	});
+
+	$(bt_camadas).on('click', function(){
+		if(lista.aberto && lista.tela == 'camadas'){
+			fechar_lista();
+		}else{
+			abrir_camadas();
+		}
+	});
 
 	function abrir_lista(){
+		lista.tela = 'lista';
 		lista.aberto = true;
 		$(bt_lista).css({backgroundImage:'url(layout/fechar_lista.png)'})
+		$(bt_camadas).css({backgroundImage:'url(layout/camadas.png)'})
 		$(lista).animate({left:0}, dur, in_out);
+		$(camadas_cont).hide();
+		$(lista_itens).show();
+		$(lista_cont).show();
+		$(painel_select).show();
+	}
+
+	function abrir_camadas(){
+		lista.tela = 'camadas';
+		lista.aberto = true;
+		$(bt_camadas).css({backgroundImage:'url(layout/fechar_lista.png)'})
+		$(bt_lista).css({backgroundImage:'url(layout/lista.png)'})
+		$(lista).animate({left:0}, dur, in_out);
+		$(camadas_cont).show();
+		$(lista_itens).hide();
+		$(lista_cont).hide();
+		$(painel_select).hide();
 	}
 
 	function fechar_lista(){
 		lista.aberto = false;
 		$(bt_lista).css({backgroundImage:'url(layout/lista.png)'})
+		$(bt_camadas).css({backgroundImage:'url(layout/camadas.png)'})
 		$(lista).animate({left:-400}, dur, in_out);
 		if(lista_itens.aberto) fechar_lista_itens();
 	}
@@ -291,7 +315,7 @@ window.onload = function(){
 		}
 	});
 
-	lista_itens_h = 140;
+	lista_itens_h = 180;
 
 	function abrir_lista_itens(){
 		lista_itens.aberto = true;
@@ -313,25 +337,15 @@ window.onload = function(){
 		if(lista_itens.aberto) fechar_lista_itens();
 	});
 
-	for( i=0; i<=3; i++ ){
+	for( i=1; i<=4; i++ ){
 		itm = get('lista_item' + i);
 		itm.ID = i;
+		itm.cod = itm.getAttribute('cod');
 		itm.cont = get('painel_cont' + i);
 
 		itm.onclick = function(){
-			for( a=0; a<=3; a++ ){
-				itm = get('lista_item' + a);
-				if(itm == this){
-					itm.className = 'lista_item selected';
-					painel_select.innerHTML = itm.innerHTML;
-					$(itm.cont).show();
-				}else{
-					itm.className = 'lista_item';
-					$(itm.cont).hide();
-				}
-			}
-
-			fechar_lista_itens();
+			if(dash.aberto) fechar_dash();
+			selecionar_nivel(this.cod);
 		}
 	}
 
@@ -361,7 +375,6 @@ window.onload = function(){
 						map: map
 					});
 
-					dash_titulo.innerHTML = data.bacia.principal.toUpperCase() + ' ' + data.bacia.tipo + ':' + id;
 
 					if ( data.bacia.tipo != "principal" ) {
 						$(dash_voltar).show();
@@ -385,117 +398,10 @@ window.onload = function(){
 					}
 
 					// dados
-					var dados_arr = data.bacia.dados.split(',');
-					var dados_grupos = data.bacia.grupos.split(',');
-					var dados_colunas = data.bacia.colunas.split(',');
 
-				    var temp;
-					var graf_labels = [];
-					var graf_data = [];
-					var titulo_div = "";
+					var dash_titulo = data.bacia.principal.toUpperCase() + ' ' + data.bacia.tipo + ':' + id;
 
-					var titulo;
-					var grupos = [];
-					var grupo = {};
-					var div;
-
-					dash_cont.innerHTML = '';
-
-
-					for( i=2; i<dados_arr.length; i++ ){
-
-						if( dados_grupos[i] != '' ){
-
-							grupo = {};
-
-							titulo = dados_grupos[i].split(':');
-							grupo.titulo = titulo[0];
-							if(titulo[1]) grupo.tipo = titulo[1].trim();
-							if(titulo[2]) grupo.max = Number(titulo[2]);
-
-							if(dados_arr[i] != ''){
-								grupo.colunas = [dados_colunas[i]];
-								grupo.dados = [dados_arr[i]];
-							}
-
-							grupos.push(grupo);
-
-						}else{
-
-							if(dados_arr[i] != ''){
-								grupo.colunas.push(dados_colunas[i]);
-								grupo.dados.push(dados_arr[i]);
-							}
-						}
-					}
-
-					for(i in grupos){
-
-						grupo = grupos[i];
-
-						if(grupo.tipo) { // grafico
-
-							div = document.createElement('div');
-							div.id = 'chart'+i;
-							div.className = 'grafico';
-							dash_cont.appendChild(div);
-
-							var chart_data = [grupo.titulo];
-							for(b in grupo.dados) chart_data.push(grupo.dados[b])
-							grupo.escala = grupo.titulo.split(/\(|\)/)[1];
-
-							var chart = c3.generate({
-								bindto:'#chart'+i,
-								size: {
-							        height: 200,
-							        width: 320
-								},
-								padding: {
-								   left: 30,
-							   },
-								color: {
-								   pattern: [menu.camadas['bh'].cor]
-							    },
-								data: {
-									columns: [
-										chart_data
-									],
-									type : grupo.tipo
-								},
-								axis: {
-									x: {
-							            type: 'category',
-							            categories: grupo.colunas
-							        },
-							        y: {
-							            max: grupo.max,
-							            min: 0,
-										padding: {top:0, bottom:2},
-							            label: grupo.escala
-							        }
-							    }
-							});
-
-						}else{ // dado
-
-							div = document.createElement('div');
-							div.className = 'titulo';
-							if(i>1) div.className += ' titulo_div';
-							div.innerHTML = grupo.titulo;
-							grupo.escala = grupo.titulo.split(/\(|\)/)[1];
-							dash_cont.appendChild(div);
-
-							for( a in grupo.dados ){
-								div = document.createElement('div');
-								div.className = 'dado';
-								div.innerHTML += grupo.dados[a];
-								if(grupo.escala) div.innerHTML += ' (' + grupo.escala + ')' ;
-								div.innerHTML += ' ' + grupo.colunas[a];
-								dash_cont.appendChild(div);
-							}
-						}
-					}
-
+					dados_dash( dash_titulo, data.bacia, menu.camadas['bh'].cor );
 					abrir_dash();
 
 				}
@@ -526,7 +432,7 @@ window.onload = function(){
 						layer[i] = new google.maps.Polygon({
 							paths: draw_polygons( data.bacias[i].coords ),
 							strokeColor: '#d89d28',
-							strokeWeight: 1.3,
+							strokeWeight: 1.2,
 							fillOpacity: 0,
 							zIndex:zi,
 							map: map,
@@ -555,6 +461,134 @@ window.onload = function(){
 			.fail( function(xhr, textStatus, errorThrown) {
 				console.log("error " + textStatus + " : " + errorThrown);
 			});
+	}
+
+	function dados_dash( tit, dt, cor ){
+
+		dash_titulo.innerHTML = tit;
+
+		var dados_arr = dt.dados.split(',');
+		var dados_grupos = dt.grupos.split(',');
+		var dados_colunas = dt.colunas.split(',');
+
+		console.log(dados_arr.length);
+		console.log(dados_grupos.length);
+		console.log(dados_colunas.length);
+
+		var titulo_div = "";
+		var titulo;
+		var grupos = [];
+		var grupo = {};
+		var div;
+
+		dash_cont.innerHTML = '';
+
+		for( i=2; i<dados_arr.length; i++ ){
+
+			if( dados_grupos[i] != '' ){
+
+				console.log(dados_arr[i]);
+				console.log(dados_grupos[i]);
+				console.log(dados_colunas[i]);
+				console.log('-----');
+
+				grupo = {};
+
+				titulo = dados_grupos[i].split(':');
+				grupo.titulo = titulo[0];
+				if(titulo[1]) grupo.tipo = titulo[1].trim();
+				if(titulo[2]) grupo.max = Number(titulo[2]);
+
+				if(dados_arr[i] != ''){
+					grupo.colunas = [dados_colunas[i]];
+					grupo.dados = [dados_arr[i]];
+				}
+
+				grupos.push(grupo);
+
+			}else{
+
+				if(dados_arr[i] != ''){
+					grupo.colunas.push(dados_colunas[i]);
+					grupo.dados.push(dados_arr[i]);
+				}
+			}
+		}
+
+		for(i in grupos){
+
+			grupo = grupos[i];
+
+			if(grupo.tipo) { // grafico
+
+				div = document.createElement('div');
+				div.id = 'chart'+i;
+				div.className = 'grafico';
+				dash_cont.appendChild(div);
+
+				var chart_data = [grupo.titulo];
+				for(b in grupo.dados) chart_data.push(grupo.dados[b])
+				grupo.escala = grupo.titulo.split(/\(|\)/)[1];
+
+				var chart = c3.generate({
+					bindto:'#chart'+i,
+					size: {
+						height: 200,
+						width: 330
+					},
+					tooltip: {
+					format: {
+						    title: function (d) { return d.value }
+				        }
+					},
+					padding:{
+						left:45
+					},
+					color: {
+					   pattern: [cor]
+					},
+					data: {
+						columns: [
+							chart_data
+						],
+						type : grupo.tipo
+					},
+					axis: {
+						x: {
+							type: 'category',
+							categories: grupo.colunas
+						},
+						y: {
+							max: grupo.max,
+							min: 0,
+							padding: {top:0, bottom:2},
+							label: {
+						       text: grupo.escala,
+						       position: 'outer-top'
+						    }
+						}
+					}
+				});
+
+			}else{ // dado
+
+				div = document.createElement('div');
+				div.className = 'titulo';
+				if(i>1) div.className += ' titulo_div';
+				div.innerHTML = grupo.titulo;
+				grupo.escala = grupo.titulo.split(/\(|\)/)[1];
+				dash_cont.appendChild(div);
+
+				for( a in grupo.dados ){
+					div = document.createElement('div');
+					div.className = 'dado';
+					div.innerHTML += grupo.dados[a];
+					if(grupo.escala) div.innerHTML += ' (' + grupo.escala + ')' ;
+					div.innerHTML += ' ' + grupo.colunas[a];
+					dash_cont.appendChild(div);
+				}
+			}
+		}
 	}
 
 	function grafico(dt, tp, id){
@@ -599,59 +633,8 @@ window.onload = function(){
 					});
 
 					// dados
-					var dados_arr = data.selecao.dados.split(',');
-					var dados_labels = data.selecao.labels.split(',');
-					var dados_colunas = data.selecao.colunas.split(',');
 
-					dash_titulo.innerHTML = cod;
-
-					dash_cont.innerHTML = 'DADOS ' + cod;
-					//
-				    // var titulo;
-				    // var temp;
-					// var grafico = false;
-					// var graficos = [];
-					// var grafico_dados = {};
-					// var titulo_div = "";
-					//
-					// for( i=2; i<dados_arr.length; i++ ){
-					// 	if( dados_labels[i] != '' ) {
-					//
-					// 		//aplica o grafico anterior
-					// 		if(grafico){
-					// 			graficos.push(grafico_dados);
-					// 			grafico = false;
-					// 			grafico_dados = {};
-					// 			dash_cont.innerHTML += "<div class='grafico' id='grafico" + graficos.length + "'> AQUI VAI O GRAFICO </div>";
-					// 		}
-					//
-					// 		if( i > 3 ) titulo_div = 'titulo_div';
-					//
-					// 		titulo = dados_labels[i].split('|');
-					//
-					// 		temp = "<div class='titulo "+titulo_div+"'>" + titulo[0];
-					// 		if( titulo[1] ) temp += '(' + titulo[1] + ')</div>';
-					// 		else  temp += '</div>';
-					//
-					// 		dash_cont.innerHTML += temp;
-					//
-					// 		if (titulo[2] && titulo[2].trim(' ').toUpperCase() == 'GRAF'){
-					// 			grafico = true;
-					// 			grafico_dados = {};
-					// 		}
-					// 	}
-					//
-					// 	if(grafico){
-					// 		grafico_dados[ dados_colunas[i]] = dados_arr[i];
-					// 	}else{
-					// 		temp = '<div class=\'dado\'>' + dados_arr[i] + ' ' + dados_colunas[i];
-					// 		if( titulo[1] ) temp += titulo[1] + '</div>';
-					// 		else  temp += '</div>';
-					//
-					// 		dash_cont.innerHTML += temp;
-					// 	}
-					// }
-
+					dados_dash( cod, data.selecao, menu.camadas[cod].cor );
 					abrir_dash();
 
 				}else{
@@ -662,7 +645,7 @@ window.onload = function(){
 						layer[i] = new google.maps.Polygon({
 							paths: draw_polygons( data.mapa[i].coords ),
 							strokeColor: menu.camadas[cod].cor,
-							strokeWeight: 1.3,
+							strokeWeight: 1.2,
 							fillOpacity: 0,
 							zIndex:7,
 							map: map,
@@ -722,6 +705,8 @@ window.onload = function(){
 	function fechar_dash(d){
 		dash.aberto = false;
 		$(dash).animate({right:-400}, dur, in_out);
+		$(dash_voltar).hide();
+		$(dash_topo).css({ width:'' });
 
 		// bh
 		reset_layer(bacia_polygons);
@@ -841,86 +826,6 @@ window.onload = function(){
 	}
 
 
-	///////////////////////////////////////////////////////////////////////////////////////// LOADDATA
-
-	// var xml_bacias;
-	// var xml_areas;
-	// var xml_projetos;
-	//
-	// function loadData(){
-	//
-	// 	xml_bacias = $(xml).find('bacias').children();
-	// 	xml_areas = $(xml).find('areas').children();
-	// 	xml_projetos = $(xml).find('projetos').children();
-	//
-	// 	// bacias
-	// 	$(xml_bacias).each(function(i,d){
-	//
-	// 		itm = document.createElement('li');
-	// 		itm.ID = i;
-	// 		itm.className = 'cont_item';
-	// 		itm.innerHTML = $(d).attr('nome');
-	//
-	// 		itm.nome = $(d).attr('nome');
-	// 		itm.id = $(d).attr('id');
-	//
-	// 		// mais dados
-	//
-	// 		itm.onclick = function(){
-	// 			 abrir_dash( 'bacia', this.id);
-	// 		}
-	//
-	// 		lista_bacias.appendChild(itm);
-	//
-	// 	});
-	//
-	// 	// areas
-	// 	$(xml_areas).each(function(i,d){
-	//
-	// 		itm = document.createElement('li');
-	// 		itm.ID = i;
-	// 		itm.className = 'cont_item';
-	// 		itm.innerHTML = $(d).attr('nome');
-	//
-	// 		itm.nome = $(d).attr('nome');
-	// 		itm.id = $(d).attr('id');
-	// 		// mais dados
-	//
-	// 		itm.onclick = function(){
-	// 			abrir_dash('area', this.id);
-	// 		}
-	//
-	// 		lista_areas.appendChild(itm);
-	//
-	// 	});
-	//
-	// 	// projetos
-	//
-	// 	$(xml_projetos).each(function(i,d){
-	//
-	// 		itm = document.createElement('li');
-	// 		itm.ID = i;
-	// 		itm.className = 'cont_item';
-	// 		itm.innerHTML = $(d).attr('nome');
-	//
-	// 		itm.nome = $(d).attr('nome');
-	// 		itm.id = $(d).attr('id');
-	//
-	// 		// mais dados
-	// 		itm.onclick = function(){
-	// 			abrir_dash('projeto', this.id);
-	// 		}
-	//
-	// 		lista_projetos.appendChild(itm);
-	//
-	// 	});
-	//
-	// 	// map
-	// 	loadMap();
-	//
-	// }	// fim loadData
-
-
 	///////////////////////////////////////////////////////////////////////////////////////// LOADMAP
 
 	function loadMap(){
@@ -960,7 +865,6 @@ window.onload = function(){
 
 		google.maps.event.addListener(map,'zoom_changed', function (){
 			zoom_at = map.getZoom();
-			$(zoom_nivel).html( duas_casas(zoom_at-3));
 		});
 
 		map_ok = true;
@@ -1018,6 +922,30 @@ window.onload = function(){
 
 	var menu;
 
+	function listar(cod, lista, layer){
+		$(menu[cod]).each(function(i,d){
+
+			itm = document.createElement('li');
+			itm.ID = i;
+			itm.className = 'cont_item';
+			itm.innerHTML = d.nome;
+			itm.nome = d.nome;
+			itm.cod = cod;
+			itm.layer = layer;
+			itm.id = d.id;
+
+			itm.onclick = function(){
+				if( menu.camadas[this.cod].ativo ){
+					if(this.cod == 'bh') bh_select( this.id, this.layer );
+					else bd_select( this.id, this.cod );
+				}
+			}
+
+			lista.appendChild(itm);
+
+		});
+	}
+
 	$.post(
 		'php_tools/menu.php',
 		null,
@@ -1025,63 +953,11 @@ window.onload = function(){
 
 			menu = data;
 
-			// bacias
-			$(menu.bacias).each(function(i,d){
-
-				itm = document.createElement('li');
-				itm.ID = i;
-				itm.className = 'cont_item';
-				itm.innerHTML = d.nome;
-				itm.nome = d.nome;
-				itm.id = d.id;
-				itm.id = d.id;
-
-				itm.onclick = function(){
-					if( menu.camadas.bh.ativo ){
-						bh_select( this.id, macro_polygons )
-					}
-				}
-
-				lista_bacias.appendChild(itm);
-
-			});
-
-			// areas
-			// $(menu.areas).each(function(i,d){
-			//
-			// 	itm = document.createElement('li');
-			// 	itm.ID = i;
-			// 	itm.className = 'cont_item';
-			// 	itm.innerHTML = d.nome;
-			// 	itm.nome = d.nome;;
-			// 	itm.id = d.id;
-			//
-			// 	itm.onclick = function(){
-			// 		abrir_dash('area', this.id);
-			// 	}
-			//
-			// 	lista_areas.appendChild(itm);
-			//
-			// });
-
-			// projetos
-
-			// $(menu.projetos).each(function(i,d){
-			//
-			// 	itm = document.createElement('li');
-			// 	itm.ID = i;
-			// 	itm.className = 'cont_item';
-			// 	itm.innerHTML = d.nome;
-			// 	itm.nome = d.nome;;
-			// 	itm.id = d.id;
-			//
-			// 	itm.onclick = function(){
-			// 		abrir_dash('projeto', this.id);
-			// 	}
-			//
-			// 	lista_projetos.appendChild(itm);
-			//
-			// });
+			listar('bh', lista_bh, macro_polygons);
+			listar('ap', lista_ap, aps_polygons);
+			//listar('pj', lista_pj, bug aqui );
+			listar('uc', lista_uc, ucs_polygons);
+			listar('ti', lista_ti, tis_polygons);
 
 			// camadas
 			$(menu.camadas).each(function(i,d){
@@ -1102,7 +978,6 @@ window.onload = function(){
 						ativar_camada(this);
 					}
 				}
-
 
 				olho = document.createElement('div');
 				olho.className = 'olho';

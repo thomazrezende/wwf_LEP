@@ -9,33 +9,47 @@ function bool($n){
     else return 'true';
 }
 
-conectar();
+function built_json($data, $obj){
+    print '"'.$obj.'":[';
 
-    print '{';
+    for( $i=0; $i<count($data); $i++ ){
 
-    // bacias
+        $id = $data[$i]['id'];
+        $dados_arr = explode( ',', $data[$i]['dados']);
 
-    $bacias = sql_select( 'b2020_bh', '*', '', 'tipo=\'principal\'', true );
-    print '"bacias":[';
-
-    for( $i=0; $i<count($bacias); $i++ ){
-
-        $id = $bacias[$i]['id'];
-        $dados_arr = explode( ',', $bacias[$i]['dados']);
-
-        $dados_arr[1] = 'Nome da Bacia';
+        $dados_arr[1] = 'label';
 
         print '{';
         print '"id":"'.$id.'",';
         print '"nome":"'.$id.'-'.$dados_arr[1].'"';
         print '}';
 
-        if( $i < count($bacias)-1 ) print ',';
+        if( $i < count($data)-1 ) print ',';
     }
     print '],';
+}
+
+conectar();
+
+    print '{';
+
+    // bacias
+    $bhs = sql_select( 'b2020_bh', '*', '', 'tipo=\'principal\'', true );
+    built_json($bhs, 'bh', true);
+
+    // aps
+    $aps = sql_select( 'b2020_ap', '*', '', '', true );
+    built_json($aps, 'ap');
+
+    // tis
+    $tis = sql_select( 'b2020_ti', '*', '', '', true );
+    built_json($tis, 'ti');
+
+    // ucs
+    $ucs = sql_select( 'b2020_uc', '*', '', '', true );
+    built_json($ucs, 'uc');
 
     // camadas
-
     $camadas = sql_select( 'b2020_camadas', '*', '', '', true );
     print '"camadas":[';
 

@@ -13,13 +13,13 @@ print '{';
 if( $id != 'null' ){ // item selecionado
 
     $selecao = sql_select( 'b2020_'.$cod, '*', '', 'id=\''.$id.'\'', false );
-    //$labels = sql_select( 'b2020_'.$cod, '*', '', '', false );
-    //$colunas = sql_select( 'b2020_'.$cod, '*', '', '', false );
+    $grupos = sql_select( 'b2020_grupos', '*', '', 'codigo=\''.$cod.'\'', false );
+    $colunas = sql_select( 'b2020_colunas', '*', '', 'codigo=\''.$cod.'\'', false );
 
     print '"selecao":{';
     print '"dados":"'.$selecao['dados'].'",';
-    //print '"labels":"'.$labels['dados'].'",';
-    //print '"colunas":"'.$colunas['dados'].'",';
+    print '"grupos":"'.$grupos['dados'].'",';
+    print '"colunas":"'.$colunas['dados'].'",';
     print '"coords":"'.$selecao['coords'].'",';
     print '"id":"'.$selecao['id'].'"';
     print '}';
