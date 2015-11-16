@@ -5,7 +5,7 @@ require_once('../../../_control/seguranca.php');
 require_once('../../cms_lep/_tr/mysql.php');
 
 function bool($n){
-    if($n===0) return 'false';
+    if($n=='0') return 'false';
     else return 'true';
 }
 
@@ -56,7 +56,6 @@ conectar();
     for( $i=0; $i<count($camadas); $i++ ){
 
         print '{';
-        print '"id":"'.$camadas[$i]['id'].'",';
         print '"label":"'.$camadas[$i]['label'].'",';
         print '"codigo":"'.$camadas[$i]['codigo'].'",';
         print '"cor":"'.$camadas[$i]['cor'].'",';

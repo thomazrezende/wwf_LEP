@@ -57,7 +57,7 @@ require_once("_tr/up_file_form.php");
 				titulo("mt0","DADOS (csv)", false);
 				up_file_form("_dados", "arquivo", "php/b2020_camada_csv_up.php?codigo=".$dados["codigo"], "arquivo", false, true, "csv");
 
-			} 
+			}
 
 			?>
 

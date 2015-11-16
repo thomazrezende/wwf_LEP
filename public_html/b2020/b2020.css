@@ -227,6 +227,7 @@ p{ margin: 0; padding: 0;}
 	margin-bottom: 5px;
 }
 
+
 .titulo_div{
 	border-top: #e6e6e6 1px solid;
 	padding-top: 10px;
@@ -287,6 +288,13 @@ p{ margin: 0; padding: 0;}
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+
+#camadas_extra{
+	font-size: 12px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	color: #999;
 }
 
 #lista_itens{
@@ -406,7 +414,7 @@ p{ margin: 0; padding: 0;}
 
 #nivel{
 	width: 100%;
-	max-width: 600px;
+	max-width: 700px;
 	height: 100%;
 	display: table;
 	margin: 0 auto;
@@ -415,7 +423,7 @@ p{ margin: 0; padding: 0;}
 }
 
 .nivel_item{
-	width:25%;
+	width:20%;
 	height: 100%;
 	text-align: center;
 	display: table-cell;

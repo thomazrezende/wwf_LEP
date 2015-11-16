@@ -20,6 +20,7 @@ if( $id != 'null' ){ // item selecionado
     print '"dados":"'.$selecao['dados'].'",';
     print '"grupos":"'.$grupos['dados'].'",';
     print '"colunas":"'.$colunas['dados'].'",';
+    print '"tipo":"'.$selecao['tipo'].'",';
     print '"coords":"'.$selecao['coords'].'",';
     print '"id":"'.$selecao['id'].'"';
     print '}';
@@ -31,6 +32,8 @@ if( $id != 'null' ){ // item selecionado
 
     for($i=0; $i<count($mapa); $i++){
         print '{';
+        print '"id":"'.$mapa[$i]['id'].'",';
+        print '"tipo":"'.$mapa[$i]['tipo'].'",';
         print '"coords":"'.$mapa[$i]['coords'].'",';
         print '"id":"'.$mapa[$i]['id'].'"';
         print '}';
