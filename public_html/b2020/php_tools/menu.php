@@ -1,4 +1,5 @@
 <?php
+ini_set('memory_limit', '-1');
 
 require_once('../../../_control/acesso.php');
 require_once('../../../_control/seguranca.php');
@@ -17,11 +18,11 @@ function built_json($data, $obj){
         $id = $data[$i]['id'];
         $dados_arr = explode( ',', $data[$i]['dados']);
 
-        $dados_arr[1] = 'label';
+        $dados_arr[1] = 'Nome do item';
 
         print '{';
         print '"id":"'.$id.'",';
-        print '"nome":"'.$id.'-'.$dados_arr[1].'"';
+        print '"nome":"'.$dados_arr[1].'"';
         print '}';
 
         if( $i < count($data)-1 ) print ',';

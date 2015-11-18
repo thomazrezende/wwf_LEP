@@ -399,7 +399,7 @@ window.onload = function() {
 
         // DASBOARD //
 
-        function bh_select(id, layer) {
+        function bh_select(id, layer, fit) {
 
             var file = 'php_tools/bh_select.php?id=' + id;
             console.log(file);
@@ -411,7 +411,7 @@ window.onload = function() {
 
 						// reset locais
 			            verifica_locais(false, false);
-						
+
                         // bacia selecionada
                         if (id) {
                             if (bacia_polygons[0]) reset_layer(bacia_polygons);
@@ -425,6 +425,9 @@ window.onload = function() {
                                 map: map
                             });
 
+							if(fit){
+								map.fitBounds(bacia_polygons[0].getBounds());
+							}
 
                             if (data.bacia.tipo != "principal") {
                                 $(dash_voltar).show();
@@ -501,10 +504,10 @@ window.onload = function() {
                                 layer[i].micro_id = data.bacias[i].micro_id;
 
                                 google.maps.event.addListener(layer[i], 'click', function(event) {
-                                    if (this.tipo == 'principal' && nivel_selecao == 'bh') bh_select(this.id, macro_polygons);
-                                    if (this.tipo == 'macro' && nivel_selecao == 'bh') bh_select(this.id, meso_polygons);
-                                    if (this.tipo == 'meso' && nivel_selecao == 'bh') bh_select(this.id, micro_polygons);
-                                    if (this.tipo == 'micro' && nivel_selecao == 'bh') bh_select(this.id, false);
+                                    if (this.tipo == 'principal' && nivel_selecao == 'bh') bh_select(this.id, macro_polygons, false);
+                                    if (this.tipo == 'macro' && nivel_selecao == 'bh') bh_select(this.id, meso_polygons, false);
+                                    if (this.tipo == 'meso' && nivel_selecao == 'bh') bh_select(this.id, micro_polygons, false);
+                                    if (this.tipo == 'micro' && nivel_selecao == 'bh') bh_select(this.id, false, false);
                                 });
                             }
                         }
@@ -657,7 +660,7 @@ window.onload = function() {
             }, 100);
         }
 
-        function bd_select(id, cod) {
+        function bd_select(id, cod, fit) {
 
             var file = 'php_tools/bd_select.php?id=' + id + '&cod=' + cod;
             console.log(file);
@@ -685,6 +688,11 @@ window.onload = function() {
                                     clickable: false,
                                     map: map
                                 });
+
+								if(fit){
+									map.fitBounds(layer[0].getBounds());
+								}
+
 
                             } else {
 
@@ -719,7 +727,7 @@ window.onload = function() {
                                     layer[i].cod = cod;
 
                                     google.maps.event.addListener(layer[i], 'click', function(event) {
-                                        if (nivel_selecao == this.cod) bd_select(this.id, this.cod);
+                                        if (nivel_selecao == this.cod) bd_select(this.id, this.cod, false);
                                     });
 
                                 } else {
@@ -734,7 +742,7 @@ window.onload = function() {
                                     layer[i].cod = cod;
 
                                     layer[i].addListener('click', function() {
-                                        bd_select(this.id, this.cod)
+                                        bd_select(this.id, this.cod, false)
                                     });
                                 }
                             }
@@ -779,7 +787,7 @@ window.onload = function() {
 
         $(dash_voltar).on('click', function() {
             if (!menu.camadas.bh.ativo) ativar_camada(menu.camadas.bh.itm);
-            bh_select(this.id_voltar, this.layer_voltar);
+            bh_select(this.id_voltar, this.layer_voltar, false);
         })
 
         function reset_layer(layer) {
@@ -955,6 +963,19 @@ window.onload = function() {
 
         ///////////////////////////////////////////////////////////////////////////////////////// LOADMAP
 
+		google.maps.Polygon.prototype.getBounds = function() {
+			var bounds = new google.maps.LatLngBounds();
+			var paths = this.getPaths();
+			var path;
+			for (var i = 0; i < paths.getLength(); i++) {
+				path = paths.getAt(i);
+				for (var ii = 0; ii < path.getLength(); ii++) {
+					bounds.extend(path.getAt(ii));
+				}
+			}
+			return bounds;
+		}
+
         function loadMap() {
 
             centro_ini = new google.maps.LatLng(-15.15, -51.98);
@@ -1063,8 +1084,8 @@ window.onload = function() {
 
                 itm.onclick = function() {
                     if (menu.camadas[this.cod].ativo) {
-                        if (this.cod == 'bh') bh_select(this.id, this.layer);
-                        else bd_select(this.id, this.cod);
+                        if (this.cod == 'bh') bh_select(this.id, this.layer, true);
+                        else bd_select(this.id, this.cod, true);
                     }
                 }
 
@@ -1178,31 +1199,22 @@ window.onload = function() {
 
                     // iniciar
 
+					console.log('iniciar');
+
                     selecionar_nivel('bh');
-                    bh_select(null, principais_polygons);
-                    bd_select(null, 'uc');
-                    bd_select(null, 'ti');
-                    bd_select(null, 'ap');
-                    bd_select(null, 'pj');
-                    bd_select(null, 'uh');
+                    bh_select(null, principais_polygons, false);
+                    bd_select(null, 'uc', false);
+                    bd_select(null, 'ti', false);
+                    bd_select(null, 'ap', false);
+                    bd_select(null, 'pj', false);
+                    bd_select(null, 'uh', false);
 
                 }, "json")
             .fail(function(xhr, textStatus, errorThrown) {
                 console.log("error " + textStatus + " : " + errorThrown);
             });
 
-        google.maps.Polygon.prototype.getBounds = function() {
-            var bounds = new google.maps.LatLngBounds();
-            var paths = this.getPaths();
-            var path;
-            for (var i = 0; i < paths.getLength(); i++) {
-                path = paths.getAt(i);
-                for (var ii = 0; ii < path.getLength(); ii++) {
-                    bounds.extend(path.getAt(ii));
-                }
-            }
-            return bounds;
-        }
+
 
         // //iniciar
         // $.ajax({
