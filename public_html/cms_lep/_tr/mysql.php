@@ -322,14 +322,15 @@ function bk_conectar(){
 
 	*/
 
-	function registra_log($path){
+	function registra_log($path, $user_id, $user_name, $user_email){
 		session_start();
 		$ip = $_SERVER['REMOTE_ADDR'];
 		$data = date("Y-m-d");
 		$hora = date("h:i:s");
 		$browser = $_SERVER['HTTP_USER_AGENT'];
 
-		$sql = "INSERT INTO logs ( ip, data, hora, browser ) VALUES ( '".$ip."', '".$data."', '".$hora."', '".$browser."')";
+		$sql = "INSERT INTO logs ( ip, data, hora, browser, user_id, user_name, user_email )
+				VALUES ( '".$ip."', '".$data."', '".$hora."', '".$browser."', '".$user_id."', '".$user_name."', '".$user_email."')";
 		$inserir = mysql_query($sql);
 
 		if($inserir){
@@ -344,12 +345,18 @@ function bk_conectar(){
 
 				 //Pegamos o valor de cada registro
 				 $ip = utf8_encode($result["ip"]);
+				 $name = utf8_encode($result["user_name"]);
+				 $id = utf8_encode($result["user_id"]);
+				 $email = utf8_encode($result["user_email"]);
 				 $data = utf8_encode($result["data"]);
 				 $hora = utf8_encode($result["hora"]);
 				 $browser = utf8_encode($result["browser"]);
 
 				 //Guardamos na variavel $conteudo as tags e os valores do xml
 				 $conteudo .= "--------------------------\r\n";
+				 $conteudo .= "id_usuario: ".$id."\r\n";
+				 $conteudo .= "usuario: ".$name."\r\n";
+				 $conteudo .= "login: ".$email."\r\n";
 				 $conteudo .= "data: ".$data."\r\n";
 				 $conteudo .= "hora: ".$hora."\r\n";
 				 $conteudo .= "IP: ".$ip."\r\n";

@@ -18,19 +18,16 @@ head("LEP - login");
 
 		<?php
 
-        form1("login_form", "login_form", "php/logar.php", "post");
+        form1("login_form", "login_form", "php/esqueci_senha_token.php", "post");
 
-            titulo("","LOGIN (e-mail)",false);
-            input("login", "input", "login", "","text");
+            titulo("","EMAIL (LOGIN)",false);
+            input("email", "input", "email", "","text");
 
-            titulo("","SENHA",false);
-            input("senha", "input", "senha", "", "password");
-
-            submit("ENTRAR &raquo;");
+            submit("REDEFINIR SENHA &raquo;");
 
         form2();
 
-		a_link("","link_login","esqueci_senha.php", "ESQUECI A SENHA", "_self", false);
+		a_link("","link_login","login.php", "VOLTAR", "_self", false);
 
 		mensagem();
 

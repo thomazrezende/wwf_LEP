@@ -30,9 +30,8 @@ foreach( $xml->Document[0]->Folder[0] as $area ){
 
         $placemark['id'] = null;
         for( $i=0; $i<count($desc_arr); $i++ ){
-            // atualizar com o ID final!!!
-            if ( $desc_arr[$i] == 'FID' ) $placemark['id'] = $desc_arr[$i+1];
-        }
+            if ( $desc_arr[$i] == 'cod' || $desc_arr[$i] == 'cod_cnuc' ) $placemark['id'] = $desc_arr[$i+1];
+        } 
 
         // coords
         $placemark['coords'] = '';
@@ -50,6 +49,8 @@ foreach( $xml->Document[0]->Folder[0] as $area ){
                             array( "coords", $placemark['coords'] ));
 
         sql_insert( 'b2020_'.$cod, $valores);
+
+        // print $placemark['id']."<br>";
 
     }
 }

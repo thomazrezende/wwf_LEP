@@ -26,7 +26,7 @@ window.onload = function() {
         var cinza = "#ccc";
 
         var min_zoom = 4;
-        var max_zoom = 11;
+        var max_zoom = 13;
         var zoom_at = 4;
         var nivel_selecao = 'bh';
 
@@ -135,7 +135,9 @@ window.onload = function() {
         reg('zoom_out');
 
         reg('preloader');
-        $(preloader).hide();
+        reg('alerta');
+        reg('alerta_tx');
+        reg('alerta_ok');
 
         reg('mapa');
         reg('bt_bacias');
@@ -155,6 +157,23 @@ window.onload = function() {
         var niveis = [nivel1, nivel2, nivel3, nivel4, nivel5];
 
         /////////////////////////////////////////////////////////////////////////////////////////  FUNCOES
+
+        $(logout).on('click', function(){
+            document.location.href = '../cms_lep/php/logar.php?sessao=false';
+        });
+
+        // alerta
+
+        $(alerta).hide();
+
+        $(alerta_ok).on('click', function(){
+            $(alerta).fadeOut(dur);
+        });
+
+        function alertar(tx){
+            $(alerta_tx).html(tx);
+            $(alerta).fadeIn(dur);
+        }
 
         // NIVEL //
 
@@ -231,9 +250,13 @@ window.onload = function() {
 
         function verifica_camada(d) {
             if (d.ativo) { // on
-                if (d.codigo != 'no') { // fixas on
-                    for (i = 0; i < layers_map[d.codigo].length; i++) {
-                        show_all(layers_map[d.codigo][i]);
+                if ( d.codigo != 'no' ) { // fixas on
+                    if( layers_map[d.codigo][1].length == 0 ){ // se não tiver carregado o mapa completo desse cod, carregue
+                        bd_select(null, d.codigo, false, true);
+                    }else{ // se já tiver carregado, mostre
+                        for (i = 0; i < layers_map[d.codigo].length; i++) {
+                            show_all(layers_map[d.codigo][i]);
+                        }
                     }
                 } else { // extras on
                     d.kmz.setMap(map);
@@ -404,6 +427,8 @@ window.onload = function() {
             var file = 'php_tools/bh_select.php?id=' + id;
             console.log(file);
 
+            $(preloader).show();
+
             $.post(
                     file,
                     null,
@@ -511,6 +536,9 @@ window.onload = function() {
                                 });
                             }
                         }
+
+                        $(preloader).hide();
+
                     },
                     "json"
                 )
@@ -545,6 +573,7 @@ window.onload = function() {
                     grupo.titulo = titulo[0];
                     if (titulo[1]) grupo.tipo = titulo[1].trim();
                     if (titulo[2]) grupo.max = Number(titulo[2]);
+                    else grupo.max = false;
 
                     if (dados_arr[i] != '') {
                         grupo.colunas = [dados_colunas[i]];
@@ -566,6 +595,14 @@ window.onload = function() {
 
                 grupo = grupos[i];
 
+                // titulo
+                div = document.createElement('div');
+                div.className = 'titulo';
+                if (i > 0) div.className += ' titulo_div';
+                div.innerHTML = grupo.titulo;
+                grupo.escala = grupo.titulo.split(/\(|\)/)[1];
+                dash_cont.appendChild(div);
+
                 if (grupo.tipo) { // grafico
 
                     div = document.createElement('div');
@@ -577,21 +614,22 @@ window.onload = function() {
                     for (b in grupo.dados) chart_data.push(grupo.dados[b])
                     grupo.escala = grupo.titulo.split(/\(|\)/)[1];
 
+                    var chart_width = chart_data.length * 50;
+
                     var chart = c3.generate({
                         bindto: '#chart' + i,
                         size: {
                             height: 200,
-                            width: 330
+                            width: chart_width
                         },
                         tooltip: {
-                            format: {
-                                title: function(d) {
-                                    return d.value
-                                }
-                            }
+                            contents: function (d) {
+                                return "<div id='tooltip' style='background:"+cor+"'>" + d[0].value + '</div>';
+                              }
                         },
                         padding: {
-                            left: 45
+                            left: 40,
+                            bottom: 10
                         },
                         color: {
                             pattern: [cor]
@@ -601,6 +639,9 @@ window.onload = function() {
                                 chart_data
                             ],
                             type: grupo.tipo
+                        },
+                        legend: {
+                            show: false
                         },
                         axis: {
                             x: {
@@ -613,29 +654,23 @@ window.onload = function() {
                                 padding: {
                                     top: 0,
                                     bottom: 2
-                                },
-                                label: {
-                                    text: grupo.escala,
-                                    position: 'outer-top'
                                 }
+                                // ,
+                                // label: {
+                                //     text: grupo.escala,
+                                //     position: 'outer-top'
+                                // }
                             }
                         }
                     });
 
                 } else { // dado
 
-                    div = document.createElement('div');
-                    div.className = 'titulo';
-                    if (i > 1) div.className += ' titulo_div';
-                    div.innerHTML = grupo.titulo;
-                    grupo.escala = grupo.titulo.split(/\(|\)/)[1];
-                    dash_cont.appendChild(div);
-
                     for (a in grupo.dados) {
                         div = document.createElement('div');
                         div.className = 'dado';
                         div.innerHTML += grupo.dados[a];
-                        if (grupo.escala) div.innerHTML += ' (' + grupo.escala + ')';
+                        if (grupo.escala) div.innerHTML += ' ' + grupo.escala;
                         div.innerHTML += ' ' + grupo.colunas[a];
                         dash_cont.appendChild(div);
                     }
@@ -660,14 +695,19 @@ window.onload = function() {
             }, 100);
         }
 
-        function bd_select(id, cod, fit) {
+        function bd_select(id, cod, fit, nivel) {
 
             var file = 'php_tools/bd_select.php?id=' + id + '&cod=' + cod;
             console.log(file);
+
+            $(preloader).show();
+
             $.post(
                     file,
                     null,
                     function(data) {
+
+                        $(preloader).hide();
 
                         reset_map();
 
@@ -727,7 +767,7 @@ window.onload = function() {
                                     layer[i].cod = cod;
 
                                     google.maps.event.addListener(layer[i], 'click', function(event) {
-                                        if (nivel_selecao == this.cod) bd_select(this.id, this.cod, false);
+                                        if (nivel_selecao == this.cod) bd_select(this.id, this.cod, false, false);
                                     });
 
                                 } else {
@@ -742,11 +782,14 @@ window.onload = function() {
                                     layer[i].cod = cod;
 
                                     layer[i].addListener('click', function() {
-                                        bd_select(this.id, this.cod, false)
+                                        bd_select(this.id, this.cod, false, false)
                                     });
                                 }
                             }
                         }
+
+                        if(nivel) selecionar_nivel( cod );
+
                     },
                     "json"
                 )
@@ -1071,6 +1114,7 @@ window.onload = function() {
         var menu;
 
         function listar(cod, lista, layer) {
+
             $(menu[cod]).each(function(i, d) {
 
                 itm = document.createElement('li');
@@ -1085,7 +1129,9 @@ window.onload = function() {
                 itm.onclick = function() {
                     if (menu.camadas[this.cod].ativo) {
                         if (this.cod == 'bh') bh_select(this.id, this.layer, true);
-                        else bd_select(this.id, this.cod, true);
+                        else bd_select(this.id, this.cod, true, false);
+                    }else{
+                        alertar("<b>ESTA CAMADA NÃO ESTÁ VISÍVEL!</b> <br>Ative " + menu.camadas[this.cod].label + " no painel de camadas.");
                     }
                 }
 
@@ -1108,6 +1154,8 @@ window.onload = function() {
                     listar('ti', lista_ti, tis_polygons);
 
                     // camadas
+                    var titulo_extras = false;
+
                     $(menu.camadas).each(function(i, d) {
 
                         itm = document.createElement('li');
@@ -1124,20 +1172,22 @@ window.onload = function() {
 
                         if (d.codigo === 'no') { // camada extra
 
-                            titulo = document.createElement('li');
-                            titulo.id = 'camadas_extra';
-                            titulo.innerHTML = 'CAMADAS EXTRA';
-                            lista_camadas.appendChild(titulo);
+                            if(!titulo_extras){
+                                titulo = document.createElement('li');
+                                titulo.id = 'camadas_extra';
+                                titulo.innerHTML = 'CAMADAS EXTRA';
+                                lista_camadas.appendChild(titulo);
+                                titulo_extras = true;
+                            }
 
                             d.kmz = new google.maps.KmlLayer({
-                                url: 'http://www.thomazrezende.com/arquivo/b2020/camada17/paths4.kmz',
+                                url: 'http://paisagem.wwf.org.br/b2020/camadas/camada'+d.id+'/camada.kmz',
                                 preserveViewport: true
                             });
 
                             google.maps.event.addListener(d.kmz, 'click', function(kmlEvent) {
                                 console.log(this);
                             });
-
 
                             if (d.ativo) d.kmz.setMap(map);
 
@@ -1186,9 +1236,6 @@ window.onload = function() {
                         lista_camadas.appendChild(itm);
                     });
 
-                    // TO DO
-
-
                     // niveis
 
                     for (i in niveis) {
@@ -1203,31 +1250,20 @@ window.onload = function() {
 
                     selecionar_nivel('bh');
                     bh_select(null, principais_polygons, false);
-                    bd_select(null, 'uc', false);
-                    bd_select(null, 'ti', false);
-                    bd_select(null, 'ap', false);
-                    bd_select(null, 'pj', false);
-                    bd_select(null, 'uh', false);
+
+                    //  carregando todos no começo deixa o load inicial muito lento.
+                    //  mudei para load por demanda, ao ativar a respectiva camada
+                    // bd_select(null, 'uc', false, false);
+                    // bd_select(null, 'ti', false, false);
+                    // bd_select(null, 'ap', false, false);
+                    // bd_select(null, 'pj', false, false);
+                    // bd_select(null, 'uh', false, false);
 
                 }, "json")
             .fail(function(xhr, textStatus, errorThrown) {
                 console.log("error " + textStatus + " : " + errorThrown);
             });
 
-
-
-        // //iniciar
-        // $.ajax({
-        // 	url: 'dados.xml',
-        // 	dataType: 'xml',
-        // 	success: function(data){
-        // 		xml = $(data);
-        // 		loadData()
-        // 	},
-        // 	error: function(data){
-        // 		console.log('Error loading XML data');
-        // 	}
-        // });
 
         loadMap();
 

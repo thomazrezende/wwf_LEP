@@ -43,6 +43,12 @@ iframe{
 	left: 90px;
 }
 
+.link_login{
+	width: 100%;
+	display: block;
+	text-align: center;
+}
+
 .link_login:link{color:#fff; text-decoration:none}
 .link_login:hover{color:#fff; text-decoration:underline}
 .link_login:active{color:#fff; text-decoration:underline}
@@ -89,7 +95,8 @@ hr{
 	font-size:14px;
 	width: 100%;
 	padding:43px;
-	text-align: center
+	text-align: center;
+	line-height: 22px;
 }
 
 .msg_ok{color:#85c7aa}
@@ -121,6 +128,10 @@ hr{
 	position: absolute; left: 0; top: 0
 }
 
+#historico{
+	font-size: 14px;
+	line-height: 20px;
+}
 
 /* MENU */
 
@@ -157,11 +168,18 @@ hr{
 	padding: 8px 20px;
 }
 
+
 .titulo_lg{
 	margin-top:30px;
 	padding-left:20px;
-	padding-bottom:5px;
+	padding-bottom:10px;
 	font-size:12px;
+	color:#fff;
+}
+
+.titulo_user{
+	margin-bottom:5px;
+	font-size:10px;
 	color:#999;
 }
 

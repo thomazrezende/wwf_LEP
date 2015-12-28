@@ -93,16 +93,63 @@ p{ margin: 0; padding: 0;}
 #preloader{
 	width: 100%;
 	height: 100%;
-	position: absolute;
+	position: fixed;
 	top:0;
 	left: 0;
-	z-index: 1;
-	background-color: #fff;
+	z-index: 100;
 	background-image: url(layout/preloader.gif);
-	background-position: center;
+	background-position: left 50% top 22px;
 	background-repeat: no-repeat;
-	opacity: .75;
+	background-size: 25px 25px;
+	cursor: wait;
+}
+
+#alerta{
+	width: 500px;
+	height: 250px;
+	position: fixed;
+	top:0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	margin: auto;
+	z-index: 101;
+	text-align: center;
+	background-color: #fff;
+	border-radius: 3px;
 	display: none;
+}
+
+#alerta_tx{
+	font-size: 18px;
+	padding-top: 50px;
+	color: #333;
+	font-weight: 400;
+	line-height: 30px;
+}
+
+#alerta_tx b{
+	font-weight: 700;
+}
+
+#alerta_ok{
+	width: 300px;
+	padding: 20px;
+	font-size: 18px;
+	color: #fff;
+	font-weight: 700;
+	background: #333;
+	border-radius: 3px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	bottom:50px;
+	cursor: pointer;
+}
+
+#alerta_ok:hover{
+	background: #666
 }
 
 /* TOPO */
@@ -237,9 +284,12 @@ p{ margin: 0; padding: 0;}
 .grafico{
 	font-size: 11px;
 	width: 100%;
-	height: 200px;
+	height: 530px;
 	margin-bottom: 20px;
+	margin-top: 10px;
 	fill: #999;
+	overflow-y: hidden;
+	overflow-x: auto;
 }
 .grafico .domain{
 	stroke: #999;
@@ -253,6 +303,13 @@ p{ margin: 0; padding: 0;}
 	font-weight: 100;
 	font-size: 24px;
 	color: #333;
+}
+
+#tooltip{
+	background: #333;
+	font-size: 14px;
+	color: #fff;
+	padding: 10px 15px;
 }
 
 /* painel */

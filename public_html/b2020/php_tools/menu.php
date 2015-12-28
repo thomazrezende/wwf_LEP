@@ -18,7 +18,8 @@ function built_json($data, $obj){
         $id = $data[$i]['id'];
         $dados_arr = explode( ',', $data[$i]['dados']);
 
-        $dados_arr[1] = 'Nome do item';
+        // CORRIGIR AQUUI!!!!!!!!!!!!!!!!!!!!!!!!
+        $dados_arr[1] = 'aaaaaa';
 
         print '{';
         print '"id":"'.$id.'",';
@@ -46,7 +47,7 @@ conectar();
     $tis = sql_select( 'b2020_ti', '*', '', '', true );
     built_json($tis, 'ti');
 
-    // ucs
+    // // ucs
     $ucs = sql_select( 'b2020_uc', '*', '', '', true );
     built_json($ucs, 'uc');
 
@@ -57,6 +58,7 @@ conectar();
     for( $i=0; $i<count($camadas); $i++ ){
 
         print '{';
+        print '"id":"'.$camadas[$i]['id'].'",';
         print '"label":"'.$camadas[$i]['label'].'",';
         print '"codigo":"'.$camadas[$i]['codigo'].'",';
         print '"cor":"'.$camadas[$i]['cor'].'",';

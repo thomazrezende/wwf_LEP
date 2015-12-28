@@ -1,3 +1,15 @@
+<?php
+require_once("../../_control/acesso.php");
+require_once("../../_control/seguranca.php");
+require_once("../cms_lep/_tr/mysql.php");
+require_once("../cms_lep/_tr/html.php");
+
+conectar();
+sessao();
+
+verif_log();
+
+?>
 <!doctype html>
 <html>
 <head>
@@ -22,11 +34,17 @@
 </head>
 <body>
 
+	<div id="preloader"></div>
+	<div id="alerta">
+		<div id="alerta_tx"></div>
+		<div id="alerta_ok">OK</div>
+	</div>
+
 	<div class="barra" id="topo">
 		<img src="layout/logo.jpg" id="logo"/>
 		<div class="bt" id="logout"></div>
 		<div id="user">
-			<div id="user_lb">thomaz.rezende@gmail.com</div>
+			<div id="user_lb"><?php print strtoupper($_SESSION["user_name"]); ?></div>
 		</div>
 	</div>
 
@@ -114,7 +132,6 @@
 		</ul>
 	</div>
 
-	<div id="preloader"></div>
 	<div id="mapa"></div>
 
 </body>
