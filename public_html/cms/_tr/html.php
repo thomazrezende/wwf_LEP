@@ -339,7 +339,7 @@ function menu($menu_arr, $lg_arr, $logo_src, $menu_ativo, $mostrar){
 
 	print "<div id=\"menu\">\r\n";
 	print "<div id=\"logo\">\r\n";
-	print "<a href=\"http://paisagem.wwf.org.br/cms_lep/lep_dados.php\"><img class=\"menu_logo\" src=\"".$logo_src."\"/></a>\r\n";
+	print "<a href=\"http://paisagem.wwf.org.br/cms/lep_dados.php\"><img class=\"menu_logo\" src=\"".$logo_src."\"/></a>\r\n";
 	print "</div>\r\n";
 
 	if($mostrar){
@@ -364,17 +364,26 @@ function menu($menu_arr, $lg_arr, $logo_src, $menu_ativo, $mostrar){
 		print "</ul>\r\n";
 	}
 
+	print "<div class=\"titulo_lg\"> <div class=\"titulo_user\">AJUDA:</div> </div>\r\n";
+	print "<ul class=\"menu_ul\">";
+		menu_li("[ pdf ] MANUAL DE USO B2020 ","manual_b2020.pdf",false,true);  
+	print "</ul>\r\n";
+
 	//opcoes
 	print "<div class=\"titulo_lg\"> <div class=\"titulo_user\">USUÁRIO:</div>".$_SESSION["user_name"]." </div>\r\n";
 	print "<ul class=\"menu_ul\">";
 
-		// menu_li("[ + ] B2020 ","http://paisagem.wwf.org.br/b2020",false,true);
-		menu_li("[ + ] B2020 ","../b2020",false,true);
+		menu_li("[ + ] B2020 ","http://paisagem.wwf.org.br/b2020",false,true);
+		// menu_li("[ + ] B2020 ","../b2020",false,true);
 		menu_li("[ + ] WWF LEP ","http://paisagem.wwf.org.br/",false,true);
 		menu_li("[ x ] SAIR","php/logar.php?sessao=false",false,false);
 
 	print "</ul>\r\n";
+
+
 	print "</div>\r\n";
+
+
 
 }
 

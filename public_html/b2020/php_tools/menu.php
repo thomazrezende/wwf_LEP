@@ -3,7 +3,7 @@ ini_set('memory_limit', '-1');
 
 require_once('../../../_control/acesso.php');
 require_once('../../../_control/seguranca.php');
-require_once('../../cms_lep/_tr/mysql.php');
+require_once('../../cms/_tr/mysql.php');
 
 function bool($n){
     if($n=='0') return 'false';

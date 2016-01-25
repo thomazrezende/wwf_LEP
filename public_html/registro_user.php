@@ -2,8 +2,8 @@
 
 	require_once("../_control/seguranca.php"); 
 	require_once("../_control/acesso.php");
-	require_once("cms_lep/_tr/html.php"); 
-	require_once("cms_lep/_tr/mysql.php");
+	require_once("cms/_tr/html.php"); 
+	require_once("cms/_tr/mysql.php");
 	
 	conectar();
 	 

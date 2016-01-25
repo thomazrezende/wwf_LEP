@@ -30,8 +30,7 @@ $dados = sql_select("dados", "*", "", "", false);
            <?php
 
 				mensagem();
-				navega(array("LEP"));
-				if($_SESSION["user_admin"] == 1){ submenu($submenu_lep, 1); }
+				navega(array("LEP")); 
 
 				form1("altera", "", "php/lep_dados_altera.php", "post");
 

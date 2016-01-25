@@ -1,4 +1,4 @@
 <?php
-require_once("../cms_lep/_tr/html.php");
-location('../cms_lep/index.php','');
+require_once("../cms/_tr/html.php");
+location('../cms/index.php','');
 ?>

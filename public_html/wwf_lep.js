@@ -75,6 +75,9 @@ window.onload = function (){
 
 	var links = document.getElementById('links');
 	var banner = document.getElementById('banner');
+	var logo_lep = document.getElementById('logo_lep');
+	var logo_lep_img = document.getElementById('logo_lep_img');
+	var logo_cor = document.getElementById('logo_cor');
 
 	var projetos = document.getElementById('projetos');
 
@@ -110,8 +113,8 @@ window.onload = function (){
 	function aplicar_tema(){
 
 		// topo
-		$('#logo_lep_lb').css({color:temas[tema]});
-		$('#banner_cor').css({background:temas[tema]}).fadeTo(dur*2, .2);
+		$('#banner_cor').css({background:temas[tema]}).fadeTo(500, .2);
+		$('#logo_cor').css({background:temas[tema]});
 
 		$('.contato_bt').hover(function(){
 			if(layout != 1) $( this ).css({backgroundColor:temas[tema]})
@@ -250,6 +253,10 @@ window.onload = function (){
 
 			d = banners_arr[banner_id];
 
+
+			$('#banner').css({backgroundImage:'url(banners/banner' + d.id + '.jpg)'});
+			$('#logo_lep').css({backgroundImage:'url(banners/banner' + d.id  + '.jpg)'});
+
 			if(d.credito != ''){
 				$(banner_credito).html('foto: ' + d.credito);
 				if(d.link != ""){
@@ -267,7 +274,6 @@ window.onload = function (){
 				$(banner_credito).hide();
 			}
 
-			banner.style.backgroundImage = 'url(banners/banner' + d.id + '.jpg)';
 
 			console.log("tema:" + tema);
 			console.log("session: " + session);

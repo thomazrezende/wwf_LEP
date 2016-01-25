@@ -7,14 +7,13 @@
 								array("LINKS","links.php"),
 						  		array("BANNERS","banners.php"),
 						 		array("VISITANTES","visitantes.php"),
-						 		array("B2020 : CAMADAS","b2020_camadas.php")
+						 		array("B2020 : CAMADAS","b2020_camadas.php"),
+								array("USU&Aacute;RIOS","usuarios.php")
 							);
 
 		$lg_arr = array();
 
-   		$submenu_lep = array( 		array("DADOS","lep_dados.php"),
-									//array("SENHA","lep_senha.php"),
-									array("USU&Aacute;RIOS","usuarios.php"),
+   		$submenu_usuarios = array( 	array("USU&Aacute;RIOS","usuarios.php"),
 							 		array("HISTÓRICO DE ACESSOS","historico.php"));
 
 		$submenu_projeto = array( 	array("PROJETO","projeto_dados.php"),

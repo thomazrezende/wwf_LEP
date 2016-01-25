@@ -10,16 +10,12 @@ require_once("_menus.php");
 verif_log();
 conectar();
 
-if($_SESSION["user_admin"] != 1){
-	location("lep_dados.php","msg_erro=ACESSO NEGADO");
-}
-
-head("LEP - usuário");
+head("HISTÓRICO");
 
 ?>
 <body>
 
-	<?php menu($menu_arr, $lg_arr, "_layout/logo_admin.png", 1, true); ?>
+	<?php menu($menu_arr, $lg_arr, "_layout/logo_admin.png", 8, true); ?>
 
     <div id="cont">
         <div id="dados">
@@ -27,8 +23,7 @@ head("LEP - usuário");
             <?php
 
 			mensagem();
-            navega(array("HISTÓRICO"));
-            submenu($submenu_lep, 3);
+            submenu($submenu_usuarios, 2);
 
 			$logs = sql_select( "logs","*","id DESC","",true );
 

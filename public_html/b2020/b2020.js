@@ -159,7 +159,7 @@ window.onload = function() {
         /////////////////////////////////////////////////////////////////////////////////////////  FUNCOES
 
         $(logout).on('click', function(){
-            document.location.href = '../cms_lep/php/logar.php?sessao=false';
+            document.location.href = '../cms/php/logar.php?sessao=false';
         });
 
         // alerta

@@ -44,6 +44,7 @@ head("PROJETO ".$_SESSION["id"]);
 					$arquivo_arr = explode('.',$arquivo);
 
 					$peso;
+					$size = filesize("../repositorio/projeto".$id."/".$arquivo);
 
 					//peso
 					if($size <= 1000) $peso = '1KB';
@@ -56,7 +57,6 @@ head("PROJETO ".$_SESSION["id"]);
 						titulo('',caps($grupo_lb), false);
 					}
 
-					$size = filesize("../repositorio/projeto".$id."/".$arquivo);
 
 					$tb = '_layout/ico_'.$arquivo_arr[1].".png";
 					$lb = $arquivo . " :: " . $peso;

@@ -11,7 +11,7 @@ verif_log();
 conectar();
 
 if($_SESSION["user_admin"] != 1){
-	location("lep_dados.php","msg_erro=ACESSO NEGADO");
+	location("usuarios.php","msg_erro=ACESSO NEGADO");
 }
 
 head("LEP - usuário");
@@ -20,7 +20,7 @@ require_once("_tr/up_file_form.php");
 
 <body>
 
-	<?php menu($menu_arr, $lg_arr, "_layout/logo_admin.png", 1, true); ?>
+	<?php menu($menu_arr, $lg_arr, "_layout/logo_admin.png", 8, true); ?>
 
     <div id="cont">
       	<div id="dados">
